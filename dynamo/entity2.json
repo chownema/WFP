@@ -1,0 +1,10 @@
+{
+	"Item": {
+		"Email": {"S": "dunder@miffilin.com"},
+		"FName": {"S": "DunderMifflin"},
+		"Phone": {"S": "01212122343"},
+		"Type": {"S": "Supplier"},
+		"ID": "atesydrtfygbhl"
+	},
+	"ReturnConsumedCapacity": "TOTAL"
+}
