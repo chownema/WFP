@@ -27,6 +27,11 @@ else:
 
 # Debug new table and record
 
+entity_files = ["entity_user", "entity_supplier", "entity_client"]
+# cms.create_table("dynamo/entity_table.json", "ENTITY_TABLE")
+cms.create_db_entry("dynamo/" + entity_files[2] + ".json", "ENTITY_TABLE")
+
+
 # Create tje rest api
 # cms.create_rest_api()
 

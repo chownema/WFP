@@ -266,19 +266,18 @@ class AwsFunc:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
             sys.exit()
-            
-    def create_entity_table(self):
-        """ Creates an entity table. """
-        with open("dynamo/entity_table.json", "r") as thefile:
-            entity_table_json = json.loads(thefile.read())
-        entity_table_json["TableName"] = self.constants["ENTITY_TABLE"]
-        
+
+    def create_table(self, schema_loc, table_id):
+        """ Creates a table. """
+        with open(schema_loc, "r") as thefile:
+            table_json = json.loads(thefile.read())
+        table_json["TableName"] = self.constants[table_id]
         try:
-            print "Creating table: %s" % (self.constants["ENTITY_TABLE"])
+            print "Creating table: %s" % (self.constants[table_id])
             dynamodb = boto3.client("dynamodb")
-            role_table = dynamodb.create_table(**entity_table_json)
+            role_table = dynamodb.create_table(**table_json)
             self.wait_for_table(role_table)
-            print "Entity table created"
+            print "Created table: %s" % (self.constants[table_id])
         except botocore.exceptions.ClientError as e:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
@@ -344,17 +343,17 @@ class AwsFunc:
             print e.response["Error"]["Message"]
             sys.exit()
 
-    def create_entity_db_entry(self):
-        """ Creates an entry in the role database that represents an admin """
-        with open("dynamo/entity.json", "r") as thefile:
-            entity_json = json.loads(thefile.read())
-        entity_json["TableName"] = self.constants["ENTITY_TABLE"]
-        
+    def create_db_entry(self, item_schema_loc, const_table_id):
+        """ Creates an entry in dynamo with item location
+         and  destination table id """
+        with open(item_schema_loc, "r") as thefile:
+            item_json = json.loads(thefile.read())
+        item_json["TableName"] = self.constants[const_table_id]
         try:
-            print "Creating Entity db entry"
+            print "Creating " + const_table_id + " db entry"
             dynamodb = boto3.client("dynamodb")
-            dynamodb.put_item(**admin_role_json)
-            print "Entity db entry created"
+            dynamodb.put_item(**item_json)
+            print "Entity db " + const_table_id + " created"
         except botocore.exceptions.ClientError as e:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]

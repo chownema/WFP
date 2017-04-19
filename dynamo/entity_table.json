@@ -17,7 +17,7 @@
 		},
 		{
 			"AttributeName": "Type",
-			"KeyType": "HASH"
+			"KeyType": "RANGE"
 		}
 	],
 	"ProvisionedThroughput": {
