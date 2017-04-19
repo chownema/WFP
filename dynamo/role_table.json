@@ -1,0 +1,18 @@
+{	
+	"AttributeDefinitions": [
+		{
+			"AttributeName": "RoleName",
+			"AttributeType": "S"
+		}
+	],
+	"KeySchema": [
+		{
+			"AttributeName": "RoleName",
+			"KeyType": "HASH"
+		}
+	],
+	"ProvisionedThroughput": {
+		"ReadCapacityUnits": 5,
+		"WriteCapacityUnits": 5
+	}
+}

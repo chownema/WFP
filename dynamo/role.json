@@ -1,0 +1,9 @@
+{
+	"Item": {
+		"RoleName": {"S": "FullAdmin"},
+		"Permissions": {"SS": [
+			"all"
+		]}
+	},
+	"ReturnConsumedCapacity": "TOTAL"
+}
