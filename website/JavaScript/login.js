@@ -17,6 +17,7 @@ angular.module("login", ["api"])
       controllerAs: "loginCtrl"
     };
   }])
+  // Controller used to login
   .controller("cmsLoginFormCtrl", function ($http, $window, apiUrl) {
     "use strict";
     var ctrlScope = this;

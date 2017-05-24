@@ -2,20 +2,136 @@
 # security.py
 # Author: Miguel Saavedra
 # Date: 05/08/2016
-# Edited: 10/09/2016 | Christopher Treadgold
 # Edited: 11/10/2016 | Miguel Saavedra
 """
 
 import datetime
 import uuid
+import json
 
 import boto3
 import botocore
+from dynamocontroller   import DynamoController
+from passlib.hash import pbkdf2_sha256
 
 class Security(object):
     """ Provides a function for authentication and authorization of requests
     through a provided token.
     """
+    
+    @staticmethod
+    def login(table_name, parameters):
+        """ Validates a user login request.
+            Adds a token to the token table and provides it as a cookie in the
+            response for use in future request validation.
+
+            Expected parameter input value
+            {
+                "request" : "login",
+                "table_name" : "USER_TABLE",
+                "parameters" : {
+                    "username" : "mack123",
+                    "password" : "hello123"
+                }
+            }
+        """  
+        # Get info on the cms' resources from the constants file
+        with open("constants.json", "r") as resources_file:
+            resources = json.loads(resources_file.read())
+
+        # Use username to fetch user information from the user table
+        try:
+            dynamodb = boto3.client("dynamodb")
+            user = dynamodb.get_item(TableName=table_name, Key={"Username" : {"S": parameters["username"]}})
+        except botocore.exceptions.ClientError as e:
+            action = "Fetching user from the user table for login"
+            return {"error": e.response["Error"]["Code"],
+                    "data": {"exception": str(e), "action": action}}
+        
+        # Check that the username has a user associated with it
+        if not "Item" in user:
+            action = "Attempting to log in"
+            return {"error": "invalidUsername",
+                    "data": {"username": parameters["username"], "action": action}}
+        
+        user = user["Item"]
+                    
+        # Check that the role has a user associated with it
+        # if not "Role" in user:
+        #     action = "Attempting to log in"
+        #     return {"error": "userHasNoRole",
+        #             "data": {"user": user, "action": action}}
+        
+        # Check that the user has a password associated with it
+        if not "Password" in user:
+            action = "Attempting to log in"
+            return {"error": "userHasNoPassword",
+                    "data": {"user": user, "action": action}}
+        
+        actual_password = user["Password"]["S"]
+        
+        # Verify that the password provided is correct
+        valid_password = pbkdf2_sha256.verify(parameters["password"], actual_password)
+        if not valid_password:
+            action = "Attempting to log in"
+            return {"error": "invalidPassword",
+                    "data": {"password": parameters["password"], "action": action}}
+        
+        # Calculate an exiration date a day from now
+        expiration = datetime.datetime.utcnow() + datetime.timedelta(days=1)
+        expiration = expiration.strftime("%a, %d-%b-%Y %H:%M:%S UTC")
+        # Generate a uuid for use as a token
+        token = str(uuid.uuid4())
+        
+        # Add the generated token to the token table
+        try:
+            dynamodb.put_item(
+                TableName=resources["TOKEN_TABLE"],
+                Item={"Token": {"S": token},
+                      "Username": {"S": parameters["username"]},
+                      "Expiration": {"S": expiration}}
+            )
+        except botocore.exceptions.ClientError as e:
+            action = "Putting token in the token table for login"
+            return {"error": e.response["Error"]["Code"],
+                    "data": {"exception": str(e), "action": action}}
+        
+        # Create the cookie that will be returned
+        cookie = "token=%s; expires=%s" % (token, expiration)
+        # Return the cookie
+        return {"message": "Successfully logged in", "Set-Cookie": cookie}
+    
+    @staticmethod
+    def logout(token, token_table):
+        """ Logs out the user who made this request by removing their active
+        token from the token table
+        """
+        try:
+            dynamodb = boto3.client("dynamodb")
+            delete_response = dynamodb.delete_item(
+                TableName=token_table, Key={"Token": {"S": token}}
+            )
+        except botocore.exceptions.ClientError as e:
+            action = "Logging out user"
+            return {"error": e.response["Error"]["Code"],
+                    "data": {"exception": str(e), "action": action}}
+
+        return {"message": "Successfully logged out"}
+    
+    @staticmethod
+    def authenticate(token, request, token_table, user_table, role_table):
+        """
+        Function which checks if the user has an active session with system
+        by checking if the user has a token
+        """
+        pass
+
+    @staticmethod
+    def authorize(token, request, token_table, user_table, role_table):
+        """
+        Function checks if the user is allowed to perform the request
+        """
+        pass
 
     @staticmethod
     def authenticate_and_authorize(token, request, token_table, user_table,

@@ -1,0 +1,7 @@
+# Setup files
+installed.json
+*setup-constants.json
+
+# Python
+*.pyc
+

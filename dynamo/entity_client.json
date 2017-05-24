@@ -1,0 +1,13 @@
+{
+	"Item": {
+		"Type": {"S": "Client"},
+		"Email": {"SS": ["dunder@miffilin.com"]},
+		"FName": {"S": "Jermey"},
+		"LName": {"S": "Len"},
+		"Password": {"S": "$pbkdf2-sha256$10000$8J5TqrX2fs/537tXKsUYgw$gZv3DmaPzyfQKnmh7F5689c4HO0yLVPcgaOn5fgF.58"},
+		"Role": {"S": "FullAdmin"},
+        "Phone": {"SS": ["012312413423"]},
+		"ID": {"S": "safaasasdasdasdasfa"}
+	},
+	"ReturnConsumedCapacity": "TOTAL"
+}

@@ -7,5 +7,6 @@
     "PAGE_TABLE": "-aws-cms-Page",
 	"ROLE_TABLE": "-aws-cms-Role",
     "TOKEN_TABLE": "-aws-cms-Token",
-    "USER_TABLE": "-aws-cms-User"
+    "USER_TABLE": "-aws-cms-User",
+    "ENTITY_TABLE": "-aws-Entity"
 }
