@@ -15,9 +15,8 @@ angular.module('mainViewController', ['ngRoute'])
             JOB_FORM_URL : '/job-form',
             JOB_VCTRL : 'JobViewController',
             JOB_VCTRL_ALIAS : 'JobCtrl',
-            
             // Default
-            DEFAULT_PANEL : 'content-pane.html'
+            DEFAULT_PANEL_URL : 'content-pane.html'
         };
 
         // Router Logic on ng-view
@@ -30,7 +29,7 @@ angular.module('mainViewController', ['ngRoute'])
             })
             // Default
             .otherwise({
-                templateUrl: CNST.DEFAULT_PANEL,
+                templateUrl: CNST.DEFAULT_PANEL_URL,
                 replace: true
             });
     }])
