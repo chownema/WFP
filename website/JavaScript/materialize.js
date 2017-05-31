@@ -2712,6 +2712,7 @@ if (jQuery) {
 
 
   $.fn.sideNav = function(methodOrOptions) {
+    console.log('called side nav');
     if ( methods[methodOrOptions] ) {
       return methods[ methodOrOptions ].apply( this, Array.prototype.slice.call( arguments, 1 ));
     } else if ( typeof methodOrOptions === 'object' || ! methodOrOptions ) {
