@@ -1,41 +1,47 @@
+/**
+ * app.js
+ * Author : Miguel Saavedra
+ */
 (function() {
 angular.module('mainViewController', ['ngRoute'])
 
-    // Define some constants
-    .constant('JOB_FORM', 'job-form.html')
-    .constant('JOB_FORM_URL', '/job-form')
-    .constant('JOB_VCTRL', 'JobViewController')
-
     // Run Configuration router
-    .config(['$routeProvider', function (
-        $routeProvider,
-        JOB_FORM_URL,
-        JOB_FORM,
-        JOB_VCTRL) {
-            "use strict";
+    .config(['$routeProvider', function ($routeProvider) {
+        "use strict";
+        // Register Constant Values
+        var CNST = {
+            // Jobs
+            JOB_FORM : 'job-form.html',
+            JOB_FORM_URL : '/job-form',
+            JOB_VCTRL : 'JobViewController',
+            JOB_VCTRL_ALIAS : 'JobCtrl',
+            
+            // Default
+            DEFAULT_PANEL : 'content-pane.html'
+        };
 
-            $routeProvider
-            .when(JOB_FORM_URL, {
-                templateUrl: JOB_FORM,
-                controller: JOB_VCTRL,
-                controllerAs: 'jobCtrl',
+        // Router Logic on ng-view
+        $routeProvider
+            .when(CNST.JOB_FORM_URL, {
+                templateUrl: CNST.JOB_FORM,
+                controller: CNST.JOB_VCTRL,
+                controllerAs: CNST.JOB_VCTRL_ALIAS,
                 replace: true
             })
-
+            // Default
             .otherwise({
-                templateUrl: 'content-pane.html',
+                templateUrl: CNST.DEFAULT_PANEL,
                 replace: true
-        });
-
+            });
     }])
     
     // General View Controller
-    .controller('viewController', ['$scope', function($scope, JOB_FORM) {
+    .controller('viewController', ['$scope', function($scope) {
         // Do some general stuff
     }])
 
     // Job View controller
-    .controller('JobViewController', ['$scope', function($scope, JOB_FORM) {
+    .controller('JobViewController', ['$scope', function($scope) {
         $scope.dummyName = 'mr fong';
     }]);
 
