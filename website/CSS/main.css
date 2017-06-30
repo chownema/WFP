@@ -1,13 +1,22 @@
-    header, main, footer {
-      padding-left: 5%;
-    }
+  header, main, footer {
+    padding-left: 5%;
+  }
 
 	.side-nav {
 		max-width: 15%;
 	}
 
-    @media only screen and (max-width : 992px) {
-      header, main, footer {
-        padding-left: 0;
-      }
+  @media only screen and (max-width : 890px) {
+    header, main, footer {
+      padding-left: 0;
     }
+  }
+
+  wfs-input-left-label {
+    width: auto;  
+  }
+
+  wfs-input {
+    padding-left: 0;
+    padding-right: 0;
+  }
