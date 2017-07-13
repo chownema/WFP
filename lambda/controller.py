@@ -4,7 +4,7 @@
 # Date: 10/12/2016
 """
 
-# import json
+import json
 
 # import boto3
 # import botocore
@@ -15,17 +15,23 @@
 # from dynamocontroller   import DynamoController
 from xero                 import Xero
 from xero.auth            import PublicCredentials
+import requests
 
 def handler(event, context):
-    print Xero
+    # r = requests.get('https://api.github.com/events')
+    # print r
+    # print Xero
     # Xero Demo
     xero_credentials = {
-        "key" : "KN5JBTIWBV08VDCZ4BAEC02YS8KJB2",
-        "secret" : "BYLGUAHE3NSR31NXNEPGSQHTSJ1WRF"
+        "key" : "TTRAOBPOHHZV5ZBFYX5YUMYF9SQN05",
+        "secret" : "FMLLGRJTEZWQXAO5IPY8ZEQYNFMZLW"
     }
 
     credentials = PublicCredentials(xero_credentials["key"], xero_credentials["secret"])
-    return credentials
+    print credentials
+    x = Xero(credentials)
+    print x.contacts.all()
+
 
     # Uncomment this to view parameters sent to the back end from the post
     # return json.dumps(event)
