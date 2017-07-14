@@ -22,15 +22,17 @@ def handler(event, context):
     # print r
     # print Xero
     # Xero Demo
-    xero_credentials = {
-        "key" : "TTRAOBPOHHZV5ZBFYX5YUMYF9SQN05",
-        "secret" : "FMLLGRJTEZWQXAO5IPY8ZEQYNFMZLW"
-    }
+    # xero_credentials = {
+    #     "key" : "TTRAOBPOHHZV5ZBFYX5YUMYF9SQN05",
+    #     "secret" : "FMLLGRJTEZWQXAO5IPY8ZEQYNFMZLW"
+    # }
 
-    credentials = PublicCredentials(xero_credentials["key"], xero_credentials["secret"])
-    print credentials
-    x = Xero(credentials)
-    print x.contacts.all()
+    # credentials = PublicCredentials(xero_credentials["key"], xero_credentials["secret"])
+    # print credentials
+    # x = Xero(credentials)
+    # print x.contacts.all()
+    
+    return 'hello'
 
 
     # Uncomment this to view parameters sent to the back end from the post

@@ -40,8 +40,13 @@ angular.module('mainViewController', ['ngRoute'])
     }])
 
     // Job View controller
-    .controller('JobViewController', ['$scope', function($scope) {
+    .controller('JobViewController', ['$scope', '$http', function($scope, $http) {
         $scope.dummyName = 'mr fong';
+        
+        $http.post('https://l3lhvg7f25.execute-api.us-east-1.amazonaws.com/prod')
+            .then(function (data) {
+             console.log(data);
+        })
     }]);
 
 })();
