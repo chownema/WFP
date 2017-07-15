@@ -1,3 +1,22 @@
-#preview {
-	border:1px solid gray;width:300px;
-}
+  header, main, footer {
+    padding-left: 5%;
+  }
+
+	.side-nav {
+		max-width: 15%;
+	}
+
+  @media only screen and (max-width : 890px) {
+    header, main, footer {
+      padding-left: 0;
+    }
+  }
+
+  wfs-input-left-label {
+    width: auto;  
+  }
+
+  wfs-input {
+    padding-left: 0;
+    padding-right: 0;
+  }

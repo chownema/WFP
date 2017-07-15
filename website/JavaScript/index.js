@@ -78,7 +78,7 @@ angular.module("index", ["ngRoute", "ui.tinymce", "forms", "api"])
   .directive("cmsNav", [function () {
     "use strict";
     return {
-      templateUrl: "navbar.html",
+      templateUrl: "side-menu-component.html",
       replace: true
     };
   }]);
