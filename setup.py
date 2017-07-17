@@ -11,12 +11,13 @@ import cms_functions
 import sys
 import os
 
-if len(sys.argv) not in range(1, 4):
+#read setup command line
+if len(sys.argv) not in range(1, 4): #allow range between 0 to 3 which 0 is for python and 1 is setup.py itself, the rests are cms name and regional
     command = ''
     for arg in sys.argv:
         command += arg + ' '
     print 'Invalid command: ' + command
-    print 'Usage: %s <cms_prefix> <region (optional)>' % sys.argv[0]
+    print 'Usage: %s <cms_prefix (optional)> <region (optional)>' % sys.argv[0]
     sys.exit()
 
 # Instantiate an AwsFunc class

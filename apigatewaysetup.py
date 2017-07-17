@@ -1,9 +1,24 @@
 import botocore
 import sys
 
+"""
+# apigatewaysetup.py
+# Author: Wilson Joe
+# Date: N/D
+# Edited: 17/07/2017 | Wilson Joe
+"""
+
 class apiGatewaySetup:
     @staticmethod
     def create_post_method(self, api_gateway, rest_api_id, rest_api_root_id):
+        """
+                Creates the post method and links it to the lambda function.
+
+                :param api_gateway: api gateway reference from boto3.client("apigateway")
+                :param rest_api_id: id of API gateway
+                :param rest_api_root_id: id of API parent path
+        """
+
         print "Adding POST method to rest api"
 
         try:
@@ -128,6 +143,13 @@ class apiGatewaySetup:
 
     @staticmethod
     def create_get_method(self, api_gateway, rest_api_id, rest_api_root_id):
+        """
+               Creates the get method and links it to the lambda function.
+
+               :param api_gateway: api gateway reference from boto3.client("apigateway")
+               :param rest_api_id: id of API gateway
+               :param rest_api_root_id: id of API parent path
+        """
         print "Adding GET method to rest api"
 
         try:
@@ -252,6 +274,13 @@ class apiGatewaySetup:
 
     @staticmethod
     def create_delete_method(self, api_gateway, rest_api_id, rest_api_root_id):
+        """
+               Creates the delete method and links it to the lambda function.
+
+               :param api_gateway: api gateway reference from boto3.client("apigateway")
+               :param rest_api_id: id of API gateway
+               :param rest_api_root_id: id of API parent path
+        """
         print "Adding DELETE method to rest api"
 
         try:
@@ -376,6 +405,13 @@ class apiGatewaySetup:
 
     @staticmethod
     def create_put_method(self, api_gateway, rest_api_id, rest_api_root_id):
+        """
+               Creates the put method and links it to the lambda function.
+
+               :param api_gateway: api gateway reference from boto3.client("apigateway")
+               :param rest_api_id: id of API gateway
+               :param rest_api_root_id: id of API parent path
+        """
         print "Adding PUT method to rest api"
 
         try:
@@ -500,6 +536,13 @@ class apiGatewaySetup:
 
     @staticmethod
     def create_options_method(self, api_gateway, rest_api_id, rest_api_root_id):
+        """
+               Creates the option method and links it to the lambda function.
+
+               :param api_gateway: api gateway reference from boto3.client("apigateway")
+               :param rest_api_id: id of API gateway
+               :param rest_api_root_id: id of API parent path
+        """
         try:
             print "Adding OPTIONS method to rest api"
             # Add an options method to the rest api

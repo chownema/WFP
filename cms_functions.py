@@ -476,7 +476,12 @@ class AwsFunc:
         self.create_api_url()
 
     def create_http_method(self, methodType , path):
-        """ Creates the api gateway and links it to the lambda function """
+        """
+        Creates the api gateway and links it to the lambda function.
+
+        :param methodType: http method such as GET,POST,DELETE,PUT,etc. all in caps
+        :param path: path to call the lambda functions e.g. 'root' = "/" or 'other' = '/other'
+        """
         try:
             api_gateway = boto3.client("apigateway")
 
