@@ -18,14 +18,16 @@ from io import BytesIO
 
 import boto3
 import botocore
+import apigatewaysetup
 
 from replace_variables import replace_variables
+
 
 class AwsFunc:
     """ Contains functions for creating, modifying and deleting elements of the
     AWSCMS. Requires awscli configured or an aws configuration file.
     """
-    
+
     def __init__(self, cms_prefix, region="us-east-1"):
         """ Gets low-level clients for services to be used and creates
         containers for AWS objects that will be filled by creation functions.
@@ -33,13 +35,13 @@ class AwsFunc:
         self.region = region
         self.constants = {}
         self.cms_prefix = cms_prefix
-        with open ("postfixes.json", "r") as postfixes_file:
+        with open("postfixes.json", "r") as postfixes_file:
             postfixes = json.loads(postfixes_file.read())
         for key in postfixes.keys():
             self.constants[key] = unicode(cms_prefix, "utf-8") + postfixes[key]
 
         self.constants["DISQUS-ID"] = "arc-cms"
-    
+
     def upload_file(self, path, key):
         """ Uploads a file to s3 """
         # Prepare argument variables
@@ -50,7 +52,7 @@ class AwsFunc:
             put_kwargs["ContentType"] = mime[0]
         if mime[1] != None:
             put_kwargs["ContentEncoding"] = mime[1]
-        
+
         # Store file data and make replacements to files with certain mimetypes
         with open(path, "rb") as file_body:
             body = file_body.read()
@@ -62,7 +64,7 @@ class AwsFunc:
             "Body": body,
             "Key": key
         })
-        
+
         # Upload file to s3
         try:
             print "Uploading: %s" % key
@@ -73,7 +75,7 @@ class AwsFunc:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
             sys.exit()
-        
+
     def create_bucket(self):
         """ Creates a bucket in region "bucket_region".
         
@@ -85,7 +87,7 @@ class AwsFunc:
         if self.region != "us-east-1":
             bucket_kwargs["CreateBucketConfiguration"] = {
                 "LocationConstraint": self.region}
-        
+
         # Create bucket
         try:
             s3 = boto3.client("s3")
@@ -96,7 +98,7 @@ class AwsFunc:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
             sys.exit()
-        
+
         # add bucket CORS
         try:
             s3 = boto3.client("s3")
@@ -116,7 +118,7 @@ class AwsFunc:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
             sys.exit()
-        
+
         # Populate the bucket, adding all files from the website folder
         print "Populating bucket"
         for root, dirs, files in os.walk("website"):
@@ -187,7 +189,7 @@ class AwsFunc:
         with open("dynamo/user_table.json", "r") as thefile:
             user_table_json = json.loads(thefile.read())
         user_table_json["TableName"] = self.constants["USER_TABLE"]
-        
+
         try:
             print "Creating table: %s" % (self.constants["USER_TABLE"])
             dynamodb = boto3.client("dynamodb")
@@ -204,7 +206,7 @@ class AwsFunc:
         with open("dynamo/token_table.json", "r") as thefile:
             token_table_json = json.loads(thefile.read())
         token_table_json["TableName"] = self.constants["TOKEN_TABLE"]
-            
+
         try:
             print "Creating table: %s" % (self.constants["TOKEN_TABLE"])
             dynamodb = boto3.client("dynamodb")
@@ -215,13 +217,13 @@ class AwsFunc:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
             sys.exit()
-        
+
     def create_blog_table(self):
         """ Creates a blog table. """
         with open("dynamo/blog_table.json", "r") as thefile:
             blog_table_json = json.loads(thefile.read())
         blog_table_json["TableName"] = self.constants["BLOG_TABLE"]
-            
+
         try:
             print "Creating table: %s" % (self.constants["BLOG_TABLE"])
             dynamodb = boto3.client("dynamodb")
@@ -238,7 +240,7 @@ class AwsFunc:
         with open("dynamo/page_table.json", "r") as thefile:
             page_table_json = json.loads(thefile.read())
         page_table_json["TableName"] = self.constants["PAGE_TABLE"]
-        
+
         try:
             print "Creating table: %s" % (self.constants["PAGE_TABLE"])
             dynamodb = boto3.client("dynamodb")
@@ -249,13 +251,13 @@ class AwsFunc:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
             sys.exit()
-    
+
     def create_role_table(self):
         """ Creates a role table. """
         with open("dynamo/role_table.json", "r") as thefile:
             role_table_json = json.loads(thefile.read())
         role_table_json["TableName"] = self.constants["ROLE_TABLE"]
-        
+
         try:
             print "Creating table: %s" % (self.constants["ROLE_TABLE"])
             dynamodb = boto3.client("dynamodb")
@@ -283,7 +285,6 @@ class AwsFunc:
             print e.response["Error"]["Message"]
             sys.exit()
 
-
     def wait_for_table(self, table):
         """ Waits for a table to finish being created. """
         # Wait for dynamo to acknowledge a table is being created
@@ -303,7 +304,7 @@ class AwsFunc:
                     print e.response["Error"]["Code"]
                     print e.response["Error"]["Message"]
                     sys.exit()
-                    
+
         # Wait while the table creates
         while response["Table"]["TableStatus"] == "CREATING":
             time.sleep(0.1)
@@ -316,7 +317,7 @@ class AwsFunc:
             admin_user_json = json.loads(thefile.read())
         admin_user_json["TableName"] = self.constants["USER_TABLE"]
         admin_user_json["Item"]["ID"] = {"S": str(uuid.uuid4())}
-        
+
         try:
             print "Creating admin db entry"
             dynamodb = boto3.client("dynamodb")
@@ -326,13 +327,13 @@ class AwsFunc:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
             sys.exit()
-    
+
     def create_admin_role_db_entry(self):
         """ Creates an entry in the role database that represents an admin """
         with open("dynamo/role.json", "r") as thefile:
             admin_role_json = json.loads(thefile.read())
         admin_role_json["TableName"] = self.constants["ROLE_TABLE"]
-        
+
         try:
             print "Creating admin role db entry"
             dynamodb = boto3.client("dynamodb")
@@ -358,7 +359,7 @@ class AwsFunc:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
             sys.exit()
-            
+
     def update_lambda(self):
         try:
             lmda = boto3.client("lambda")
@@ -370,7 +371,7 @@ class AwsFunc:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
             sys.exit()
-            
+
     def create_lambda_function(self):
         """ Creates a lamda function and uploads AWS CMS to to it """
         lmda_role = json.dumps({
@@ -385,7 +386,7 @@ class AwsFunc:
                 }
             ]
         })
-        
+
         # Create the lambda iam role
         try:
             print "Creating iam role: %s" % (self.constants["LAMBDA_ROLE"])
@@ -395,7 +396,7 @@ class AwsFunc:
                 RoleName=lambda_role_name,
                 AssumeRolePolicyDocument=lmda_role
             )
-            
+
             # Attach permissions to the lambda role
             iam.attach_role_policy(
                 RoleName=lambda_role_name,
@@ -415,14 +416,14 @@ class AwsFunc:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
             sys.exit()
-        
+
         # Necessary as it can take a few seconds for an iam role to be usable
         print "Waiting for role to be usable"
         time.sleep(10)
-        
+
         # Store constants file in lambda directory
         self.store_lambda_constants()
-        
+
         # Create the lambda function
         try:
             print "Creating lambda function"
@@ -445,21 +446,21 @@ class AwsFunc:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
             sys.exit()
-        
+
         self.create_api_invocation_uri()
         self.remove_lambda_constants()
-    
+
     def create_rest_api(self):
         """ Creates the api gateway and links it to the lambda function """
         try:
             api_gateway = boto3.client("apigateway")
-            
+
             print "Creating the rest api"
             rest_api = api_gateway.create_rest_api(
                 name=self.constants["REST_API"]
             )
             print "Rest api created"
-            
+
             self.constants["REST_API_ID"] = rest_api["id"]
             rest_api_resource = api_gateway.get_resources(
                 restApiId=self.constants["REST_API_ID"]
@@ -470,214 +471,65 @@ class AwsFunc:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
             sys.exit()
-            
+
         self.create_api_permissions_uri()
         self.create_api_url()
-        
-    def api_add_post_method(self):
-        try:
-            api_gateway = boto3.client("apigateway")
-            rest_api_id = self.constants["REST_API_ID"]
-            rest_api_root_id = self.constants["REST_API_ROOT_ID"]
-            
-            print "Adding POST method to rest api"
-            # Add a POST method to the rest api
-            api_gateway.put_method(
-                restApiId=rest_api_id,
-                resourceId=rest_api_root_id,
-                httpMethod="POST",
-                authorizationType="NONE",
-                requestParameters={
-                    "method.request.header.Cookie": False
-                }
-            )
-            
-            # Put integration in the POST method
-            api_gateway.put_integration(
-                restApiId=rest_api_id,
-                resourceId=rest_api_root_id,
-                httpMethod="POST",
-                type="AWS",
-                passthroughBehavior="NEVER",
-                integrationHttpMethod="POST",
-                uri=self.constants["API_INVOCATION_URI"],
-                requestTemplates={
-                    "application/json": (
-                        "#if($input.params(\"Cookie\") && $input.params(\"Cookie\") != \"\") "
-                        "{"
-                            "\"body\": $input.body, "
-                            "\"token\": \"$input.params(\"Cookie\")\""
-                        "}"
-                        "#else"
-                        "{"
-                            "\"body\": $input.body"
-                        "}"
-                        "#end"
-                    )
-                }
-            )
-            
-            # Put a 200 method response in the POST method
-            api_gateway.put_method_response(
-                restApiId=rest_api_id,
-                resourceId=rest_api_root_id,
-                httpMethod="POST",
-                statusCode="200",
-                responseParameters={
-                    "method.response.header.Set-Cookie": False,
-                    "method.response.header.Access-Control-Allow-Credentials": False,
-                    "method.response.header.Access-Control-Allow-Origin": False
-                },
-                responseModels={
-                    "application/json": "Empty"
-                }
-            )
-            
-            # Put a 200 integration response in the POST method
-            api_gateway.put_integration_response(
-                restApiId=rest_api_id,
-                resourceId=rest_api_root_id,
-                httpMethod="POST",
-                statusCode="200",
-                responseParameters={
-                    "method.response.header.Set-Cookie": (
-                        "integration.response.body.Set-Cookie"),
-                    "method.response.header.Access-Control-Allow-Credentials": (
-                        "\'true\'"),
-                    "method.response.header.Access-Control-Allow-Origin": (
-                        "\'https://s3.amazonaws.com\'")
-                },
-                responseTemplates={
-                    "application/json": "$input.body"
-                }
-            )
-            
-            # Put a 400 method response in the POST method
-            api_gateway.put_method_response(
-                restApiId=rest_api_id,
-                resourceId=rest_api_root_id,
-                httpMethod="POST",
-                statusCode="400",
-                responseParameters={
-                    "method.response.header.Access-Control-Allow-Credentials": False,
-                    "method.response.header.Access-Control-Allow-Origin": False
-                },
-                responseModels={
-                    "application/json": "Empty"
-                }
-            )
-            
-            # Put a 400 integration response in the POST method
-            api_gateway.put_integration_response(
-                restApiId=rest_api_id,
-                resourceId=rest_api_root_id,
-                httpMethod="POST",
-                statusCode="400",
-                selectionPattern=".*\"status\": 400.*",
-                responseParameters={
-                    "method.response.header.Access-Control-Allow-Credentials": (
-                        "\'true\'"),
-                    "method.response.header.Access-Control-Allow-Origin": (
-                        "\'https://s3.amazonaws.com\'")
-                },
-                responseTemplates={
-                    "application/json": "$input.path('$.errorMessage')"
-                }
-            )
-            print "POST method added"
-        except botocore.exceptions.ClientError as e:
-            print e.response["Error"]["Code"]
-            print e.response["Error"]["Message"]
-            sys.exit()
-            
-    def api_add_options_method(self):
-        try:
-            api_gateway = boto3.client("apigateway")
-            rest_api_id = self.constants["REST_API_ID"]
-            rest_api_root_id = self.constants["REST_API_ROOT_ID"]
-            
-            print "Adding OPTIONS method to rest api"
-            # Add an options method to the rest api
-            api_gateway.put_method(
-                restApiId=rest_api_id,
-                resourceId=rest_api_root_id,
-                httpMethod="OPTIONS",
-                authorizationType="NONE"
-            )
-            
-            # Set the put integration of the OPTIONS method
-            api_gateway.put_integration(
-                restApiId=rest_api_id,
-                resourceId=rest_api_root_id,
-                httpMethod="OPTIONS",
-                type="MOCK",
-                requestTemplates={
-                    "application/json": "{\"statusCode\": 200}"
-                }
-            )
-            
-            # Set the put method response of the OPTIONS method
-            api_gateway.put_method_response(
-                restApiId=rest_api_id,
-                resourceId=rest_api_root_id,
-                httpMethod="OPTIONS",
-                statusCode="200",
-                responseParameters={
-                    "method.response.header.Access-Control-Allow-Headers": False,
-                    "method.response.header.Access-Control-Allow-Origin": False,
-                    "method.response.header.Access-Control-Allow-Credentials": False,
-                    "method.response.header.Access-Control-Allow-Methods": False
-                },
-                responseModels={
-                    "application/json": "Empty"
-                }
-            )
 
-            # Set the put integration response of the OPTIONS method
-            api_gateway.put_integration_response(
-                restApiId=rest_api_id,
-                resourceId=rest_api_root_id,
-                httpMethod="OPTIONS",
-                statusCode="200",
-                responseParameters={
-                    "method.response.header.Access-Control-Allow-Headers": (
-                        "\'Content-Type,X-Amz-Date,Authorization,X-Api-Key,"
-                        "X-Amz-Security-Token,Cookie,Accept,"
-                        "Access-Control-Allow-Origin\'"
-                    ),
-                    "method.response.header.Access-Control-Allow-Origin": (
-                        "\'https://s3.amazonaws.com\'"),
-                    "method.response.header.Access-Control-Allow-Credentials": (
-                        "\'true\'"),
-                    "method.response.header.Access-Control-Allow-Methods": (
-                        "\'POST,OPTIONS\'")
-                },
-                responseTemplates={
-                    "application/json": ""
-                }
-            )
-            print "OPTIONS method addded"
+    def create_http_method(self, methodType , path):
+        """ Creates the api gateway and links it to the lambda function """
+        try:
+            api_gateway = boto3.client("apigateway")
+
+            print "Creating the rest api"
+
+            rest_api_id = self.constants["REST_API_ID"]
+            if(path != 'root'):
+                resource_resp = api_gateway.create_resource(
+                    restApiId=self.constants["REST_API_ID"],
+                    parentId=self.constants["REST_API_ROOT_ID"],  # resource id for the Base API path
+                    pathPart=path
+                )
+                rest_api_other_id = resource_resp['id']
+            else:
+                rest_api_other_id = self.constants["REST_API_ROOT_ID"]
+
+            if(methodType == 'POST'):
+                apigatewaysetup.apiGatewaySetup.create_post_method(self,api_gateway, rest_api_id, rest_api_other_id)
+            elif (methodType == 'GET'):
+                apigatewaysetup.apiGatewaySetup.create_get_method(self,api_gateway, rest_api_id, rest_api_other_id)
+            elif (methodType == 'DELETE'):
+                apigatewaysetup.apiGatewaySetup.create_delete_method(self,api_gateway, rest_api_id, rest_api_other_id)
+            elif (methodType == 'PUT'):
+                apigatewaysetup.apiGatewaySetup.create_put_method(self, api_gateway, rest_api_id, rest_api_other_id)
+            elif (methodType == 'OPTION'):
+                apigatewaysetup.apiGatewaySetup.create_options_method(self,api_gateway, rest_api_id, rest_api_other_id)
+
+
         except botocore.exceptions.ClientError as e:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
             sys.exit()
-    
+
+        self.create_api_permissions_uri()
+        self.create_api_url()
+
+
     def deploy_api(self):
         try:
             api_gateway = boto3.client("apigateway")
             rest_api_id = self.constants["REST_API_ID"]
-            
+
             print "Deploying api"
             # Create a deployment of the rest api
             api_gateway.create_deployment(
                 restApiId=rest_api_id,
                 stageName="prod"
             )
-            
+
             lmda = boto3.client("lambda")
             function_name = self.constants["LAMBDA_FUNCTION"]
             api_permissions_uri = self.constants["API_PERMISSIONS_URI"]
-            
+
             # Give the api deployment permission to trigger the lambda function
             lmda.add_permission(
                 FunctionName=function_name,
@@ -691,20 +543,20 @@ class AwsFunc:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
             sys.exit()
-            
+
     def store_lambda_constants(self):
         """ Stores aws service constants in the lambda directory """
-        with open ("lambda/constants.json", "w") as constants_file:
+        with open("lambda/constants.json", "w") as constants_file:
             constants_file.write(json.dumps(self.constants, indent=4,
-                                 sort_keys=True))
-    
+                                            sort_keys=True))
+
     def save_constants(self):
         """ Stores aws service constants in a file """
         constants_file_name = "%s-constants.json" % (self.cms_prefix)
-        with open (constants_file_name, "w") as constants_file:
+        with open(constants_file_name, "w") as constants_file:
             constants_file.write(json.dumps(self.constants, indent=4,
-                                 sort_keys=True))
-        
+                                            sort_keys=True))
+
         if not os.path.isfile("./installed.json"):
             with open("installed.json", "w") as installed:
                 installed.write(json.dumps({"1": self.cms_prefix}, indent=4,
@@ -717,28 +569,27 @@ class AwsFunc:
             with open("installed.json", "w") as installed:
                 installed.write(json.dumps(installed_json, indent=4,
                                            sort_keys=True))
-    
+
     def remove_lambda_constants(self):
         """ Removes aws service constants from the lambda directory """
         os.remove("lambda/constants.json")
 
-
     def create_api_invocation_uri(self):
         """ Creates an api invocation uri """
         self.constants["API_INVOCATION_URI"] = (
-            "arn:aws:apigateway:%s:lambda:"
-            "path/2015-03-31/functions/%s/invocations"
-        ) % (self.region, self.constants["LAMBDA_FUNCTION_ARN"])
-        
+                                                   "arn:aws:apigateway:%s:lambda:"
+                                                   "path/2015-03-31/functions/%s/invocations"
+                                               ) % (self.region, self.constants["LAMBDA_FUNCTION_ARN"])
+
     def create_api_permissions_uri(self):
         """ Creates the uri that is needed for giving the api deployment
         permission to trigger the lambda function
         """
         self.constants["API_PERMISSIONS_URI"] = (
-            "arn:aws:execute-api:%s:%s:%s/*/POST/"
-        ) % (self.region, AwsFunc.get_account_id(),
-             self.constants["REST_API_ID"])
-        
+                                                    "arn:aws:execute-api:%s:%s:%s/*/*/"
+                                                ) % (self.region, AwsFunc.get_account_id(),
+                                                     self.constants["REST_API_ID"])
+
     def create_api_url(self):
         """ Creates the url needed to send requests to the api gateway """
         self.constants["API_URL"] = (
@@ -750,20 +601,20 @@ class AwsFunc:
         print "Password: password123"
         print "Login at: https://s3.amazonaws.com/%s/HTML/login.html" % (
             self.constants["BUCKET"])
-    
+
     @staticmethod
     def get_account_id():
         sts = boto3.client("sts")
         return sts.get_caller_identity()["Account"]
-        
+
     @staticmethod
     def zip_lambda():
         """ Zips all files needed to create the controller function and stores
         them in an object that will be uploaded to lambda.
         """
         # Don't zip these files
-        ignore_files = ["controller.zip", "role_policy.json"] 
-        
+        ignore_files = ["controller.zip", "role_policy.json"]
+
         # Zip the files and store them in a buffer
         zip_data = BytesIO()
         zipf = zipfile.ZipFile(zip_data, "w")
@@ -774,7 +625,7 @@ class AwsFunc:
                     file_key = path_to_file[7:]
                     zipf.write(path_to_file, arcname=file_key)
         zipf.close()
-        
+
         # Write the buffer to a variable and return it
         zip_data.seek(0)
         data = zip_data.read()

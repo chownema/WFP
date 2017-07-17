@@ -32,7 +32,7 @@ def handler(event, context):
     # x = Xero(credentials)
     # print x.contacts.all()
     
-    return 'hello'
+    return event["method"]
 
 
     # Uncomment this to view parameters sent to the back end from the post
