@@ -11,7 +11,7 @@ import json
 
 import boto3
 import botocore
-from dynamocontroller   import DynamoController
+from recordsController   import RecordController
 from passlib.hash import pbkdf2_sha256
 
 class Security(object):

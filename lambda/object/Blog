@@ -1,0 +1,2 @@
+class Blog(object):
+    pass
