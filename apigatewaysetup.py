@@ -49,14 +49,16 @@ class apiGatewaySetup:
                         "\"body\": $input.body, "
                         "\"token\": \"$input.params(\"Cookie\")\", "
                         "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
-                        "\"method\": \"$context.httpMethod\",\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
+                        "\"method\": \"$context.httpMethod\","
+                        "\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
                         "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\" #if($foreach.hasNext),#end #end}"
                         "}"
                         "#else"
                         "{"
                         "\"body\": $input.body, "
                         "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
-                        "\"method\": \"$context.httpMethod\",\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
+                        "\"method\": \"$context.httpMethod\","
+                        "\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
                         "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\"#if($foreach.hasNext),#end #end}"
                         "}"
                         "#end"
@@ -120,7 +122,7 @@ class apiGatewaySetup:
                 resourceId=rest_api_root_id,
                 httpMethod="POST",
                 statusCode="400",
-                selectionPattern=".*\"status\": 400.*",
+                selectionPattern=".*'status': 400.*",
                 responseParameters={
                     "method.response.header.Access-Control-Allow-Credentials": (
                         "\'true\'"),
@@ -251,7 +253,7 @@ class apiGatewaySetup:
                 resourceId=rest_api_root_id,
                 httpMethod="GET",
                 statusCode="400",
-                selectionPattern=".*\"status\": 400.*",
+                selectionPattern=".*'status': 400.*",
                 responseParameters={
                     "method.response.header.Access-Control-Allow-Credentials": (
                         "\'true\'"),

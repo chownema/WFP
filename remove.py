@@ -57,7 +57,8 @@ dynamodb_table_names = [
     constants["PAGE_TABLE"],
     constants["TOKEN_TABLE"],
     constants["USER_TABLE"],
-    constants["ROLE_TABLE"]
+    constants["ROLE_TABLE"],
+    constants["ENTITY_TABLE"]
 ]
 s3_bucket_names = [
     constants["BUCKET"]

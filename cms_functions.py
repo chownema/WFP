@@ -475,6 +475,14 @@ class AwsFunc:
         self.create_api_permissions_uri()
         self.create_api_url()
 
+    def create_http_api_resource(self, api_gateway, rest_api_id, rest_api_other_id, path):
+        resource_resp = api_gateway.create_resource(
+            restApiId=rest_api_id,
+            parentId=rest_api_other_id,  # resource id for the Base API path
+            pathPart=path
+        )
+        return resource_resp
+
     def create_http_method(self, methodType , path):
         """
         Creates the api gateway and links it to the lambda function.
@@ -488,25 +496,26 @@ class AwsFunc:
             print "Creating the rest api"
 
             rest_api_id = self.constants["REST_API_ID"]
-            if(path != 'root'):
-                resource_resp = api_gateway.create_resource(
-                    restApiId=self.constants["REST_API_ID"],
-                    parentId=self.constants["REST_API_ROOT_ID"],  # resource id for the Base API path
-                    pathPart=path
-                )
-                rest_api_other_id = resource_resp['id']
+            if path != 'root':
+                if not "REST_API_"+path+ "_ID" in self.constants:
+                    resource_resp = self.create_http_api_resource(api_gateway, self.constants["REST_API_ID"], self.constants["REST_API_ROOT_ID"], path)
+
+                    rest_api_other_id = resource_resp['id']
+                    self.constants["REST_API_" + path + "_ID"] = resource_resp['id']
+                else:
+                    rest_api_other_id = self.constants["REST_API_"+path+"_ID"]
             else:
                 rest_api_other_id = self.constants["REST_API_ROOT_ID"]
 
-            if(methodType == 'POST'):
+            if methodType == 'POST':
                 apigatewaysetup.apiGatewaySetup.create_post_method(self,api_gateway, rest_api_id, rest_api_other_id)
-            elif (methodType == 'GET'):
+            elif methodType == 'GET':
                 apigatewaysetup.apiGatewaySetup.create_get_method(self,api_gateway, rest_api_id, rest_api_other_id)
-            elif (methodType == 'DELETE'):
+            elif methodType == 'DELETE':
                 apigatewaysetup.apiGatewaySetup.create_delete_method(self,api_gateway, rest_api_id, rest_api_other_id)
-            elif (methodType == 'PUT'):
+            elif methodType == 'PUT':
                 apigatewaysetup.apiGatewaySetup.create_put_method(self, api_gateway, rest_api_id, rest_api_other_id)
-            elif (methodType == 'OPTION'):
+            elif methodType == 'OPTION':
                 apigatewaysetup.apiGatewaySetup.create_options_method(self,api_gateway, rest_api_id, rest_api_other_id)
 
 
@@ -591,7 +600,7 @@ class AwsFunc:
         permission to trigger the lambda function
         """
         self.constants["API_PERMISSIONS_URI"] = (
-                                                    "arn:aws:execute-api:%s:%s:%s/*/*/"
+                                                    "arn:aws:execute-api:%s:%s:%s/*/*/*"
                                                 ) % (self.region, AwsFunc.get_account_id(),
                                                      self.constants["REST_API_ID"])
 
