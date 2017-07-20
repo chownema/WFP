@@ -50,9 +50,12 @@ def handler(event, context):
                     Error.send_error("unsupportedRequest", data={"request": str(parameter)})
             else:
                 Error.send_error("unsupportedRequest", data={"request": "Method : " + str(event["method"]) + "Query :" + str(event["query"]) + "Body : " + str(event["body"]) + "Param : " + str(event["params"])})
-        except:
-            badRequestTemplate = {"status" : 400 , "message" : "unknown"}
+        except ValueError as e:
+            badRequestTemplate = {"status" : 400 , "message" : str(e.message)}
             raise Exception (str(badRequestTemplate))
+        except:
+            unknownErroTemplate = {"status" : 500 , "message" : "internal server error"}
+            raise Exception (str(unknownErroTemplate))
 
     # r = requests.get('https://api.github.com/events')
     # print r

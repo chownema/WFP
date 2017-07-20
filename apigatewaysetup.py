@@ -97,7 +97,7 @@ class apiGatewaySetup:
                         "\'https://s3.amazonaws.com\'")
                 },
                 responseTemplates={
-                    "application/json": "$input.body"
+                    "application/json": "$input.path('$.body')"
                 }
             )
 
@@ -166,7 +166,7 @@ class apiGatewaySetup:
                 }
             )
 
-            # Put integration in the POST method
+            # Put integration in the GET method
             api_gateway.put_integration(
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
@@ -213,7 +213,7 @@ class apiGatewaySetup:
                 }
             )
 
-            # Put a 200 integration response in the POST method
+            # Put a 200 integration response in the GET method
             api_gateway.put_integration_response(
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
@@ -228,11 +228,11 @@ class apiGatewaySetup:
                         "\'https://s3.amazonaws.com\'")
                 },
                 responseTemplates={
-                    "application/json": "$input.body"
+                    "application/json": "$input.path('$.body')"
                 }
             )
 
-            # Put a 400 method response in the POST method
+            # Put a 400 method response in the GET method
             api_gateway.put_method_response(
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
@@ -247,7 +247,7 @@ class apiGatewaySetup:
                 }
             )
 
-            # Put a 400 integration response in the POST method
+            # Put a 400 integration response in the GET method
             api_gateway.put_integration_response(
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
@@ -286,7 +286,7 @@ class apiGatewaySetup:
         print "Adding DELETE method to rest api"
 
         try:
-            # Add a POST method to the rest api
+            # Add a DELETE method to the rest api
             api_gateway.put_method(
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
@@ -328,7 +328,7 @@ class apiGatewaySetup:
                 }
             )
 
-            # Put a 200 method response in the POST method
+            # Put a 200 method response in the DELETE method
             api_gateway.put_method_response(
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
@@ -344,7 +344,7 @@ class apiGatewaySetup:
                 }
             )
 
-            # Put a 200 integration response in the POST method
+            # Put a 200 integration response in the DELETE method
             api_gateway.put_integration_response(
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
@@ -359,11 +359,11 @@ class apiGatewaySetup:
                         "\'https://s3.amazonaws.com\'")
                 },
                 responseTemplates={
-                    "application/json": "$input.body"
+                    "application/json": "$input.path('$.body')"
                 }
             )
 
-            # Put a 400 method response in the POST method
+            # Put a 400 method response in the DELETE method
             api_gateway.put_method_response(
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
@@ -378,7 +378,7 @@ class apiGatewaySetup:
                 }
             )
 
-            # Put a 400 integration response in the POST method
+            # Put a 400 integration response in the DELETE method
             api_gateway.put_integration_response(
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
@@ -417,7 +417,7 @@ class apiGatewaySetup:
         print "Adding PUT method to rest api"
 
         try:
-            # Add a POST method to the rest api
+            # Add a PUT method to the rest api
             api_gateway.put_method(
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
@@ -428,7 +428,7 @@ class apiGatewaySetup:
                 }
             )
 
-            # Put integration in the POST method
+            # Put integration in the PUT method
             api_gateway.put_integration(
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
@@ -459,7 +459,7 @@ class apiGatewaySetup:
                 }
             )
 
-            # Put a 200 method response in the POST method
+            # Put a 200 method response in the PUT method
             api_gateway.put_method_response(
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
@@ -475,7 +475,7 @@ class apiGatewaySetup:
                 }
             )
 
-            # Put a 200 integration response in the POST method
+            # Put a 200 integration response in the PUT method
             api_gateway.put_integration_response(
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
@@ -490,11 +490,11 @@ class apiGatewaySetup:
                         "\'https://s3.amazonaws.com\'")
                 },
                 responseTemplates={
-                    "application/json": "$input.body"
+                    "application/json": "$input.path('$.body')"
                 }
             )
 
-            # Put a 400 method response in the POST method
+            # Put a 400 method response in the PUT method
             api_gateway.put_method_response(
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
@@ -509,7 +509,7 @@ class apiGatewaySetup:
                 }
             )
 
-            # Put a 400 integration response in the POST method
+            # Put a 400 integration response in the PUT method
             api_gateway.put_integration_response(
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
