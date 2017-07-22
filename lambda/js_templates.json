@@ -1,9 +1,8 @@
 {
     "viewController" : ".controller(%name%, [%dep_inj_quote%, function (%dep_inj%) {%logic%}])",
     "module" : "angular.module(%name%%dep_inj_quote%)",
-    "router" : {
-       
-    },
+    "router" :"$routeProvider",
+    "router_when" :".when(%location%, {templateUrl: %template%,controller: %c_name%,controllerAs: %c_name_alias%,replace: true})",
     "component" : {
        
     },
