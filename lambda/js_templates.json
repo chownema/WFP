@@ -1,0 +1,21 @@
+{
+    "viewController" : ".controller(%name%, [%dep_inj_quote%, function (%dep_inj%) {%logic%}])",
+    "module" : "angular.module(%name%%dep_inj_quote%)",
+    "router" : {
+       
+    },
+    "component" : {
+       
+    },
+    "service" : ".factory(%name%, [%dep_inj_quote%, function (%dep_inj%) {%logic%}])",
+    "button" : "var %name% function (%args_list%) {%logic% $http.(%http_args%)};",
+    "form" : {
+       
+    },
+    "details" : {
+       
+    },
+    "list" : {
+       
+    }
+}
