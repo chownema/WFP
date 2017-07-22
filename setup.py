@@ -42,16 +42,16 @@ cms.create_rest_api()
 cms.create_lambda_function()
 
 # Setup the rest api
-apiBlogName = "blog"
-cms.create_http_method("POST",apiBlogName)
-cms.create_http_method("GET",apiBlogName)
-cms.create_http_method("OPTION","root")
-cms.create_http_method("PUT",apiBlogName)
-cms.create_http_method("DELETE",apiBlogName)
+proxy_name = "{proxy+}"
+cms.create_http_method("POST", proxy_name)
+cms.create_http_method("GET", proxy_name)
+cms.create_http_method("OPTION",proxy_name)
+cms.create_http_method("PUT", proxy_name)
+cms.create_http_method("DELETE", proxy_name)
 cms.deploy_api()
 
 # Create the s3 bucket
-# cms.create_bucket()
+cms.create_bucket()
 # Create the cloudfront distribution
 # cms.create_cloudfront_distribution() TODO: Reactivate
 

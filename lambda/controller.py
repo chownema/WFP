@@ -13,6 +13,8 @@ from error import Error
 from security import Security
 from user import User
 from recordsController import RecordController
+from custom_exception.not_supported_exception import not_supported_exception
+from custom_exception.bad_request_exception import bad_request_exception
 from xero import Xero
 from xero.auth import PublicCredentials
 import requests
@@ -21,41 +23,51 @@ def handlerOther(event, context):
     return
 
 def handler(event, context):
+    # return {"statusCode": 200, "headers":event["headers"],"body": json.dumps(event, indent=2)}
 
-    if("method" in event):
-        httpMethod = event["method"]
-        # Get info on the cms' resources from the constants file
-        with open("constants.json", "r") as resources_file:
-            resources = json.loads(resources_file.read())
-        try:
+    httpMethod = event["httpMethod"]
+    path = str(event["path"]).split("/")
+    # Get info on the cms' resources from the constants file
+    with open("constants.json", "r") as resources_file:
+        resources = json.loads(resources_file.read())
+    try:
+        if path[1] == 'blog':
             if httpMethod == 'GET':
-                parameter = event["query"]
-                if "ID" in parameter:
-                    return RecordController.get_record(resources["BLOG_TABLE"], parameter["ID"])
-                elif not "ID" in parameter:
+                parameter = event["queryStringParameters"]
+                if path.__len__() == 3:
+                    return RecordController.get_record(resources["BLOG_TABLE"], path[2])
+                elif parameter is None or not "ID" in parameter:
                     return RecordController.get_records(resources["BLOG_TABLE"])
                 else:
-                    Error.send_error("unsupportedRequest", data={"request": str(parameter)})
+                    raise not_supported_exception("query : %s is not supported"% (str(parameter)))
             elif httpMethod == 'POST':
                 parameter = event["body"]
                 if parameter is not None and parameter is not "":
                     return RecordController.put_record(resources["BLOG_TABLE"], parameter)
                 else:
-                    Error.send_error("unsupportedRequest", data={"request": str(parameter)})
+                    raise not_supported_exception("query : %s is not supported" % (str(parameter)))
             elif httpMethod == 'DELETE':
-                parameter = event["query"]
-                if "ID" in parameter:
-                    return RecordController.remove_record(resources["BLOG_TABLE"], parameter["ID"])
+                if path.__len__() == 3:
+                    return RecordController.remove_record(resources["BLOG_TABLE"], path[2])
                 else:
-                    Error.send_error("unsupportedRequest", data={"request": str(parameter)})
+                    raise not_supported_exception("query : %s is not supported")
             else:
-                Error.send_error("unsupportedRequest", data={"request": "Method : " + str(event["method"]) + "Query :" + str(event["query"]) + "Body : " + str(event["body"]) + "Param : " + str(event["params"])})
-        except ValueError as e:
-            badRequestTemplate = {"status" : 400 , "message" : str(e.message)}
-            raise Exception (str(badRequestTemplate))
-        except:
-            unknownErroTemplate = {"status" : 500 , "message" : "internal server error"}
-            raise Exception (str(unknownErroTemplate))
+                raise not_supported_exception("query : %s is not supported" % (str(httpMethod)))
+        elif path[1] == 'login':
+            if httpMethod == 'POST':
+                parameter = event["body"]
+                return Security.login(resources["USER_TABLE"], parameter)
+        else:
+            raise not_supported_exception("query : %s" % (str({"request": "Method : " + str(event["method"]) + "Query :" + str(event["query"]) + "Body : " + str(event["body"]) + "Param : " + str(event["params"])})))
+    except not_supported_exception as e:
+        badRequestTemplate = {"statusCode" : 405 ,"headers": None, "body":{"message" : str(e.message)}}
+        raise Exception (str(badRequestTemplate))
+    except bad_request_exception as e:
+        badRequestTemplate = {"statusCode" : 400 ,"headers": None, "body":{"message" : str(e.message)}}
+        raise Exception (str(badRequestTemplate))
+    except Exception as e:
+        unknownErrorTemplate = {"status" : 500 ,"headers": None, "body":{ "message" : str(e.message)}}
+        raise Exception (str(unknownErrorTemplate))
 
     # r = requests.get('https://api.github.com/events')
     # print r
