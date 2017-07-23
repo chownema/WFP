@@ -29,14 +29,12 @@ class ScriptFactory(object):
         template_inf = ScriptFactory.init(
                 ScriptFactory.template_path, setup_schema_loc)
         print template_inf
+        
         # Create views
             # bind logic to views
         pass
 
-    class CodeModule(object):
-        type = {
-            "ViewController" : 'viewController'
-        }
+    class Form(object):
         def __init__(self, name, params, type):
             self.name = name
             self.params = params

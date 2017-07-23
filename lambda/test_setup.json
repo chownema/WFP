@@ -1,24 +1,48 @@
 {
-    "form" : {
-        "name" : "CustomerTestForm",
-        "fields" : [
-            {
-                "name" : "customerName",
-                "limit" : 20,
-                "type" : "string"
-            },
-            {
-                "name" : "customerAge",
-                "limit" : 3,
-                "type" : "int"
-            },
-            {
-                "name" : "customerType",
-                "limit" : 1,
-                "type" : "dropDown"
-            }
-        ],
-        "type" : "new",
-        "endpoint" : "dummy.com"
-    }
+    "forms" : [
+        {
+            "name" : "CustomerTestForm",
+            "fields" : [
+                {
+                    "name" : "customerName",
+                    "limit" : 20,
+                    "type" : "string"
+                },
+                {
+                    "name" : "customerAge",
+                    "limit" : 3,
+                    "type" : "int"
+                },
+                {
+                    "name" : "customerType",
+                    "limit" : 1,
+                    "type" : "dropDown"
+                }
+            ],
+            "type" : "new",
+            "endpoint" : "dummy.com/api"
+        },
+        {
+            "name" : "PartTestForm",
+            "fields" : [
+                {
+                    "name" : "partName",
+                    "limit" : 20,
+                    "type" : "string"
+                },
+                {
+                    "name" : "partCost",
+                    "limit" : 100,
+                    "type" : "money"
+                },
+                {
+                    "name" : "partType",
+                    "limit" : 1,
+                    "type" : "dropDown"
+                }
+            ],
+            "type" : "new",
+            "endpoint" : "dummypart.com/api"
+        }
+    ]
 }
