@@ -10,6 +10,8 @@ import uuid
 
 import boto3
 import botocore
+from objects import blog
+from custom_exception.bad_request_exception import bad_request_exception
 
 from boto3.dynamodb.conditions import Key, Attr
 
@@ -41,7 +43,7 @@ class RecordController(object):
                 "data": {"exception": str(e), "action": action}
             }
 
-        return {"message": "Successfully fetched items", "status" : 200, "data": items["Items"]}
+        return {"statusCode" : 200, "headers": None, "body": str(items["Items"])}
 
     @staticmethod
     def get_records_query(table, parameters):
@@ -71,7 +73,7 @@ class RecordController(object):
                 "data": {"exception": str(e), "action": action}
             }
 
-        return {"message": "Successfully fetched items", 200 : "success", "data": items}
+        return {"statusCode" : 200, "headers": None, "body": str(items)}
 
     @staticmethod
     def get_record(table, parameters):
@@ -103,7 +105,7 @@ class RecordController(object):
                 "error": "InvalidItemSelection",
                 "data": {"ID": parameters["ID"],  "action": action}}
             
-        return {"message": "Successfully fetched item", "status" : "success", "data": item["Item"]}
+        return {"statusCode" : 200, "headers": None, "body": str(item["Item"])}
     
     @staticmethod
     def put_record(tableName, parameters):
@@ -122,23 +124,17 @@ class RecordController(object):
         try:
             dynamodb = boto3.resource("dynamodb")
             table = dynamodb.Table(tableName)
+            # print "print :"  + json.dumps(parameters)
+            j = json.loads(parameters)
+            blogObject = blog.blog(**j)
 
-            table.put_item(Item= parameters)
+            table.put_item(Item= blogObject.__dict__)
 
         except botocore.exceptions.ClientError as e:
-            action = "Putting item in the " + table + " table"
-            return { 
-                "status" : 400,
-                "error_message": str(e.response["Error"]["Code"]),
-                "data": {"exception": str(e), "action": action}
-            }
-        except:
-            return {
-                "status": 400,
-                "error_message": "unknown error"
-            }
+            action = "Putting item in the " + tableName + " table"
+            raise bad_request_exception(str(e))
 
-        return {"status" : 200, "body": str(parameters)}
+        return {"statusCode" : 200, "headers":None, "body": str(json.dumps(blogObject.__dict__))}
 
     @staticmethod
     def remove_record(table, parameters):
@@ -166,5 +162,5 @@ class RecordController(object):
                 "data": {"exception": str(e), "action": action}
             }
 
-        return {"message": "Successfully removed item", "status" : 200}
+        return {"statusCode" : 200, "headers": None, "body":"Successfully removed item"}
         

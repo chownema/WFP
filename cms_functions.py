@@ -599,6 +599,7 @@ class AwsFunc:
         """ Creates the uri that is needed for giving the api deployment
         permission to trigger the lambda function
         """
+        # arn:aws:execute-api:us-east-1:*:*
         self.constants["API_PERMISSIONS_URI"] = (
                                                     "arn:aws:execute-api:%s:%s:%s/*/*/*"
                                                 ) % (self.region, AwsFunc.get_account_id(),

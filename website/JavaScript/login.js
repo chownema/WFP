@@ -28,10 +28,9 @@ angular.module("login", ["api"])
       ctrlScope.failedLogin = false;
       ctrlScope.buttonText = "Logging in...";
       $http.post(
-        apiUrl,
+        apiUrl + "/login",
         {
-          "request": "loginUser",
-          "email": ctrlScope.email,
+          "username": ctrlScope.email,
           "password": ctrlScope.password
         }
       ).then(function successCallback(response) {

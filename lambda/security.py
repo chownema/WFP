@@ -11,6 +11,8 @@ import json
 
 import boto3
 import botocore
+from objects.login import login
+from custom_exception.bad_request_exception import bad_request_exception
 from recordsController   import RecordController
 from passlib.hash import pbkdf2_sha256
 
@@ -39,20 +41,21 @@ class Security(object):
         with open("constants.json", "r") as resources_file:
             resources = json.loads(resources_file.read())
 
+        j = json.loads(parameters)
+        loginInfo = login(**j)
+
         # Use username to fetch user information from the user table
         try:
             dynamodb = boto3.client("dynamodb")
-            user = dynamodb.get_item(TableName=table_name, Key={"Username" : {"S": parameters["username"]}})
+            user = dynamodb.get_item(TableName=table_name, Key={"Email" : {"S": loginInfo.EMAIL}})
         except botocore.exceptions.ClientError as e:
-            action = "Fetching user from the user table for login"
-            return {"error": e.response["Error"]["Code"],
-                    "data": {"exception": str(e), "action": action}}
+            action = "Unable fetching user from the user table for login"
+            raise bad_request_exception(action)
         
         # Check that the username has a user associated with it
         if not "Item" in user:
-            action = "Attempting to log in"
-            return {"error": "invalidUsername",
-                    "data": {"username": parameters["username"], "action": action}}
+            action = "Unable to log in"
+            raise bad_request_exception(action)
         
         user = user["Item"]
                     
@@ -64,18 +67,16 @@ class Security(object):
         
         # Check that the user has a password associated with it
         if not "Password" in user:
-            action = "Attempting to log in"
-            return {"error": "userHasNoPassword",
-                    "data": {"user": user, "action": action}}
+            action = "Unable to log in"
+            raise bad_request_exception(action)
         
         actual_password = user["Password"]["S"]
         
         # Verify that the password provided is correct
-        valid_password = pbkdf2_sha256.verify(parameters["password"], actual_password)
+        valid_password = pbkdf2_sha256.verify(loginInfo.PASSWORD, actual_password)
         if not valid_password:
-            action = "Attempting to log in"
-            return {"error": "invalidPassword",
-                    "data": {"password": parameters["password"], "action": action}}
+            action = "Invalid password"
+            raise bad_request_exception(action)
         
         # Calculate an exiration date a day from now
         expiration = datetime.datetime.utcnow() + datetime.timedelta(days=1)
@@ -88,18 +89,28 @@ class Security(object):
             dynamodb.put_item(
                 TableName=resources["TOKEN_TABLE"],
                 Item={"Token": {"S": token},
-                      "Username": {"S": parameters["username"]},
+                      "Username": {"S": loginInfo.EMAIL},
                       "Expiration": {"S": expiration}}
             )
         except botocore.exceptions.ClientError as e:
-            action = "Putting token in the token table for login"
-            return {"error": e.response["Error"]["Code"],
-                    "data": {"exception": str(e), "action": action}}
+            action = "Unable putting token in the token table for login"
+            raise bad_request_exception(action)
         
         # Create the cookie that will be returned
         cookie = "token=%s; expires=%s" % (token, expiration)
         # Return the cookie
-        return {"message": "Successfully logged in", "Set-Cookie": cookie}
+        body = {
+            "message":"Successfully logged in",
+            "Set-Cookie": cookie
+        }
+        return {
+                "statusCode": 200,
+                "headers": {
+                    "Access-Control-Allow-Credentials": True,
+                    "Access-Control-Allow-Origin": "https://s3.amazonaws.com",
+                    "Set-Cookie": cookie },
+                "body": json.dumps(body)
+                }
     
     @staticmethod
     def logout(token, token_table):
