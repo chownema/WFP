@@ -31,11 +31,13 @@ def handler(event, context):
     with open("constants.json", "r") as resources_file:
         resources = json.loads(resources_file.read())
     try:
-        if path[1] == 'blog':
+        service_name = path[1];
+        if service_name == 'blog':
             if httpMethod == 'GET':
                 parameter = event["queryStringParameters"]
                 if path.__len__() == 3:
-                    return RecordController.get_record(resources["BLOG_TABLE"], path[2])
+                    blog_id = path[2]
+                    return RecordController.get_record(resources["BLOG_TABLE"], blog_id)
                 elif parameter is None or not "ID" in parameter:
                     return RecordController.get_records(resources["BLOG_TABLE"])
                 else:
@@ -48,12 +50,13 @@ def handler(event, context):
                     raise not_supported_exception("query : %s is not supported" % (str(parameter)))
             elif httpMethod == 'DELETE':
                 if path.__len__() == 3:
-                    return RecordController.remove_record(resources["BLOG_TABLE"], path[2])
+                    blog_id = path[2]
+                    return RecordController.remove_record(resources["BLOG_TABLE"], blog_id)
                 else:
                     raise not_supported_exception("query : %s is not supported")
             else:
                 raise not_supported_exception("query : %s is not supported" % (str(httpMethod)))
-        elif path[1] == 'login':
+        elif service_name == 'login':
             if httpMethod == 'POST':
                 parameter = event["body"]
                 return Security.login(resources["USER_TABLE"], parameter)
