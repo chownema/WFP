@@ -1,4 +1,16 @@
-p {
-    color : yellow;
+@import 'node_modules/materialize-css/sass/materialize.scss'; // Materialize
+@import 'node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss'; // Bootstrap 
+
+// Real Styles Start here
+side-panel {
+    color : black;
 }
 
+main-panel {
+    color : grey;
+}
+
+.panel-row {
+    height : 100%;
+    width : 100%;
+}
