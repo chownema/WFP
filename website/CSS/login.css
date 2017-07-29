@@ -1,9 +1,14 @@
-html * {
-    font-family: 'Oswald', sans-serif;
+.login-corner{
+	height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.login-form{
+	padding:20px;
 }
 
 body {
-  display: table;
   width: 100%;
   background: linear-gradient(
       rgba(0, 0, 0, 0.3),
@@ -12,67 +17,27 @@ body {
   background-position: center right;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 350px;
-}
-
-.wrapper {    
-	margin-top: 100px;
-	margin-bottom: 20px;
-}
-
-.form-signin {
-  max-width: 420px;
-  padding: 20px 38px 55px;
-  margin: 0 auto;
-  background: rgba(0, 0, 0, 0.0);
-  }
-
-.form-signin-heading {
-  color: #fff;
-  font-family: 'Lobster', cursive !important;
-  font-size: 250%;
-  text-align:center;
-  margin-bottom: 30px;
-}
-
-.form-control {
-  margin-top: 4;
-  border-radius: 5px;
-  border-color: rgba(0, 0, 0, 0.4);
-  border-width: 1px;
-  position: relative;
-  font-size: 16px;
-  height: auto;
-  padding: 10px;
+  height: 100%;
+  padding:0px;
+  margin:0px;
+  overflow: hidden;
 }
 
 .login-fail {
-  margin-top: -15px;
+	position:relative;
+  margin-top: 15px;
+  color: red;
 }
 
-input[type="email"] {
-  margin-bottom: 0px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+.form-signin-heading{
+	font-size: 30pt;
 }
 
-input[type="password"] {
-  margin-bottom: 20px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+.form-signin-subheading{
+	font-size: 16pt;
 }
-
-.glyphicon.spinning {
-    animation: spin 1s infinite linear;
-    -webkit-animation: spin2 1s infinite linear;
-}
-
-@keyframes spin {
-    from { transform: scale(1) rotate(0deg); }
-    to { transform: scale(1) rotate(360deg); }
-}
-
-@-webkit-keyframes spin2 {
-    from { -webkit-transform: rotate(0deg); }
-    to { -webkit-transform: rotate(360deg); }
+.login-btn{
+	margin-top: 15px;
+	position:inline;
+	width: 100%;
 }

@@ -2,10 +2,6 @@
     padding-left: 5%;
   }
 
-	.side-nav {
-		max-width: 15%;
-	}
-
   @media only screen and (max-width : 890px) {
     header, main, footer {
       padding-left: 0;

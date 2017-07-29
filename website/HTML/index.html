@@ -12,6 +12,7 @@
       <link rel="stylesheet" href="../CSS/materialize.css" >
       <link rel="stylesheet" href="../CSS/main.css" >
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
       <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
 
 
@@ -24,7 +25,11 @@
       
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
       <script src="../JavaScript/app.js"></script>
+      
       <script src="../JavaScript/materialize.js"></script>
+	  <script src="../JavaScript/Chart.min.js"></script>
+	<script src="../JavaScript/angular-chart.min.js"></script>
+	<script src="../JavaScript/navbar.js"></script>
       <!-- <script src="../JavaScript/index.js"></script> -->
       <!--<script src="../JavaScript/index.js"></script>-->
       <!--<script src="../JavaScript/forms.js"></script>
@@ -43,13 +48,24 @@
     <![endif]-->
   </head>
   <body ng-app="mainViewController">
-    <div ng-controller="viewController as ctrl">
-      <ng-include src="'side-menu-component.html'"></ng-include>
-    </div>
+		<nav>
+		<div class="nav-wrapper blue-grey">
+			<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+			<ul id="slide-out" class="side-nav fixed">
+				  <li><a href="#/">Dash</a></li>
+				  <li><a href="#/job-view">Jobs</a></li>
+				  <li><a href="#/">Clients</a></li>
+				  <li><a href="#">Parts</a></li>
+				  <li><a href="#">Suppliers</a></li>
+				  <li><a href="#">Options</a></li>
+			</ul>
+		</div>
+		</nav>
+
     <main>
       <div class="container">
         <div class "row">
-          <div class="card-panel content-pane col s12 m9 l10">
+          <div class="card-panel content-pane col s12 m12 l10">
             <div ng-view></div>
           </div>
         </div>

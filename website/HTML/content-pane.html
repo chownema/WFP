@@ -1,3 +1,41 @@
-<div class="">
-    Default Content
+<div class="row">		
+up
+	<div ng-controller="pieCtrl as ctrl" class= "card-panel col l4 m6 s12">
+		<h5>Sales records</h5>
+		<hr/>
+		<canvas id="pie" class="chart chart-pie"
+		  chart-data="data" chart-labels="labels" chart-options="options">
+		</canvas> 
+	</div>
+	
+	<div ng-controller="pieCtrl as ctrl" class= "card-panel col l4 m6 s12">
+		<h5>Sales records</h5>
+		<hr/>
+		<canvas id="pie" class="chart chart-pie"
+		  chart-data="data" chart-labels="labels" chart-options="options">
+		</canvas> 
+	</div>
+	
+	<div ng-controller="pieCtrl as ctrl" class= "card-panel col l4 m6 s12">
+		<h5>Sales records</h5>
+		<hr/>
+		<canvas id="pie" class="chart chart-pie"
+		  chart-data="data" chart-labels="labels" chart-options="options">
+		</canvas> 
+	</div>
+	
+	<div class= "card-panel col l12 m12 s12">
+		<div ng-controller="barCtrl as ctrl" class= "col l5 m6 s12">
+			<h5>Sales records</h5>
+			<hr/>
+			<canvas id="base" class="chart-horizontal-bar"
+			  chart-data="data" chart-labels="labels" >
+			</canvas>
+		</div>
+
+		<div ng-controller="lineCtrl as ctrl" class= "col l7 m12 s12">
+			<canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick">
+			</canvas>
+		</div>
+	</div>
 </div>
