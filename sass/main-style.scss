@@ -2,11 +2,17 @@
 @import 'node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss'; // Bootstrap 
 
 // Real Styles Start here
+panel { // Panel base class
+    height :  100%;    
+}
+
 side-panel {
+    @extend panel;
     color : black;
 }
 
 main-panel {
+    @extend panel;    
     color : grey;
 }
 

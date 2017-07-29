@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "bootstrap-sass": "^3.3.7",
+    "gulp-browserify": "^0.5.1",
     "gulp-sass": "^3.1.0",
     "materialize-sass": "^0.98.2"
   },

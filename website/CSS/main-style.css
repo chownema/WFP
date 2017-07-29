@@ -12773,6 +12773,9 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+panel, side-panel, main-panel {
+  height: 100%; }
+
 side-panel {
   color: black; }
 
