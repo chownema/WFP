@@ -1,5 +1,4 @@
 /*global angular*/
-
 angular.module("index", ["ngRoute", "ui.tinymce", "forms", "api"])
   .config(["$routeProvider", function ($routeProvider) {
     "use strict";

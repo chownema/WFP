@@ -1,0 +1,20 @@
+{
+    "API_INVOCATION_URI": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:265116334736:function:testapi-aws-cms-Controller/invocations", 
+    "API_PERMISSIONS_URI": "arn:aws:execute-api:us-east-1:265116334736:mbu0j3uep7/*/*/*", 
+    "API_URL": "https://mbu0j3uep7.execute-api.us-east-1.amazonaws.com/prod", 
+    "BLOG_TABLE": "testapi-aws-cms-Blog", 
+    "BUCKET": "testapi-aws-cms", 
+    "DISQUS-ID": "arc-cms", 
+    "ENTITY_TABLE": "testapi-aws-Entity", 
+    "LAMBDA_FUNCTION": "testapi-aws-cms-Controller", 
+    "LAMBDA_FUNCTION_ARN": "arn:aws:lambda:us-east-1:265116334736:function:testapi-aws-cms-Controller", 
+    "LAMBDA_ROLE": "testapi-aws-cms-Lambda", 
+    "PAGE_TABLE": "testapi-aws-cms-Page", 
+    "REST_API": "testapi-aws-cms-Operations", 
+    "REST_API_ID": "mbu0j3uep7", 
+    "REST_API_ROOT_ID": "nupcv3yzsh", 
+    "REST_API_{proxy+}_ID": "dikqiq", 
+    "ROLE_TABLE": "testapi-aws-cms-Role", 
+    "TOKEN_TABLE": "testapi-aws-cms-Token", 
+    "USER_TABLE": "testapi-aws-cms-User"
+}

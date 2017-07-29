@@ -4,6 +4,7 @@
   "description": "Simple framework",
   "main": "gulpfile.js",
   "dependencies": {
+    "angular-chart.js": "^1.1.1",
     "browser-sync": "^2.18.12",
     "gulp": "^3.9.1",
     "node-sass": "^4.5.3"
