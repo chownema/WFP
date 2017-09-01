@@ -13,6 +13,7 @@ from error import Error
 from security import Security
 from user import User
 from recordsController import RecordController
+from cognito_controller import Cognito
 from custom_exception.not_supported_exception import not_supported_exception
 from custom_exception.bad_request_exception import bad_request_exception
 from xero import Xero
@@ -60,6 +61,19 @@ def handler(event, context):
             if httpMethod == 'POST':
                 parameter = event["body"]
                 return Security.login(resources["USER_TABLE"], parameter)
+        elif service_name == 'signup':
+            if httpMethod == 'POST':
+                parameter = event["body"]
+                # return {"statusCode": 200, "headers": None, "body": str(json.dumps(parameter))}
+                return Cognito.sign_up(parameter)
+        elif service_name == 'confirm':
+            if httpMethod == 'POST':
+                parameter = event["body"]
+                return Cognito.confirm_sign_up(parameter)
+        elif service_name == 'signin':
+            if httpMethod == 'POST':
+                parameter = event["body"]
+                return Cognito.sign_in_admin(parameter)
         else:
             raise not_supported_exception("query : %s" % (str({"request": "Method : " + str(event["method"]) + "Query :" + str(event["query"]) + "Body : " + str(event["body"]) + "Param : " + str(event["params"])})))
     except not_supported_exception as e:
