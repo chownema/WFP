@@ -32,7 +32,7 @@ def handler(event, context):
     with open("constants.json", "r") as resources_file:
         resources = json.loads(resources_file.read())
     try:
-        service_name = path[1];
+        service_name = path[1].lower();
         if service_name == 'blog':
             if httpMethod == 'GET':
                 parameter = event["queryStringParameters"]
@@ -74,6 +74,14 @@ def handler(event, context):
             if httpMethod == 'POST':
                 parameter = event["body"]
                 return Cognito.sign_in_admin(parameter)
+        elif service_name == 'signincog':
+            if httpMethod == 'POST':
+                parameter = event["body"]
+                return Cognito.sign_in_cog(parameter)
+        elif service_name == 'user':
+            if httpMethod == 'GET':
+                parameter = event["headers"]
+                return Cognito.get_user(parameter)
         else:
             raise not_supported_exception("query : %s" % (str({"request": "Method : " + str(event["method"]) + "Query :" + str(event["query"]) + "Body : " + str(event["body"]) + "Param : " + str(event["params"])})))
     except not_supported_exception as e:

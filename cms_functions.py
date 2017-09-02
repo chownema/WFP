@@ -411,6 +411,10 @@ class AwsFunc:
                 RoleName=lambda_role_name,
                 PolicyArn="arn:aws:iam::aws:policy/AmazonS3FullAccess"
             )
+            iam.attach_role_policy(
+                RoleName=lambda_role_name,
+                PolicyArn="arn:aws:iam::aws:policy/AmazonCognitoPowerUser"
+            )
             print "Role created"
         except botocore.exceptions.ClientError as e:
             print e.response["Error"]["Code"]
