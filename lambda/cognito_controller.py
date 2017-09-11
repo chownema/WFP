@@ -10,11 +10,6 @@ from objects import signIn
 import datetime
 
 class Cognito(object):
-    region = 'us-east-1'
-    user_pool_id = 'us-east-1_20z10a4Je'
-    app_client_id = '6p7jft98ldlapc0cisr9ur02n9'
-    identity_pool_id = 'us-east-1:4df9fe2c-3ea7-438a-a7dc-455f704845ca'
-    account_id = 'xxxxxxxxxxxx'
 
     @staticmethod
     def sign_up(parameters):
@@ -25,10 +20,6 @@ class Cognito(object):
 
         try:
             idp_client = boto3.client('cognito-idp')
-
-            #remove hard code please
-            CLIENTID = '6p7jft98ldlapc0cisr9ur02n9'
-            CLIENTSECRET = '10an02100u8e0gjvlpp5a3kgu1lannoo262h1g5eujqadposut7p'
 
             msg = stuff.username + CLIENTID
             dig = hmac.new(str(CLIENTSECRET).encode('utf-8'),
@@ -55,10 +46,6 @@ class Cognito(object):
         j = json.loads(parameters)
         stuff = confirmSignUpData.confirmSignUpData(**j)
 
-        # remove hard code please
-        CLIENTID = '6p7jft98ldlapc0cisr9ur02n9'
-        CLIENTSECRET = '10an02100u8e0gjvlpp5a3kgu1lannoo262h1g5eujqadposut7p'
-
         msg = stuff.username + CLIENTID
         dig = hmac.new(str(CLIENTSECRET).encode('utf-8'),
                        msg=str(msg).encode('utf-8'), digestmod=hashlib.sha256).digest()
@@ -82,16 +69,6 @@ class Cognito(object):
 
         j = json.loads(parameters)
         stuff = signIn.signInData(**j)
-
-        # remove hard code please
-        CLIENTID = '6p7jft98ldlapc0cisr9ur02n9'
-        CLIENTSECRET = '10an02100u8e0gjvlpp5a3kgu1lannoo262h1g5eujqadposut7p'
-
-        REGION = 'us-east-1'
-        USER_POOL_ID = 'us-east-1_20z10a4Je'
-
-        IDENTITY_POOL_ID = 'us-east-1:4df9fe2c-3ea7-438a-a7dc-455f704845ca'
-        ACCOUNT_ID = '265116334736'
 
         msg = stuff.username + CLIENTID
         dig = hmac.new(str(CLIENTSECRET).encode('utf-8'),
@@ -134,16 +111,6 @@ class Cognito(object):
 
         j = json.loads(parameters)
         stuff = signIn.signInData(**j)
-
-        # remove hard code please
-        CLIENTID = '6p7jft98ldlapc0cisr9ur02n9'
-        CLIENTSECRET = '10an02100u8e0gjvlpp5a3kgu1lannoo262h1g5eujqadposut7p'
-
-        REGION = 'us-east-1'
-        USER_POOL_ID = 'us-east-1_20z10a4Je'
-
-        IDENTITY_POOL_ID = 'us-east-1:4df9fe2c-3ea7-438a-a7dc-455f704845ca'
-        ACCOUNT_ID = '265116334736'
 
         msg = stuff.username + CLIENTID
         dig = hmac.new(str(CLIENTSECRET).encode('utf-8'),
