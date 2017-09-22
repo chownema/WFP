@@ -6,25 +6,54 @@
 
 import json
 
-import boto3
-import botocore
-
-from error import Error
 from security import Security
-from user import User
 from recordsController import RecordController
 from cognito_controller import Cognito
 from custom_exception.not_supported_exception import not_supported_exception
 from custom_exception.bad_request_exception import bad_request_exception
-from xero import Xero
-from xero.auth import PublicCredentials
+
 import requests
 
-def handlerOther(event, context):
-    return
+def handlerSIGNUP(event, context):
+    print "debug" + str(event)
+    httpMethod = event["method"]
+    with open("constants.json", "r") as resources_file:
+        resources = json.loads(resources_file.read())
+    try:
+        if httpMethod == 'POST':
+            parameter = event["body"]
+            return Cognito.sign_up(parameter)
+        elif httpMethod == 'PUT':
+            parameter = event["body"]
+            return Cognito.confirm_sign_up(parameter)
+    except bad_request_exception as e:
+        badRequestTemplate = json.dumps({"statusCode": 400, json.loads(str(e.message)))
+        raise Exception(str(badRequestTemplate))
+    except Exception as e:
+        unknownErrorTemplate = json.dumps({"statusCode": 500,"body": json.loads(str(e.message))})
+        raise Exception(str(unknownErrorTemplate))
+
+    return json.dumps({"statusCode": 405, "body": json.dumps({"error":"Operation not supported"})})
+
+def handlerLOGIN(event, context):
+    print "debug" + str(event)
+    httpMethod = event["method"]
+    with open("constants.json", "r") as resources_file:
+        resources = json.loads(resources_file.read())
+    try:
+        if httpMethod == 'POST':
+            parameter = event["body"]
+            return Cognito.sign_in_admin(parameter)
+    except bad_request_exception as e:
+        badRequestTemplate = json.dumps({"statusCode": 400, "body": json.loads(str(e.message))})
+        raise Exception(str(badRequestTemplate))
+    except Exception as e:
+        unknownErrorTemplate = json.dumps({"statusCode": 500, "body": json.loads(str(e.message))})
+        raise Exception(str(unknownErrorTemplate))
+
+    return json.dumps({"statusCode": 405, "body": json.dumps({"error":"Operation not supported"})})
 
 def handler(event, context):
-    # return {"statusCode": 200, "headers":event["headers"],"body": json.dumps(event, indent=2)}
 
     httpMethod = event["httpMethod"]
     path = str(event["path"]).split("/")
@@ -94,19 +123,6 @@ def handler(event, context):
         unknownErrorTemplate = {"status" : 500 ,"headers": None, "body":{ "message" : str(e.message)}}
         raise Exception (str(unknownErrorTemplate))
 
-    # r = requests.get('https://api.github.com/events')
-    # print r
-    # print Xero
-    # Xero Demo
-    # xero_credentials = {
-    #     "key" : "TTRAOBPOHHZV5ZBFYX5YUMYF9SQN05",
-    #     "secret" : "FMLLGRJTEZWQXAO5IPY8ZEQYNFMZLW"
-    # }
-
-    # credentials = PublicCredentials(xero_credentials["key"], xero_credentials["secret"])
-    # print credentials
-    # x = Xero(credentials)
-    # print x.contacts.all()
     return "Method : " + str(event["method"]) + "Query :" + str(event["query"]) + "Body : " + str(event["body"]) + "Param : " + str(event["params"])
 
 

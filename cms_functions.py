@@ -360,11 +360,11 @@ class AwsFunc:
             print e.response["Error"]["Message"]
             sys.exit()
 
-    def update_lambda(self):
+    def update_lambda(self, prefix=""):
         try:
             lmda = boto3.client("lambda")
             lmda.update_function_code(
-                FunctionName=self.constants["LAMBDA_FUNCTION"],
+                FunctionName=self.constants["LAMBDA_FUNCTION"+prefix],
                 ZipFile=AwsFunc.zip_lambda(),
             )
         except botocore.exceptions.ClientError as e:
@@ -372,8 +372,9 @@ class AwsFunc:
             print e.response["Error"]["Message"]
             sys.exit()
 
-    def create_lambda_function(self):
+    def create_lambda_function(self, prefix=""):
         """ Creates a lamda function and uploads AWS CMS to to it """
+
         lmda_role = json.dumps({
             "Version": "2012-10-17",
             "Statement": [
@@ -389,9 +390,9 @@ class AwsFunc:
 
         # Create the lambda iam role
         try:
-            print "Creating iam role: %s" % (self.constants["LAMBDA_ROLE"])
+            print "Creating iam role: %s" % (self.constants["LAMBDA_ROLE" + prefix])
             iam = boto3.client("iam")
-            lambda_role_name = self.constants["LAMBDA_ROLE"]
+            lambda_role_name = self.constants["LAMBDA_ROLE" + prefix]
             lambda_role = iam.create_role(
                 RoleName=lambda_role_name,
                 AssumeRolePolicyDocument=lmda_role
@@ -433,10 +434,10 @@ class AwsFunc:
             print "Creating lambda function"
             lmda = boto3.client("lambda")
             lambda_function = lmda.create_function(
-                FunctionName=self.constants["LAMBDA_FUNCTION"],
+                FunctionName=self.constants["LAMBDA_FUNCTION" + prefix],
                 Runtime="python2.7",
                 Role=lambda_role["Role"]["Arn"],
-                Handler="controller.handler",
+                Handler="controller.handler" + prefix,
                 Code={"ZipFile": AwsFunc.zip_lambda()},
                 Description=("Aws cms central management function designed to "
                              "handle any API Gateway request"),
@@ -444,14 +445,14 @@ class AwsFunc:
                 Timeout=10
             )
             print "Function created"
-            self.constants["LAMBDA_FUNCTION_ARN"] = (
+            self.constants["LAMBDA_FUNCTION_ARN" + prefix] = (
                 lambda_function["FunctionArn"])
         except botocore.exceptions.ClientError as e:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
             sys.exit()
 
-        self.create_api_invocation_uri()
+        self.create_api_invocation_uri(prefix=prefix)
         self.remove_lambda_constants()
 
     def create_rest_api(self):
@@ -532,7 +533,8 @@ class AwsFunc:
         self.create_api_url()
 
 
-    def deploy_api(self):
+    def deploy_api(self, prefix=""):
+
         try:
             api_gateway = boto3.client("apigateway")
             rest_api_id = self.constants["REST_API_ID"]
@@ -545,7 +547,7 @@ class AwsFunc:
             )
 
             lmda = boto3.client("lambda")
-            function_name = self.constants["LAMBDA_FUNCTION"]
+            function_name = self.constants["LAMBDA_FUNCTION" + prefix]
             api_permissions_uri = self.constants["API_PERMISSIONS_URI"]
 
             # Give the api deployment permission to trigger the lambda function
@@ -592,12 +594,12 @@ class AwsFunc:
         """ Removes aws service constants from the lambda directory """
         os.remove("lambda/constants.json")
 
-    def create_api_invocation_uri(self):
+    def create_api_invocation_uri(self, prefix):
         """ Creates an api invocation uri """
         self.constants["API_INVOCATION_URI"] = (
                                                    "arn:aws:apigateway:%s:lambda:"
                                                    "path/2015-03-31/functions/%s/invocations"
-                                               ) % (self.region, self.constants["LAMBDA_FUNCTION_ARN"])
+                                               ) % (self.region, self.constants["LAMBDA_FUNCTION_ARN"+prefix])
 
     def create_api_permissions_uri(self):
         """ Creates the uri that is needed for giving the api deployment

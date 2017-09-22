@@ -7,6 +7,7 @@ import base64
 from objects import signUp
 from objects import confirmSignUpData
 from objects import signIn
+from custom_exception.bad_request_exception import bad_request_exception
 import datetime
 
 class Cognito(object):
@@ -18,10 +19,10 @@ class Cognito(object):
 
     @staticmethod
     def sign_up(parameters):
-        j = json.loads(parameters)
-        stuff = signUp.signUpData(**j)
+        # return json.dumps(parameters)
 
-        # return {"statusCode": 200, "headers": None, "body": str(json.dumps(stuff.__dict__))}
+        j = json.loads(json.dumps(parameters))
+        stuff = signUp.signUpData(**j)
 
         try:
             idp_client = boto3.client('cognito-idp')
@@ -43,16 +44,26 @@ class Cognito(object):
                 Password=stuff.password,
                 UserAttributes=[{'Name': 'email', 'Value': stuff.email}]
             )
-
         except botocore.exceptions.ClientError as e:
-            return {"statusCode": 401, "headers": None, "body": str(stuff) + " : " + str(e)}
+            if e.response['Error']['Code'] == 'UsernameExistsException':
+                message = "Username exists. Please choose other username."
+            elif e.response['Error']['Code'] == 'InvalidParameterException':
+                message = "Email address is not in the correct format."
+            elif e.response['Error']['Code'] == 'InvalidPasswordException':
+                message = "Password must have numeric characters, symbol and, upper and lower case characters."
+            else:
+                message = "Unexpected error: %s" % e
+
+            bodyContent = {"ErrorDescription" : message}
+            raise bad_request_exception(json.dumps(bodyContent))
+
 
         return {"statusCode": 200, "headers": None, "body": json.dumps(resp, cls= DateTimeEncoder)}
 
     @staticmethod
     def confirm_sign_up(parameters):
 
-        j = json.loads(parameters)
+        j = json.loads(json.dumps(parameters))
         stuff = confirmSignUpData.confirmSignUpData(**j)
 
         # remove hard code please
@@ -71,55 +82,76 @@ class Cognito(object):
                                               SecretHash=str(dig),
                                               Username=stuff.username,
                                               ConfirmationCode=stuff.confirm_code)
-
         except botocore.exceptions.ClientError as e:
-            return {"statusCode": 401, "headers": None, "body": str(e)}
+            if e.response['Error']['Code'] == 'ExpiredCodeException':
+                message = "Code is not matching."
+            elif e.response['Error']['Code'] == 'UserNotFoundException':
+                message = "No such user found."
+            elif e.response['Error']['Code'] == 'CodeMismatchException':
+                message = "Code is expired."
+            else:
+                message = "Unexpected error: %s" % e
+
+            bodyContent = {"ErrorDescription" : message}
+            raise bad_request_exception(json.dumps(bodyContent))
 
         return {"statusCode": 200, "headers": None, "body": json.dumps(resp, cls= DateTimeEncoder)}
 
     @staticmethod
     def sign_in_admin(parameters):
 
-        j = json.loads(parameters)
+        j = json.loads(json.dumps(parameters))
         stuff = signIn.signInData(**j)
 
-        # remove hard code please
-        CLIENTID = '6p7jft98ldlapc0cisr9ur02n9'
-        CLIENTSECRET = '10an02100u8e0gjvlpp5a3kgu1lannoo262h1g5eujqadposut7p'
+        try:
+            # remove hard code please
+            CLIENTID = '6p7jft98ldlapc0cisr9ur02n9'
+            CLIENTSECRET = '10an02100u8e0gjvlpp5a3kgu1lannoo262h1g5eujqadposut7p'
 
-        REGION = 'us-east-1'
-        USER_POOL_ID = 'us-east-1_20z10a4Je'
+            REGION = 'us-east-1'
+            USER_POOL_ID = 'us-east-1_20z10a4Je'
 
-        IDENTITY_POOL_ID = 'us-east-1:4df9fe2c-3ea7-438a-a7dc-455f704845ca'
-        ACCOUNT_ID = '265116334736'
+            IDENTITY_POOL_ID = 'us-east-1:4df9fe2c-3ea7-438a-a7dc-455f704845ca'
+            ACCOUNT_ID = '265116334736'
 
-        msg = stuff.username + CLIENTID
-        dig = hmac.new(str(CLIENTSECRET).encode('utf-8'),
-                       msg=str(msg).encode('utf-8'), digestmod=hashlib.sha256).digest()
-        d2 = base64.b64encode(dig).decode()
-        dig = d2
+            msg = stuff.username + CLIENTID
+            dig = hmac.new(str(CLIENTSECRET).encode('utf-8'),
+                           msg=str(msg).encode('utf-8'), digestmod=hashlib.sha256).digest()
+            d2 = base64.b64encode(dig).decode()
+            dig = d2
 
-        # Get ID Token
-        idp_client = boto3.client('cognito-idp')
-        resp = idp_client.admin_initiate_auth(UserPoolId=USER_POOL_ID,
-                                              ClientId= CLIENTID,
-                                              AuthFlow='ADMIN_NO_SRP_AUTH',
-                                              AuthParameters={'USERNAME': stuff.username, 'PASSWORD': stuff.password, 'SECRET_HASH':str(dig)})
+            # Get ID Token
+            idp_client = boto3.client('cognito-idp')
+            resp = idp_client.admin_initiate_auth(UserPoolId=USER_POOL_ID,
+                                                  ClientId= CLIENTID,
+                                                  AuthFlow='ADMIN_NO_SRP_AUTH',
+                                                  AuthParameters={'USERNAME': stuff.username, 'PASSWORD': stuff.password, 'SECRET_HASH':str(dig)})
 
-        provider = 'cognito-idp.%s.amazonaws.com/%s' % (REGION, USER_POOL_ID)
-        token = resp['AuthenticationResult']['IdToken']
+            provider = 'cognito-idp.%s.amazonaws.com/%s' % (REGION, USER_POOL_ID)
+            token = resp['AuthenticationResult']['IdToken']
 
-        # Get IdentityId
-        ci_client = boto3.client('cognito-identity')
-        resp = ci_client.get_id(AccountId=ACCOUNT_ID,
-                                IdentityPoolId=IDENTITY_POOL_ID,
-                                Logins={provider: token})
+            # Get IdentityId
+            ci_client = boto3.client('cognito-identity')
+            resp = ci_client.get_id(AccountId=ACCOUNT_ID,
+                                    IdentityPoolId=IDENTITY_POOL_ID,
+                                    Logins={provider: token})
 
-        # Get Credentials
-        resp = ci_client.get_credentials_for_identity(IdentityId=resp['IdentityId'],
-                                                      Logins={provider: token})
+            # Get Credentials
+            resp = ci_client.get_credentials_for_identity(IdentityId=resp['IdentityId'],
+                                                          Logins={provider: token})
 
-        return {"statusCode": 200, "headers": None, "body": json.dumps(resp, cls= DateTimeEncoder)}
+        except botocore.exceptions.ClientError as e:
+            if e.response['Error']['Code'] == 'NotAuthorizedException':
+                message = "Incorrect username or password."
+            elif e.response['Error']['Code'] == 'UserNotFoundException':
+                message = "No such user found."
+            else:
+                message = "Unexpected error: %s" % e
+
+            bodyContent = {"ErrorDescription": message}
+            raise bad_request_exception(json.dumps(bodyContent))
+
+        return {"statusCode": 200, "headers": None, "body": json.dumps(resp, cls=DateTimeEncoder)}
 
     @staticmethod
     def get_user(parameters):

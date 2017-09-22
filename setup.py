@@ -30,25 +30,26 @@ else:
 
 # Debug new table and record
 
-entity_files = ["entity_user", "entity_supplier", "entity_client"]
-cms.create_table("dynamo/entity_table.json", "ENTITY_TABLE")
-cms.create_db_entry("dynamo/" + entity_files[2] + ".json", "ENTITY_TABLE")
+# entity_files = ["entity_user", "entity_supplier", "entity_client"]
+# cms.create_table("dynamo/entity_table.json", "ENTITY_TABLE")
+# cms.create_db_entry("dynamo/" + entity_files[2] + ".json", "ENTITY_TABLE")
 
 
 # Create tje rest api
 cms.create_rest_api()
 
 # Create the lambda function
-cms.create_lambda_function()
 
-# Setup the rest api
-proxy_name = "{proxy+}"
-cms.create_http_method("POST", proxy_name)
-cms.create_http_method("GET", proxy_name)
-cms.create_http_method("OPTION",proxy_name)
-cms.create_http_method("PUT", proxy_name)
-cms.create_http_method("DELETE", proxy_name)
-cms.deploy_api()
+prefix = "SignUp".upper()
+cms.create_lambda_function(prefix=prefix)
+cms.create_http_method("POST", prefix)
+cms.create_http_method("PUT", prefix)
+cms.deploy_api(prefix=prefix)
+
+prefix= "login".upper()
+cms.create_lambda_function(prefix=prefix)
+cms.create_http_method("POST", prefix)
+cms.deploy_api(prefix=prefix)
 
 # Create the s3 bucket
 # cms.create_bucket()

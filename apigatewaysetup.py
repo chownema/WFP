@@ -38,32 +38,32 @@ class apiGatewaySetup:
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
                 httpMethod="POST",
-                type="AWS_PROXY",
+                type="AWS",
                 passthroughBehavior="NEVER",
                 integrationHttpMethod="POST",
-                uri=self.constants["API_INVOCATION_URI"]
-                # requestTemplates={
-                #     "application/json": (
-                #         "#if($input.params(\"Cookie\") && $input.params(\"Cookie\") != \"\") "
-                #         "{"
-                #         "\"body\": $input.body, "
-                #         "\"token\": \"$input.params(\"Cookie\")\", "
-                #         "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
-                #         "\"method\": \"$context.httpMethod\","
-                #         "\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
-                #         "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\" #if($foreach.hasNext),#end #end}"
-                #         "}"
-                #         "#else"
-                #         "{"
-                #         "\"body\": $input.body, "
-                #         "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
-                #         "\"method\": \"$context.httpMethod\","
-                #         "\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
-                #         "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\"#if($foreach.hasNext),#end #end}"
-                #         "}"
-                #         "#end"
-                #     )
-                # }
+                uri=self.constants["API_INVOCATION_URI"],
+                requestTemplates={
+                    "application/json": (
+                        "#if($input.params(\"Cookie\") && $input.params(\"Cookie\") != \"\") "
+                        "{"
+                        "\"body\": $input.body, "
+                        "\"token\": \"$input.params(\"Cookie\")\", "
+                        "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
+                        "\"method\": \"$context.httpMethod\","
+                        "\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
+                        "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\" #if($foreach.hasNext),#end #end}"
+                        "}"
+                        "#else"
+                        "{"
+                        "\"body\": $input.body, "
+                        "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
+                        "\"method\": \"$context.httpMethod\","
+                        "\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
+                        "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\"#if($foreach.hasNext),#end #end}"
+                        "}"
+                        "#end"
+                    )
+                }
             )
 
             # Put a 200 method response in the POST method
@@ -82,24 +82,24 @@ class apiGatewaySetup:
                 }
             )
 
-            # # Put a 200 integration response in the POST method
-            # api_gateway.put_integration_response(
-            #     restApiId=rest_api_id,
-            #     resourceId=rest_api_root_id,
-            #     httpMethod="POST",
-            #     statusCode="200",
-            #     responseParameters={
-            #         "method.response.header.Set-Cookie": (
-            #             "integration.response.body.Set-Cookie"),
-            #         "method.response.header.Access-Control-Allow-Credentials": (
-            #             "\'true\'"),
-            #         "method.response.header.Access-Control-Allow-Origin": (
-            #             "\'https://s3.amazonaws.com\'")
-            #     },
-            #     responseTemplates={
-            #         "application/json": "$input.path('$.body')"
-            #     }
-            # )
+            # Put a 200 integration response in the POST method
+            api_gateway.put_integration_response(
+                restApiId=rest_api_id,
+                resourceId=rest_api_root_id,
+                httpMethod="POST",
+                statusCode="200",
+                responseParameters={
+                    "method.response.header.Set-Cookie": (
+                        "integration.response.body.Set-Cookie"),
+                    "method.response.header.Access-Control-Allow-Credentials": (
+                        "\'true\'"),
+                    "method.response.header.Access-Control-Allow-Origin": (
+                        "\'https://s3.amazonaws.com\'")
+                },
+                responseTemplates={
+                    "application/json": "$input.path('$.body')"
+                }
+            )
 
             # Put a 400 method response in the POST method
             api_gateway.put_method_response(
@@ -116,24 +116,24 @@ class apiGatewaySetup:
                 }
             )
 
-            # # Put a 400 integration response in the POST method
-            # api_gateway.put_integration_response(
-            #     restApiId=rest_api_id,
-            #     resourceId=rest_api_root_id,
-            #     httpMethod="POST",
-            #     statusCode="400",
-            #     selectionPattern=".*'status': 400.*",
-            #     responseParameters={
-            #         "method.response.header.Access-Control-Allow-Credentials": (
-            #             "\'true\'"),
-            #         "method.response.header.Access-Control-Allow-Origin": (
-            #             "\'https://s3.amazonaws.com\'")
-            #     },
-            #     responseTemplates={
-            #         "application/json": "$input.path('$.errorMessage')"
-            #     }
-            # )
-            # print "POST method added"
+            # Put a 400 integration response in the POST method
+            api_gateway.put_integration_response(
+                restApiId=rest_api_id,
+                resourceId=rest_api_root_id,
+                httpMethod="POST",
+                statusCode="400",
+                selectionPattern=".*\"statusCode\": 400.*",
+                responseParameters={
+                    "method.response.header.Access-Control-Allow-Credentials": (
+                        "\'true\'"),
+                    "method.response.header.Access-Control-Allow-Origin": (
+                        "\'https://s3.amazonaws.com\'")
+                },
+                responseTemplates={
+                    "application/json": "$input.path('$.errorMessage')"
+                }
+            )
+            print "POST method added"
 
         except botocore.exceptions.ClientError as e:
             print e.response["Error"]["Code"]
@@ -171,30 +171,30 @@ class apiGatewaySetup:
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
                 httpMethod="GET",
-                type="AWS_PROXY",
+                type="AWS",
                 passthroughBehavior="NEVER",
                 integrationHttpMethod="POST",
-                uri=self.constants["API_INVOCATION_URI"]
-                # requestTemplates={
-                #     "application/json": (
-                #         "#if($input.params(\"Cookie\") && $input.params(\"Cookie\") != \"\") "
-                #         "{"
-                #         "\"body\": $input.body, "
-                #         "\"token\": \"$input.params(\"Cookie\")\", "
-                #         "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
-                #         "\"method\": \"$context.httpMethod\",\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
-                #         "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\" #if($foreach.hasNext),#end #end}"
-                #         "}"
-                #         "#else"
-                #         "{"
-                #         "\"body\": $input.body, "
-                #         "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
-                #         "\"method\": \"$context.httpMethod\",\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
-                #         "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\"#if($foreach.hasNext),#end #end}"
-                #         "}"
-                #         "#end"
-                #     )
-                # }
+                uri=self.constants["API_INVOCATION_URI"],
+                requestTemplates={
+                    "application/json": (
+                        "#if($input.params(\"Cookie\") && $input.params(\"Cookie\") != \"\") "
+                        "{"
+                        "\"body\": $input.body, "
+                        "\"token\": \"$input.params(\"Cookie\")\", "
+                        "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
+                        "\"method\": \"$context.httpMethod\",\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
+                        "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\" #if($foreach.hasNext),#end #end}"
+                        "}"
+                        "#else"
+                        "{"
+                        "\"body\": $input.body, "
+                        "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
+                        "\"method\": \"$context.httpMethod\",\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
+                        "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\"#if($foreach.hasNext),#end #end}"
+                        "}"
+                        "#end"
+                    )
+                }
             )
 
             # Put a 200 method response in the POST method
@@ -213,24 +213,24 @@ class apiGatewaySetup:
                 }
             )
 
-            # # Put a 200 integration response in the GET method
-            # api_gateway.put_integration_response(
-            #     restApiId=rest_api_id,
-            #     resourceId=rest_api_root_id,
-            #     httpMethod="GET",
-            #     statusCode="200",
-            #     responseParameters={
-            #         "method.response.header.Set-Cookie": (
-            #             "integration.response.body.Set-Cookie"),
-            #         "method.response.header.Access-Control-Allow-Credentials": (
-            #             "\'true\'"),
-            #         "method.response.header.Access-Control-Allow-Origin": (
-            #             "\'https://s3.amazonaws.com\'")
-            #     },
-            #     responseTemplates={
-            #         "application/json": "$input.path('$.body')"
-            #     }
-            # )
+            # Put a 200 integration response in the GET method
+            api_gateway.put_integration_response(
+                restApiId=rest_api_id,
+                resourceId=rest_api_root_id,
+                httpMethod="GET",
+                statusCode="200",
+                responseParameters={
+                    "method.response.header.Set-Cookie": (
+                        "integration.response.body.Set-Cookie"),
+                    "method.response.header.Access-Control-Allow-Credentials": (
+                        "\'true\'"),
+                    "method.response.header.Access-Control-Allow-Origin": (
+                        "\'https://s3.amazonaws.com\'")
+                },
+                responseTemplates={
+                    "application/json": "$input.path('$.body')"
+                }
+            )
 
             # Put a 400 method response in the GET method
             api_gateway.put_method_response(
@@ -247,23 +247,23 @@ class apiGatewaySetup:
                 }
             )
 
-            # # Put a 400 integration response in the GET method
-            # api_gateway.put_integration_response(
-            #     restApiId=rest_api_id,
-            #     resourceId=rest_api_root_id,
-            #     httpMethod="GET",
-            #     statusCode="400",
-            #     selectionPattern=".*'status': 400.*",
-            #     responseParameters={
-            #         "method.response.header.Access-Control-Allow-Credentials": (
-            #             "\'true\'"),
-            #         "method.response.header.Access-Control-Allow-Origin": (
-            #             "\'https://s3.amazonaws.com\'")
-            #     },
-            #     responseTemplates={
-            #         "application/json": "$input.path('$.errorMessage')"
-            #     }
-            # )
+            # Put a 400 integration response in the GET method
+            api_gateway.put_integration_response(
+                restApiId=rest_api_id,
+                resourceId=rest_api_root_id,
+                httpMethod="GET",
+                statusCode="400",
+                selectionPattern=".*\"statusCode\": 400.*",
+                responseParameters={
+                    "method.response.header.Access-Control-Allow-Credentials": (
+                        "\'true\'"),
+                    "method.response.header.Access-Control-Allow-Origin": (
+                        "\'https://s3.amazonaws.com\'")
+                },
+                responseTemplates={
+                    "application/json": "$input.path('$.errorMessage')"
+                }
+            )
             print "GET method added"
 
         except botocore.exceptions.ClientError as e:
@@ -302,30 +302,30 @@ class apiGatewaySetup:
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
                 httpMethod="DELETE",
-                type="AWS_PROXY",
+                type="AWS",
                 passthroughBehavior="NEVER",
                 integrationHttpMethod="POST",
-                uri=self.constants["API_INVOCATION_URI"]
-                # requestTemplates={
-                #     "application/json": (
-                #         "#if($input.params(\"Cookie\") && $input.params(\"Cookie\") != \"\") "
-                #         "{"
-                #         "\"body\": $input.body, "
-                #         "\"token\": \"$input.params(\"Cookie\")\", "
-                #         "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
-                #         "\"method\": \"$context.httpMethod\",\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
-                #         "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\" #if($foreach.hasNext),#end #end}"
-                #         "}"
-                #         "#else"
-                #         "{"
-                #         "\"body\": $input.body, "
-                #         "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
-                #         "\"method\": \"$context.httpMethod\",\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
-                #         "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\"#if($foreach.hasNext),#end #end}"
-                #         "}"
-                #         "#end"
-                #     )
-                # }
+                uri=self.constants["API_INVOCATION_URI"],
+                requestTemplates={
+                    "application/json": (
+                        "#if($input.params(\"Cookie\") && $input.params(\"Cookie\") != \"\") "
+                        "{"
+                        "\"body\": $input.body, "
+                        "\"token\": \"$input.params(\"Cookie\")\", "
+                        "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
+                        "\"method\": \"$context.httpMethod\",\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
+                        "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\" #if($foreach.hasNext),#end #end}"
+                        "}"
+                        "#else"
+                        "{"
+                        "\"body\": $input.body, "
+                        "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
+                        "\"method\": \"$context.httpMethod\",\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
+                        "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\"#if($foreach.hasNext),#end #end}"
+                        "}"
+                        "#end"
+                    )
+                }
             )
 
             # Put a 200 method response in the DELETE method
@@ -344,24 +344,24 @@ class apiGatewaySetup:
                 }
             )
 
-            # # Put a 200 integration response in the DELETE method
-            # api_gateway.put_integration_response(
-            #     restApiId=rest_api_id,
-            #     resourceId=rest_api_root_id,
-            #     httpMethod="DELETE",
-            #     statusCode="200",
-            #     responseParameters={
-            #         "method.response.header.Set-Cookie": (
-            #             "integration.response.body.Set-Cookie"),
-            #         "method.response.header.Access-Control-Allow-Credentials": (
-            #             "\'true\'"),
-            #         "method.response.header.Access-Control-Allow-Origin": (
-            #             "\'https://s3.amazonaws.com\'")
-            #     },
-            #     responseTemplates={
-            #         "application/json": "$input.path('$.body')"
-            #     }
-            # )
+            # Put a 200 integration response in the DELETE method
+            api_gateway.put_integration_response(
+                restApiId=rest_api_id,
+                resourceId=rest_api_root_id,
+                httpMethod="DELETE",
+                statusCode="200",
+                responseParameters={
+                    "method.response.header.Set-Cookie": (
+                        "integration.response.body.Set-Cookie"),
+                    "method.response.header.Access-Control-Allow-Credentials": (
+                        "\'true\'"),
+                    "method.response.header.Access-Control-Allow-Origin": (
+                        "\'https://s3.amazonaws.com\'")
+                },
+                responseTemplates={
+                    "application/json": "$input.path('$.body')"
+                }
+            )
 
             # Put a 400 method response in the DELETE method
             api_gateway.put_method_response(
@@ -378,23 +378,23 @@ class apiGatewaySetup:
                 }
             )
 
-            # # Put a 400 integration response in the DELETE method
-            # api_gateway.put_integration_response(
-            #     restApiId=rest_api_id,
-            #     resourceId=rest_api_root_id,
-            #     httpMethod="DELETE",
-            #     statusCode="400",
-            #     selectionPattern=".*\"status\": 400.*",
-            #     responseParameters={
-            #         "method.response.header.Access-Control-Allow-Credentials": (
-            #             "\'true\'"),
-            #         "method.response.header.Access-Control-Allow-Origin": (
-            #             "\'https://s3.amazonaws.com\'")
-            #     },
-            #     responseTemplates={
-            #         "application/json": "$input.path('$.errorMessage')"
-            #     }
-            # )
+            # Put a 400 integration response in the DELETE method
+            api_gateway.put_integration_response(
+                restApiId=rest_api_id,
+                resourceId=rest_api_root_id,
+                httpMethod="DELETE",
+                statusCode="400",
+                selectionPattern=".*\"statusCode\": 400.*",
+                responseParameters={
+                    "method.response.header.Access-Control-Allow-Credentials": (
+                        "\'true\'"),
+                    "method.response.header.Access-Control-Allow-Origin": (
+                        "\'https://s3.amazonaws.com\'")
+                },
+                responseTemplates={
+                    "application/json": "$input.path('$.errorMessage')"
+                }
+            )
             print "DELETE method added"
 
         except botocore.exceptions.ClientError as e:
@@ -433,30 +433,30 @@ class apiGatewaySetup:
                 restApiId=rest_api_id,
                 resourceId=rest_api_root_id,
                 httpMethod="PUT",
-                type="AWS_PROXY",
+                type="AWS",
                 passthroughBehavior="NEVER",
                 integrationHttpMethod="POST",
-                uri=self.constants["API_INVOCATION_URI"]
-                # requestTemplates={
-                #     "application/json": (
-                #         "#if($input.params(\"Cookie\") && $input.params(\"Cookie\") != \"\") "
-                #         "{"
-                #         "\"body\": $input.body, "
-                #         "\"token\": \"$input.params(\"Cookie\")\", "
-                #         "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
-                #         "\"method\": \"$context.httpMethod\",\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
-                #         "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\" #if($foreach.hasNext),#end #end}"
-                #         "}"
-                #         "#else"
-                #         "{"
-                #         "\"body\": $input.body, "
-                #         "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
-                #         "\"method\": \"$context.httpMethod\",\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
-                #         "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\"#if($foreach.hasNext),#end #end}"
-                #         "}"
-                #         "#end"
-                #     )
-                # }
+                uri=self.constants["API_INVOCATION_URI"],
+                requestTemplates={
+                    "application/json": (
+                        "#if($input.params(\"Cookie\") && $input.params(\"Cookie\") != \"\") "
+                        "{"
+                        "\"body\": $input.body, "
+                        "\"token\": \"$input.params(\"Cookie\")\", "
+                        "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
+                        "\"method\": \"$context.httpMethod\",\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
+                        "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\" #if($foreach.hasNext),#end #end}"
+                        "}"
+                        "#else"
+                        "{"
+                        "\"body\": $input.body, "
+                        "\"headers\": { #foreach($header in $input.params().header.keySet()) \"$header\": \"$util.escapeJavaScript($input.params().header.get($header))\" #if($foreach.hasNext),#end #end}, "
+                        "\"method\": \"$context.httpMethod\",\"params\": { #foreach($param in $input.params().path.keySet()) \"$param\": \"$util.escapeJavaScript($input.params().path.get($param))\" #if($foreach.hasNext),#end #end }, "
+                        "\"query\": { #foreach($queryParam in $input.params().querystring.keySet()) \"$queryParam\": \"$util.escapeJavaScript($input.params().querystring.get($queryParam))\"#if($foreach.hasNext),#end #end}"
+                        "}"
+                        "#end"
+                    )
+                }
             )
 
             # Put a 200 method response in the PUT method
@@ -475,24 +475,24 @@ class apiGatewaySetup:
                 }
             )
 
-            # # Put a 200 integration response in the PUT method
-            # api_gateway.put_integration_response(
-            #     restApiId=rest_api_id,
-            #     resourceId=rest_api_root_id,
-            #     httpMethod="PUT",
-            #     statusCode="200",
-            #     responseParameters={
-            #         "method.response.header.Set-Cookie": (
-            #             "integration.response.body.Set-Cookie"),
-            #         "method.response.header.Access-Control-Allow-Credentials": (
-            #             "\'true\'"),
-            #         "method.response.header.Access-Control-Allow-Origin": (
-            #             "\'https://s3.amazonaws.com\'")
-            #     },
-            #     responseTemplates={
-            #         "application/json": "$input.path('$.body')"
-            #     }
-            # )
+            # Put a 200 integration response in the PUT method
+            api_gateway.put_integration_response(
+                restApiId=rest_api_id,
+                resourceId=rest_api_root_id,
+                httpMethod="PUT",
+                statusCode="200",
+                responseParameters={
+                    "method.response.header.Set-Cookie": (
+                        "integration.response.body.Set-Cookie"),
+                    "method.response.header.Access-Control-Allow-Credentials": (
+                        "\'true\'"),
+                    "method.response.header.Access-Control-Allow-Origin": (
+                        "\'https://s3.amazonaws.com\'")
+                },
+                responseTemplates={
+                    "application/json": "$input.path('$.body')"
+                }
+            )
 
             # Put a 400 method response in the PUT method
             api_gateway.put_method_response(
@@ -509,23 +509,23 @@ class apiGatewaySetup:
                 }
             )
 
-            # # Put a 400 integration response in the PUT method
-            # api_gateway.put_integration_response(
-            #     restApiId=rest_api_id,
-            #     resourceId=rest_api_root_id,
-            #     httpMethod="PUT",
-            #     statusCode="400",
-            #     selectionPattern=".*\"status\": 400.*",
-            #     responseParameters={
-            #         "method.response.header.Access-Control-Allow-Credentials": (
-            #             "\'true\'"),
-            #         "method.response.header.Access-Control-Allow-Origin": (
-            #             "\'https://s3.amazonaws.com\'")
-            #     },
-            #     responseTemplates={
-            #         "application/json": "$input.path('$.errorMessage')"
-            #     }
-            # )
+            # Put a 400 integration response in the PUT method
+            api_gateway.put_integration_response(
+                restApiId=rest_api_id,
+                resourceId=rest_api_root_id,
+                httpMethod="PUT",
+                statusCode="400",
+                selectionPattern=".*\"statusCode\": 400.*",
+                responseParameters={
+                    "method.response.header.Access-Control-Allow-Credentials": (
+                        "\'true\'"),
+                    "method.response.header.Access-Control-Allow-Origin": (
+                        "\'https://s3.amazonaws.com\'")
+                },
+                responseTemplates={
+                    "application/json": "$input.path('$.errorMessage')"
+                }
+            )
             print "PUT method added"
 
         except botocore.exceptions.ClientError as e:

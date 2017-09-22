@@ -1,12 +1,4 @@
-"""
-# blog.py
-# Author: Adam Campbell
-# Date: 23/06/2016
-# Edited: N/D        | Miguel Saavedra
-#         29/07/2016 | Christopher Treadgold
-#         07/08/2016 | Christopher Treadgold
-#         12/09/2016 | Christopher Treadgold
-"""
+
 
 import datetime
 import json

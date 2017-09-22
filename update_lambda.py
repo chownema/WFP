@@ -42,13 +42,16 @@ else:
 with open("lambda/constants.json", "w") as constants_file:
     constants_file.write(json.dumps(constants, indent=4, sort_keys=True))
 
+
+function_selection = str(raw_input("Enter lambda name to update: "))
+
 # Upload the function code to lambda
 print "Uploading function code to lambda"
 lambda_data = AwsFunc.zip_lambda()
 try:
     lmda = boto3.client("lambda")
     lmda.update_function_code(
-        FunctionName=constants["LAMBDA_FUNCTION"],
+        FunctionName=constants["LAMBDA_FUNCTION"+function_selection],
         ZipFile=lambda_data
     )
 except botocore.exceptions.ClientError as e:

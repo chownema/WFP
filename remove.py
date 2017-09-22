@@ -47,10 +47,12 @@ rest_api_names = [
     constants["REST_API"]
 ]
 lmda_function_names = [
-    constants["LAMBDA_FUNCTION"]
+    constants["LAMBDA_FUNCTIONSIGNUP"],
+    constants["LAMBDA_FUNCTIONLOGIN"]
 ]
 role_names = [
-    constants["LAMBDA_ROLE"]
+    constants["LAMBDA_ROLESIGNUP"],
+    constants["LAMBDA_ROLELOGIN"]
 ]
 dynamodb_table_names = [
     constants["BLOG_TABLE"],
