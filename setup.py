@@ -2,7 +2,7 @@
 
 """
 # setup.py
-# Author: Christopher Treadgold
+# Author: Wilson Joe
 # Date: N/D
 # Edited: 07/08/2016 | Christopher Treadgold
 """
