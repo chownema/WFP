@@ -26,7 +26,7 @@ if len(sys.argv) == 3:
 elif len(sys.argv) == 2:
     cms = cms_functions.AwsFunc(sys.argv[1])
 else:
-    cms = cms_functions.AwsFunc("testapi")
+    cms = cms_functions.AwsFunc("wilsontest")
 
 # Debug new table and record
 

@@ -162,40 +162,56 @@ class Cognito(object):
         return {"statusCode": 200, "headers": None, "body": json.dumps(resp, cls=DateTimeEncoder)}
 
     @staticmethod
-    def sign_in_cog(parameters):
+    def sign_in_social(parameters):
 
-        j = json.loads(parameters)
+        j = json.loads(json.dumps(parameters))
         stuff = signIn.signInData(**j)
 
-        # remove hard code please
-        CLIENTID = '6p7jft98ldlapc0cisr9ur02n9'
-        CLIENTSECRET = '10an02100u8e0gjvlpp5a3kgu1lannoo262h1g5eujqadposut7p'
+        try:
+            # remove hard code please
+            CLIENTID = '6p7jft98ldlapc0cisr9ur02n9'
+            CLIENTSECRET = '10an02100u8e0gjvlpp5a3kgu1lannoo262h1g5eujqadposut7p'
 
-        REGION = 'us-east-1'
-        USER_POOL_ID = 'us-east-1_20z10a4Je'
+            REGION = 'us-east-1'
+            USER_POOL_ID = 'us-east-1_20z10a4Je'
 
-        IDENTITY_POOL_ID = 'us-east-1:4df9fe2c-3ea7-438a-a7dc-455f704845ca'
-        ACCOUNT_ID = '265116334736'
+            IDENTITY_POOL_ID = 'us-east-1:4df9fe2c-3ea7-438a-a7dc-455f704845ca'
+            ACCOUNT_ID = '265116334736'
 
-        msg = stuff.username + CLIENTID
-        dig = hmac.new(str(CLIENTSECRET).encode('utf-8'),
-                       msg=str(msg).encode('utf-8'), digestmod=hashlib.sha256).digest()
-        d2 = base64.b64encode(dig).decode()
-        dig = d2
+            msg = stuff.username + CLIENTID
+            dig = hmac.new(str(CLIENTSECRET).encode('utf-8'),
+                           msg=str(msg).encode('utf-8'), digestmod=hashlib.sha256).digest()
+            d2 = base64.b64encode(dig).decode()
+            dig = d2
 
-        # Get ID Token
-        idp_client = boto3.client('cognito-idp')
-        resp = idp_client.admin_initiate_auth(UserPoolId=USER_POOL_ID,
-                                              ClientId= CLIENTID,
-                                              AuthFlow='ADMIN_NO_SRP_AUTH',
-                                              AuthParameters={'USERNAME': stuff.username, 'PASSWORD': stuff.password, 'SECRET_HASH':str(dig)})
+            # Get ID Token
+            idp_client = boto3.client('cognito-idp')
+            resp = idp_client.admin_initiate_auth(UserPoolId=USER_POOL_ID,
+                                                  ClientId=CLIENTID,
+                                                  AuthFlow='ADMIN_NO_SRP_AUTH',
+                                                  AuthParameters={'USERNAME': stuff.username,
+                                                                  'PASSWORD': stuff.password, 'SECRET_HASH': str(dig)})
 
-        return {"statusCode": 200, "headers": None, "body": json.dumps(resp, cls= DateTimeEncoder)}
+            provider = 'cognito-idp.%s.amazonaws.com/%s' % (REGION, USER_POOL_ID)
+            token = resp['AuthenticationResult']['IdToken']
+
+        except botocore.exceptions.ClientError as e:
+            if e.response['Error']['Code'] == 'NotAuthorizedException':
+                message = "Incorrect username or password."
+            elif e.response['Error']['Code'] == 'UserNotFoundException':
+                message = "No such user found."
+            else:
+                message = "Unexpected error: %s" % e
+
+            bodyContent = {"ErrorDescription": message}
+            raise bad_request_exception(json.dumps(bodyContent))
+
+        return {"statusCode": 200, "headers": None, "body": json.dumps(resp, cls=DateTimeEncoder)}
 
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, datetime.datetime):
-            encoded_object = list(obj.timetuple())[0:6]
+            encoded_object = obj.__str__()
         else:
             encoded_object =json.JSONEncoder.default(self, obj)
         return encoded_object

@@ -27,7 +27,7 @@ def handlerSIGNUP(event, context):
             parameter = event["body"]
             return Cognito.confirm_sign_up(parameter)
     except bad_request_exception as e:
-        badRequestTemplate = json.dumps({"statusCode": 400, json.loads(str(e.message)))
+        badRequestTemplate = json.dumps({"statusCode": 400, "body" : json.loads(str(e.message))})
         raise Exception(str(badRequestTemplate))
     except Exception as e:
         unknownErrorTemplate = json.dumps({"statusCode": 500,"body": json.loads(str(e.message))})
@@ -36,6 +36,24 @@ def handlerSIGNUP(event, context):
     return json.dumps({"statusCode": 405, "body": json.dumps({"error":"Operation not supported"})})
 
 def handlerLOGIN(event, context):
+    print "debug" + str(event)
+    httpMethod = event["method"]
+    with open("constants.json", "r") as resources_file:
+        resources = json.loads(resources_file.read())
+    try:
+        if httpMethod == 'POST':
+            parameter = event["body"]
+            return Cognito.sign_in_admin(parameter)
+    except bad_request_exception as e:
+        badRequestTemplate = json.dumps({"statusCode": 400, "body": json.loads(str(e.message))})
+        raise Exception(str(badRequestTemplate))
+    except Exception as e:
+        unknownErrorTemplate = json.dumps({"statusCode": 500, "body": json.loads(str(e.message))})
+        raise Exception(str(unknownErrorTemplate))
+
+    return json.dumps({"statusCode": 405, "body": json.dumps({"error":"Operation not supported"})})
+
+def handlerLOGINSOCIAL(event, context):
     print "debug" + str(event)
     httpMethod = event["method"]
     with open("constants.json", "r") as resources_file:
