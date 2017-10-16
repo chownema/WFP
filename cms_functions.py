@@ -218,6 +218,23 @@ class AwsFunc:
             print e.response["Error"]["Message"]
             sys.exit()
 
+    def create_item_table(self):
+        """ Creates a blog table. """
+        with open("dynamo/item_table.json", "r") as thefile:
+            item_table_json = json.loads(thefile.read())
+        item_table_json["TableName"] = self.constants["ITEM_TABLE"]
+
+        try:
+            print "Creating table: %s" % (self.constants["ITEM_TABLE"])
+            dynamodb = boto3.client("dynamodb")
+            item_table = dynamodb.create_table(**item_table_json)
+            self.wait_for_table(item_table)
+            print "Item table created"
+        except botocore.exceptions.ClientError as e:
+            print e.response["Error"]["Code"]
+            print e.response["Error"]["Message"]
+            sys.exit()
+
     def create_blog_table(self):
         """ Creates a blog table. """
         with open("dynamo/blog_table.json", "r") as thefile:
@@ -652,3 +669,20 @@ class AwsFunc:
         data = zip_data.read()
         zip_data.close()
         return data
+
+    @staticmethod
+    def createDbInstance():
+        rds = boto3.client('rds')
+        try:
+            response = rds.create_db_instance(
+                DBName='MySQL',
+                DBInstanceIdentifier='dbserver',
+                MasterUsername='dbadmin',
+                MasterUserPassword='abcdefg123456789',
+                DBInstanceClass='db.t2.micro',
+                Engine='mysql',
+                AllocatedStorage=5)
+        except Exception as e:
+            print e.response["Error"]["Code"]
+            print e.response["Error"]["Message"]
+            sys.exit()

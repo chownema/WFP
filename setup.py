@@ -49,7 +49,21 @@ cms.deploy_api(prefix=prefix)
 prefix= "login".upper()
 cms.create_lambda_function(prefix=prefix)
 cms.create_http_method("POST", prefix)
+cms.create_http_method("DELETE", prefix)
 cms.deploy_api(prefix=prefix)
+
+prefix= "user".upper()
+cms.create_lambda_function(prefix=prefix)
+cms.create_http_method("GET", prefix)
+cms.deploy_api(prefix=prefix)
+
+prefix= "listing".upper()
+cms.create_lambda_function(prefix=prefix)
+cms.create_http_method("GET", prefix)
+cms.create_http_method("POST", prefix)
+cms.deploy_api(prefix=prefix)
+
+cms.create_item_table()
 
 # Create the s3 bucket
 # cms.create_bucket()

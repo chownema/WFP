@@ -29,7 +29,8 @@ class apiGatewaySetup:
                 httpMethod="POST",
                 authorizationType="NONE",
                 requestParameters={
-                    "method.request.header.Cookie": False
+                    "method.request.header.Cookie": False,
+                    "method.request.header.Authorization": False
                 }
             )
 
@@ -162,7 +163,8 @@ class apiGatewaySetup:
                 httpMethod="GET",
                 authorizationType="NONE",
                 requestParameters={
-                    "method.request.header.Cookie": False
+                    "method.request.header.Cookie": False,
+                    "method.request.header.Authorization": False
                 }
             )
 
@@ -293,7 +295,8 @@ class apiGatewaySetup:
                 httpMethod="DELETE",
                 authorizationType="NONE",
                 requestParameters={
-                    "method.request.header.Cookie": False
+                    "method.request.header.Cookie": False,
+                    "method.request.header.Authorization": False
                 }
             )
 
@@ -424,7 +427,8 @@ class apiGatewaySetup:
                 httpMethod="PUT",
                 authorizationType="NONE",
                 requestParameters={
-                    "method.request.header.Cookie": False
+                    "method.request.header.Cookie": False,
+                    "method.request.header.Authorization": False
                 }
             )
 

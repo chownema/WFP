@@ -48,11 +48,15 @@ rest_api_names = [
 ]
 lmda_function_names = [
     constants["LAMBDA_FUNCTIONSIGNUP"],
-    constants["LAMBDA_FUNCTIONLOGIN"]
+    constants["LAMBDA_FUNCTIONLOGIN"],
+    constants["LAMBDA_FUNCTIONUSER"],
+    constants["LAMBDA_FUNCTIONLISTING"]
 ]
 role_names = [
     constants["LAMBDA_ROLESIGNUP"],
-    constants["LAMBDA_ROLELOGIN"]
+    constants["LAMBDA_ROLELOGIN"],
+    constants["LAMBDA_ROLEUSER"],
+    constants["LAMBDA_ROLELISTING"]
 ]
 dynamodb_table_names = [
     constants["BLOG_TABLE"],
@@ -60,7 +64,8 @@ dynamodb_table_names = [
     constants["TOKEN_TABLE"],
     constants["USER_TABLE"],
     constants["ROLE_TABLE"],
-    constants["ENTITY_TABLE"]
+    constants["ENTITY_TABLE"],
+    constants["ITEM_TABLE"]
 ]
 s3_bucket_names = [
     constants["BUCKET"]

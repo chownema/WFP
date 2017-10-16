@@ -5,12 +5,18 @@
     "LAMBDA_ROLESIGNUP": "-aws-cms-LambdaSIGNUP",
     "LAMBDA_FUNCTIONLOGIN": "-aws-cms-ControllerLOGIN",
     "LAMBDA_ROLELOGIN": "-aws-cms-LambdaLOGIN",
-    "LAMBDA_FUNCTIONCONFIRM": "-aws-cms-ControllerCONFIRM",
-    "LAMBDA_ROLELCONFIRM": "-aws-cms-LambdaCONFIRM",
+    "LAMBDA_FUNCTIONUSER": "-aws-cms-ControllerUSER",
+    "LAMBDA_ROLEUSER": "-aws-cms-LambdaUSER",
+    "LAMBDA_FUNCTIONLISTING": "-aws-cms-ControllerLISTING",
+    "LAMBDA_ROLELISTING": "-aws-cms-LambdaLISTING",
+    "ITEM_TABLE": "-aws-cms-Item",
     "BLOG_TABLE": "-aws-cms-Blog",
     "PAGE_TABLE": "-aws-cms-Page",
 	"ROLE_TABLE": "-aws-cms-Role",
     "TOKEN_TABLE": "-aws-cms-Token",
     "USER_TABLE": "-aws-cms-User",
-    "ENTITY_TABLE": "-aws-Entity"
+    "ENTITY_TABLE": "-aws-Entity",
+    "DB_INSTANCE_IDENTIFIER":"-aws-dbserver",
+    "DB_INSTANCE_USERNAME":"dbadmin",
+    "DB_INSTANCE_PASSWORD":"abcdefg123456789"
 }
