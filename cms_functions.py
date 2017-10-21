@@ -404,6 +404,10 @@ class AwsFunc:
             )
             iam.attach_role_policy(
                 RoleName=lambda_role_name,
+                PolicyArn="arn:aws:iam::aws:policy/AmazonRDSFullAccess"
+            )
+            iam.attach_role_policy(
+                RoleName=lambda_role_name,
                 PolicyArn=("arn:aws:iam::aws:"
                            "policy/service-role/AWSLambdaBasicExecutionRole")
             )

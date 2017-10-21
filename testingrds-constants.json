@@ -1,0 +1,19 @@
+{
+    "API_INVOCATION_URI": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:265116334736:function:testingrds-aws-cms-Controller/invocations", 
+    "API_PERMISSIONS_URI": "arn:aws:execute-api:us-east-1:265116334736:l3lhvg7f25/*/POST/", 
+    "API_URL": "https://l3lhvg7f25.execute-api.us-east-1.amazonaws.com/prod", 
+    "BLOG_TABLE": "testingrds-aws-cms-Blog", 
+    "BUCKET": "testingrds-aws-cms", 
+    "DISQUS-ID": "arc-cms", 
+    "ENTITY_TABLE": "testingrds-aws-Entity", 
+    "LAMBDA_FUNCTION": "testingrds-aws-cms-Controller", 
+    "LAMBDA_FUNCTION_ARN": "arn:aws:lambda:us-east-1:265116334736:function:testingrds-aws-cms-Controller", 
+    "LAMBDA_ROLE": "testingrds-aws-cms-Lambda", 
+    "PAGE_TABLE": "testingrds-aws-cms-Page", 
+    "REST_API": "testingrds-aws-cms-Operations", 
+    "REST_API_ID": "l3lhvg7f25", 
+    "REST_API_ROOT_ID": "6yd76wqhc7", 
+    "ROLE_TABLE": "testingrds-aws-cms-Role", 
+    "TOKEN_TABLE": "testingrds-aws-cms-Token", 
+    "USER_TABLE": "testingrds-aws-cms-User"
+}
