@@ -4,125 +4,125 @@
 # Date: 10/12/2016
 """
 
-import sys
-import logging
-import pymysql
-import json
-
-#rds settings
-def handler(event, context):
-    rds_host  = "testrds.cssvrk1hkcjd.us-east-1.rds.amazonaws.com"
-    name = 'admin'
-    password = 'newpassword'
-    db_name = 'testrds'
-
-    logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
-
-    try:
-        conn = pymysql.connect(rds_host, user=name, passwd=password, db=db_name, connect_timeout=5)
-        logger.info("SUCCESS: Connection to RDS mysql instance succeeded")
-
-        item_count = 0
-
-        with conn.cursor() as cur:
-            cur.execute("create table Employee3 ( EmpID  int NOT NULL, Name varchar(255) NOT NULL, PRIMARY KEY (EmpID))")  
-            cur.execute('insert into Employee3 (EmpID, Name) values(1, "Joe")')
-            cur.execute('insert into Employee3 (EmpID, Name) values(2, "Bob")')
-            cur.execute('insert into Employee3 (EmpID, Name) values(3, "Mary")')
-            conn.commit()
-            cur.execute("select * from Employee3")
-            for row in cur:
-                item_count += 1
-                logger.info(row)
-        return "Added %d items from RDS MySQL table" %(item_count)
-    except pymysql.InternalError as error:
-        code, message = error.args
-        print code, message
-
-
-
+# import sys
+# import logging
+# import pymysql
 # import json
 
-# import boto3
-# import botocore
-
-# from error import Error
-# from security import Security
-# from user import User
-# from recordsController import RecordController
-# from custom_exception.not_supported_exception import not_supported_exception
-# from custom_exception.bad_request_exception import bad_request_exception
-# import requests
-
-# def otherhandler (event, context):
-    
-#     return
-
+#rds settings
 # def handler(event, context):
-#     # return {"statusCode": 200, "headers":event["headers"],"body": json.dumps(event, indent=2)}
+#     rds_host  = "testrds.cssvrk1hkcjd.us-east-1.rds.amazonaws.com"
+#     name = 'admin'
+#     password = 'newpassword'
+#     db_name = 'testrds'
 
-#     httpMethod = event["httpMethod"]
-#     path = str(event["path"]).split("/")
-#     # Get info on the cms' resources from the constants file
-#     with open("constants.json", "r") as resources_file:
-#         resources = json.loads(resources_file.read())
+#     logger = logging.getLogger()
+#     logger.setLevel(logging.INFO)
+
 #     try:
-#         service_name = path[1];
-#         if service_name == 'blog':
-#             if httpMethod == 'GET':
-#                 parameter = event["queryStringParameters"]
-#                 if path.__len__() == 3:
-#                     blog_id = path[2]
-#                     return RecordController.get_record(resources["BLOG_TABLE"], blog_id)
-#                 elif parameter is None or not "ID" in parameter:
-#                     return RecordController.get_records(resources["BLOG_TABLE"])
-#                 else:
-#                     raise not_supported_exception("query : %s is not supported"% (str(parameter)))
-#             elif httpMethod == 'POST':
-#                 parameter = event["body"]
-#                 if parameter is not None and parameter is not "":
-#                     return RecordController.put_record(resources["BLOG_TABLE"], parameter)
-#                 else:
-#                     raise not_supported_exception("query : %s is not supported" % (str(parameter)))
-#             elif httpMethod == 'DELETE':
-#                 if path.__len__() == 3:
-#                     blog_id = path[2]
-#                     return RecordController.remove_record(resources["BLOG_TABLE"], blog_id)
-#                 else:
-#                     raise not_supported_exception("query : %s is not supported")
-#             else:
-#                 raise not_supported_exception("query : %s is not supported" % (str(httpMethod)))
-#         elif service_name == 'login':
-#             if httpMethod == 'POST':
-#                 parameter = event["body"]
-#                 return Security.login(resources["USER_TABLE"], parameter)
-#         else:
-#             raise not_supported_exception("query : %s" % (str({"request": "Method : " + str(event["method"]) + "Query :" + str(event["query"]) + "Body : " + str(event["body"]) + "Param : " + str(event["params"])})))
-#     except not_supported_exception as e:
-#         badRequestTemplate = {"statusCode" : 405 ,"headers": None, "body":{"message" : str(e.message)}}
-#         raise Exception (str(badRequestTemplate))
-#     except bad_request_exception as e:
-#         badRequestTemplate = {"statusCode" : 400 ,"headers": None, "body":{"message" : str(e.message)}}
-#         raise Exception (str(badRequestTemplate))
-#     except Exception as e:
-#         unknownErrorTemplate = {"status" : 500 ,"headers": None, "body":{ "message" : str(e.message)}}
-#         raise Exception (str(unknownErrorTemplate))
+#         conn = pymysql.connect(rds_host, user=name, passwd=password, db=db_name, connect_timeout=5)
+#         logger.info("SUCCESS: Connection to RDS mysql instance succeeded")
 
-#     # r = requests.get('https://api.github.com/events')
-#     # print r
-#     # print Xero
-#     # Xero Demo
-#     # xero_credentials = {
-#     #     "key" : "TTRAOBPOHHZV5ZBFYX5YUMYF9SQN05",
-#     #     "secret" : "FMLLGRJTEZWQXAO5IPY8ZEQYNFMZLW"
-#     # }
+#         item_count = 0
 
-#     # credentials = PublicCredentials(xero_credentials["key"], xero_credentials["secret"])
-#     # print credentials
-#     # x = Xero(credentials)
-#     # print x.contacts.all()
-#     return "Method : " + str(event["method"]) + "Query :" + str(event["query"]) + "Body : " + str(event["body"]) + "Param : " + str(event["params"])
+#         with conn.cursor() as cur:
+#             cur.execute("create table Employee3 ( EmpID  int NOT NULL, Name varchar(255) NOT NULL, PRIMARY KEY (EmpID))")  
+#             cur.execute('insert into Employee3 (EmpID, Name) values(1, "Joe")')
+#             cur.execute('insert into Employee3 (EmpID, Name) values(2, "Bob")')
+#             cur.execute('insert into Employee3 (EmpID, Name) values(3, "Mary")')
+#             conn.commit()
+#             cur.execute("select * from Employee3")
+#             for row in cur:
+#                 item_count += 1
+#                 logger.info(row)
+#         return "Added %d items from RDS MySQL table" %(item_count)
+#     except pymysql.InternalError as error:
+#         code, message = error.args
+#         print code, message
+
+
+
+import json
+
+import boto3
+import botocore
+
+from error import Error
+from security import Security
+from user import User
+from recordsController import RecordController
+from custom_exception.not_supported_exception import not_supported_exception
+from custom_exception.bad_request_exception import bad_request_exception
+import requests
+
+def otherhandler (event, context):
+    
+    return
+
+def handler(event, context):
+    # return {"statusCode": 200, "headers":event["headers"],"body": json.dumps(event, indent=2)}
+
+    httpMethod = event["httpMethod"]
+    path = str(event["path"]).split("/")
+    # Get info on the cms' resources from the constants file
+    with open("constants.json", "r") as resources_file:
+        resources = json.loads(resources_file.read())
+    try:
+        service_name = path[1];
+        if service_name == 'blog':
+            if httpMethod == 'GET':
+                parameter = event["queryStringParameters"]
+                if path.__len__() == 3:
+                    blog_id = path[2]
+                    return RecordController.get_record(resources["BLOG_TABLE"], blog_id)
+                elif parameter is None or not "ID" in parameter:
+                    return RecordController.get_records(resources["BLOG_TABLE"])
+                else:
+                    raise not_supported_exception("query : %s is not supported"% (str(parameter)))
+            elif httpMethod == 'POST':
+                parameter = event["body"]
+                if parameter is not None and parameter is not "":
+                    return RecordController.put_record(resources["BLOG_TABLE"], parameter)
+                else:
+                    raise not_supported_exception("query : %s is not supported" % (str(parameter)))
+            elif httpMethod == 'DELETE':
+                if path.__len__() == 3:
+                    blog_id = path[2]
+                    return RecordController.remove_record(resources["BLOG_TABLE"], blog_id)
+                else:
+                    raise not_supported_exception("query : %s is not supported")
+            else:
+                raise not_supported_exception("query : %s is not supported" % (str(httpMethod)))
+        elif service_name == 'login':
+            if httpMethod == 'POST':
+                parameter = event["body"]
+                return Security.login(resources["USER_TABLE"], parameter)
+        else:
+            raise not_supported_exception("query : %s" % (str({"request": "Method : " + str(event["method"]) + "Query :" + str(event["query"]) + "Body : " + str(event["body"]) + "Param : " + str(event["params"])})))
+    except not_supported_exception as e:
+        badRequestTemplate = {"statusCode" : 405 ,"headers": None, "body":{"message" : str(e.message)}}
+        raise Exception (str(badRequestTemplate))
+    except bad_request_exception as e:
+        badRequestTemplate = {"statusCode" : 400 ,"headers": None, "body":{"message" : str(e.message)}}
+        raise Exception (str(badRequestTemplate))
+    except Exception as e:
+        unknownErrorTemplate = {"status" : 500 ,"headers": None, "body":{ "message" : str(e.message)}}
+        raise Exception (str(unknownErrorTemplate))
+
+    # r = requests.get('https://api.github.com/events')
+    # print r
+    # print Xero
+    # Xero Demo
+    # xero_credentials = {
+    #     "key" : "TTRAOBPOHHZV5ZBFYX5YUMYF9SQN05",
+    #     "secret" : "FMLLGRJTEZWQXAO5IPY8ZEQYNFMZLW"
+    # }
+
+    # credentials = PublicCredentials(xero_credentials["key"], xero_credentials["secret"])
+    # print credentials
+    # x = Xero(credentials)
+    # print x.contacts.all()
+    return "Method : " + str(event["method"]) + "Query :" + str(event["query"]) + "Body : " + str(event["body"]) + "Param : " + str(event["params"])
 
 # end of comment
 
