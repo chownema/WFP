@@ -381,7 +381,7 @@ class AwsFunc:
         try:
             lmda = boto3.client("lambda")
             lmda.update_function_code(
-                FunctionName=self.constants["LAMBDA_FUNCTION"+prefix],
+                FunctionName=self.constants["LAMBDA_FUNCTION" + prefix],
                 ZipFile=AwsFunc.zip_lambda(),
             )
         except botocore.exceptions.ClientError as e:
@@ -389,9 +389,7 @@ class AwsFunc:
             print e.response["Error"]["Message"]
             sys.exit()
 
-    def create_lambda_function(self, prefix=""):
-        """ Creates a lamda function and uploads AWS CMS to to it """
-
+    def create_iam_role(self):
         lmda_role = json.dumps({
             "Version": "2012-10-17",
             "Statement": [
@@ -407,9 +405,9 @@ class AwsFunc:
 
         # Create the lambda iam role
         try:
-            print "Creating iam role: %s" % (self.constants["LAMBDA_ROLE" + prefix])
+            print "Creating iam role: %s" % (self.constants["LAMBDA_ROLE"])
             iam = boto3.client("iam")
-            lambda_role_name = self.constants["LAMBDA_ROLE" + prefix]
+            lambda_role_name = self.constants["LAMBDA_ROLE"]
             lambda_role = iam.create_role(
                 RoleName=lambda_role_name,
                 AssumeRolePolicyDocument=lmda_role
@@ -433,6 +431,10 @@ class AwsFunc:
                 RoleName=lambda_role_name,
                 PolicyArn="arn:aws:iam::aws:policy/AmazonCognitoPowerUser"
             )
+            iam.attach_role_policy(
+                RoleName=lambda_role_name,
+                PolicyArn="arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+            )
             print "Role created"
         except botocore.exceptions.ClientError as e:
             print e.response["Error"]["Code"]
@@ -443,8 +445,24 @@ class AwsFunc:
         print "Waiting for role to be usable"
         time.sleep(10)
 
+        return lambda_role
+
+    def create_lambda_function(self, db_instance_info, lambda_role, prefix=""):
+        """ Creates a lamda function and uploads AWS CMS to to it """
         # Store constants file in lambda directory
         self.store_lambda_constants()
+
+        subnetIds = []
+        subnetGroupId = []
+
+        for subnet in db_instance_info["DBInstance"]["VpcSecurityGroups"]:
+            subnetGroupId.append(subnet["VpcSecurityGroupId"])
+
+        for subnet in db_instance_info["DBInstance"]["DBSubnetGroup"]["Subnets"]:
+            subnetIds.append(subnet["SubnetIdentifier"])
+
+        print "subnet ids :" +  str(subnetIds).strip('[]')
+        print "subnet group id : " + str(subnetGroupId).strip('[]')
 
         # Create the lambda function
         try:
@@ -459,7 +477,11 @@ class AwsFunc:
                 Description=("Aws cms central management function designed to "
                              "handle any API Gateway request"),
                 MemorySize=512,
-                Timeout=10
+                Timeout=10,
+                VpcConfig={
+                    'SubnetIds': subnetIds,
+                    'SecurityGroupIds': subnetGroupId
+                }
             )
             print "Function created"
             self.constants["LAMBDA_FUNCTION_ARN" + prefix] = (
@@ -505,7 +527,7 @@ class AwsFunc:
         )
         return resource_resp
 
-    def create_http_method(self, methodType , path):
+    def create_http_method(self, methodType, path):
         """
         Creates the api gateway and links it to the lambda function.
 
@@ -519,26 +541,27 @@ class AwsFunc:
 
             rest_api_id = self.constants["REST_API_ID"]
             if path != 'root':
-                if not "REST_API_"+path+ "_ID" in self.constants:
-                    resource_resp = self.create_http_api_resource(api_gateway, self.constants["REST_API_ID"], self.constants["REST_API_ROOT_ID"], path)
+                if not "REST_API_" + path + "_ID" in self.constants:
+                    resource_resp = self.create_http_api_resource(api_gateway, self.constants["REST_API_ID"],
+                                                                  self.constants["REST_API_ROOT_ID"], path)
 
                     rest_api_other_id = resource_resp['id']
                     self.constants["REST_API_" + path + "_ID"] = resource_resp['id']
                 else:
-                    rest_api_other_id = self.constants["REST_API_"+path+"_ID"]
+                    rest_api_other_id = self.constants["REST_API_" + path + "_ID"]
             else:
                 rest_api_other_id = self.constants["REST_API_ROOT_ID"]
 
             if methodType == 'POST':
-                apigatewaysetup.apiGatewaySetup.create_post_method(self,api_gateway, rest_api_id, rest_api_other_id)
+                apigatewaysetup.apiGatewaySetup.create_post_method(self, api_gateway, rest_api_id, rest_api_other_id)
             elif methodType == 'GET':
-                apigatewaysetup.apiGatewaySetup.create_get_method(self,api_gateway, rest_api_id, rest_api_other_id)
+                apigatewaysetup.apiGatewaySetup.create_get_method(self, api_gateway, rest_api_id, rest_api_other_id)
             elif methodType == 'DELETE':
-                apigatewaysetup.apiGatewaySetup.create_delete_method(self,api_gateway, rest_api_id, rest_api_other_id)
+                apigatewaysetup.apiGatewaySetup.create_delete_method(self, api_gateway, rest_api_id, rest_api_other_id)
             elif methodType == 'PUT':
                 apigatewaysetup.apiGatewaySetup.create_put_method(self, api_gateway, rest_api_id, rest_api_other_id)
             elif methodType == 'OPTION':
-                apigatewaysetup.apiGatewaySetup.create_options_method(self,api_gateway, rest_api_id, rest_api_other_id)
+                apigatewaysetup.apiGatewaySetup.create_options_method(self, api_gateway, rest_api_id, rest_api_other_id)
 
 
         except botocore.exceptions.ClientError as e:
@@ -548,7 +571,6 @@ class AwsFunc:
 
         self.create_api_permissions_uri()
         self.create_api_url()
-
 
     def deploy_api(self, prefix=""):
 
@@ -616,7 +638,7 @@ class AwsFunc:
         self.constants["API_INVOCATION_URI"] = (
                                                    "arn:aws:apigateway:%s:lambda:"
                                                    "path/2015-03-31/functions/%s/invocations"
-                                               ) % (self.region, self.constants["LAMBDA_FUNCTION_ARN"+prefix])
+                                               ) % (self.region, self.constants["LAMBDA_FUNCTION_ARN" + prefix])
 
     def create_api_permissions_uri(self):
         """ Creates the uri that is needed for giving the api deployment
@@ -670,19 +692,32 @@ class AwsFunc:
         zip_data.close()
         return data
 
-    @staticmethod
-    def createDbInstance():
+    def createDbInstance(self):
         rds = boto3.client('rds')
+        for item in self.constants:
+            print item
+
         try:
+            print "Creating database instance " + self.constants["DB_INSTANCE_NAME"] + " username : " + self.constants[
+                "DB_INSTANCE_USERNAME"]
             response = rds.create_db_instance(
-                DBName='MySQL',
-                DBInstanceIdentifier='dbserver',
-                MasterUsername='dbadmin',
-                MasterUserPassword='abcdefg123456789',
+                DBName=self.constants["DB_INSTANCE_NAME"],
+                DBInstanceIdentifier=self.constants["DB_INSTANCE_IDENTIFIER"],
+                MasterUsername=self.constants["DB_INSTANCE_USERNAME"],
+                MasterUserPassword=self.constants["DB_INSTANCE_PASSWORD"],
                 DBInstanceClass='db.t2.micro',
                 Engine='mysql',
                 AllocatedStorage=5)
+
+            rds = boto.connect_rds()
+            instances = rds.get_all_dbinstances()
+            while (instances[0].status != "Available"):
+                print instances[0].status
+
+            return response
         except Exception as e:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
             sys.exit()
+
+

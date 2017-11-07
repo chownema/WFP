@@ -53,10 +53,7 @@ lmda_function_names = [
     constants["LAMBDA_FUNCTIONLISTING"]
 ]
 role_names = [
-    constants["LAMBDA_ROLESIGNUP"],
-    constants["LAMBDA_ROLELOGIN"],
-    constants["LAMBDA_ROLEUSER"],
-    constants["LAMBDA_ROLELISTING"]
+    constants["LAMBDA_ROLE"]
 ]
 dynamodb_table_names = [
     constants["BLOG_TABLE"],
