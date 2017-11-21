@@ -12,33 +12,33 @@ from boto3.dynamodb.conditions import Key, Attr
 class Listing(object):
 
     @staticmethod
-    def get_all_listings(header,listing_table):
+    def get_all_listings(event, header,listing_table):
 
-        userId = Cognito.authorize(header["Authorization"])
-
-        if userId is None:
-            return {"statusCode": 401}
-
-        try:
-            dynamodb = boto3.client("dynamodb")
-            items = dynamodb.scan(
-                TableName=listing_table, ConsistentRead=True
-            )
-        except botocore.exceptions.ClientError as e:
-            action = "Fetching listing from the item table"
-            return {"error": e.response["Error"]["Code"],
-                    "data": {"exception": str(e), "action": action}}
-
-        if not "Items" in items:
-            action = "Fetching listing from the item table"
-            return {"error": "noItems", "data": {"action": action}}
+        # userId = Cognito.authorize(header["Authorization"])
+        #
+        # if userId is None:
+        #     return {"statusCode": 401}
+        #
+        # try:
+        #     dynamodb = boto3.client("dynamodb")
+        #     items = dynamodb.scan(
+        #         TableName=listing_table, ConsistentRead=True
+        #     )
+        # except botocore.exceptions.ClientError as e:
+        #     action = "Fetching listing from the item table"
+        #     return {"error": e.response["Error"]["Code"],
+        #             "data": {"exception": str(e), "action": action}}
+        #
+        # if not "Items" in items:
+        #     action = "Fetching listing from the item table"
+        #     return {"error": "noItems", "data": {"action": action}}
 
         data = []
 
-        for item in items["Items"]:
-            data.append( Listing.convert_item(item))
+        # for item in items["Items"]:
+        #     data.append( Listing.convert_item(item))
 
-        resp = {"data": data}
+        resp = {"data": data, "event": str(event)}
 
         return {"statusCode": 200, "headers": None, "body": json.dumps(resp)}
 

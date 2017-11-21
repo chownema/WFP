@@ -11,14 +11,15 @@ import json
 import mimetypes
 import os
 import sys
-import time
+import pymysql
 import uuid
 import zipfile
+import time
 from io import BytesIO
 
 import boto3
 import botocore
-import apigatewaysetup
+import api_gateway_setup
 
 from replace_variables import replace_variables
 
@@ -201,23 +202,6 @@ class AwsFunc:
             print e.response["Error"]["Message"]
             sys.exit()
 
-    def create_token_table(self):
-        """ Creates a token table. """
-        with open("dynamo/token_table.json", "r") as thefile:
-            token_table_json = json.loads(thefile.read())
-        token_table_json["TableName"] = self.constants["TOKEN_TABLE"]
-
-        try:
-            print "Creating table: %s" % (self.constants["TOKEN_TABLE"])
-            dynamodb = boto3.client("dynamodb")
-            token_table = dynamodb.create_table(**token_table_json)
-            self.wait_for_table(token_table)
-            print "Token table created"
-        except botocore.exceptions.ClientError as e:
-            print e.response["Error"]["Code"]
-            print e.response["Error"]["Message"]
-            sys.exit()
-
     def create_item_table(self):
         """ Creates a blog table. """
         with open("dynamo/item_table.json", "r") as thefile:
@@ -247,40 +231,6 @@ class AwsFunc:
             blog_table = dynamodb.create_table(**blog_table_json)
             self.wait_for_table(blog_table)
             print "Blog table created"
-        except botocore.exceptions.ClientError as e:
-            print e.response["Error"]["Code"]
-            print e.response["Error"]["Message"]
-            sys.exit()
-
-    def create_page_table(self):
-        """ Creates a page table. """
-        with open("dynamo/page_table.json", "r") as thefile:
-            page_table_json = json.loads(thefile.read())
-        page_table_json["TableName"] = self.constants["PAGE_TABLE"]
-
-        try:
-            print "Creating table: %s" % (self.constants["PAGE_TABLE"])
-            dynamodb = boto3.client("dynamodb")
-            page_table = dynamodb.create_table(**page_table_json)
-            self.wait_for_table(page_table)
-            print "Page table created"
-        except botocore.exceptions.ClientError as e:
-            print e.response["Error"]["Code"]
-            print e.response["Error"]["Message"]
-            sys.exit()
-
-    def create_role_table(self):
-        """ Creates a role table. """
-        with open("dynamo/role_table.json", "r") as thefile:
-            role_table_json = json.loads(thefile.read())
-        role_table_json["TableName"] = self.constants["ROLE_TABLE"]
-
-        try:
-            print "Creating table: %s" % (self.constants["ROLE_TABLE"])
-            dynamodb = boto3.client("dynamodb")
-            role_table = dynamodb.create_table(**role_table_json)
-            self.wait_for_table(role_table)
-            print "Role table created"
         except botocore.exceptions.ClientError as e:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
@@ -447,7 +397,7 @@ class AwsFunc:
 
         return lambda_role
 
-    def create_lambda_function(self, db_instance_info, lambda_role, prefix=""):
+    def create_lambda_function(self, db_instance_info = None, lambda_role = None, prefix=""):
         """ Creates a lamda function and uploads AWS CMS to to it """
         # Store constants file in lambda directory
         self.store_lambda_constants()
@@ -455,18 +405,19 @@ class AwsFunc:
         subnetIds = []
         subnetGroupId = []
 
-        for subnet in db_instance_info["DBInstance"]["VpcSecurityGroups"]:
-            subnetGroupId.append(subnet["VpcSecurityGroupId"])
+        if db_instance_info != None :
+            for subnet in db_instance_info["DBInstance"]["VpcSecurityGroups"]:
+                subnetGroupId.append(subnet["VpcSecurityGroupId"])
 
-        for subnet in db_instance_info["DBInstance"]["DBSubnetGroup"]["Subnets"]:
-            subnetIds.append(subnet["SubnetIdentifier"])
+            for subnet in db_instance_info["DBInstance"]["DBSubnetGroup"]["Subnets"]:
+                subnetIds.append(subnet["SubnetIdentifier"])
 
         print "subnet ids :" +  str(subnetIds).strip('[]')
         print "subnet group id : " + str(subnetGroupId).strip('[]')
 
         # Create the lambda function
         try:
-            print "Creating lambda function"
+            print "Creating lambda function : " + prefix
             lmda = boto3.client("lambda")
             lambda_function = lmda.create_function(
                 FunctionName=self.constants["LAMBDA_FUNCTION" + prefix],
@@ -553,15 +504,15 @@ class AwsFunc:
                 rest_api_other_id = self.constants["REST_API_ROOT_ID"]
 
             if methodType == 'POST':
-                apigatewaysetup.apiGatewaySetup.create_post_method(self, api_gateway, rest_api_id, rest_api_other_id)
+                api_gateway_setup.apiGatewaySetup.create_post_method(self, api_gateway, rest_api_id, rest_api_other_id)
             elif methodType == 'GET':
-                apigatewaysetup.apiGatewaySetup.create_get_method(self, api_gateway, rest_api_id, rest_api_other_id)
+                api_gateway_setup.apiGatewaySetup.create_get_method(self, api_gateway, rest_api_id, rest_api_other_id)
             elif methodType == 'DELETE':
-                apigatewaysetup.apiGatewaySetup.create_delete_method(self, api_gateway, rest_api_id, rest_api_other_id)
+                api_gateway_setup.apiGatewaySetup.create_delete_method(self, api_gateway, rest_api_id, rest_api_other_id)
             elif methodType == 'PUT':
-                apigatewaysetup.apiGatewaySetup.create_put_method(self, api_gateway, rest_api_id, rest_api_other_id)
+                api_gateway_setup.apiGatewaySetup.create_put_method(self, api_gateway, rest_api_id, rest_api_other_id)
             elif methodType == 'OPTION':
-                apigatewaysetup.apiGatewaySetup.create_options_method(self, api_gateway, rest_api_id, rest_api_other_id)
+                api_gateway_setup.apiGatewaySetup.create_options_method(self, api_gateway, rest_api_id, rest_api_other_id)
 
 
         except botocore.exceptions.ClientError as e:
@@ -709,15 +660,47 @@ class AwsFunc:
                 Engine='mysql',
                 AllocatedStorage=5)
 
-            rds = boto.connect_rds()
-            instances = rds.get_all_dbinstances()
-            while (instances[0].status != "Available"):
-                print instances[0].status
+            print json.dumps(response)
 
             return response
         except Exception as e:
             print e.response["Error"]["Code"]
             print e.response["Error"]["Message"]
+
+    def setUpDBTables(self):
+        try:
+            rds = boto3.client('rds')
+            isDBAvailable = None
+
+            timeCounter = 0
+            waitTime = 30
+            timeoutTime = 900
+
+            currInstance = None
+
+            while not(isDBAvailable) :
+                instances = rds.describe_db_instances(DBInstanceIdentifier=self.constants["DB_INSTANCE_IDENTIFIER"])
+
+                for instance in instances["DBInstances"]:
+                    if instance["DBName"] == self.constants["DB_INSTANCE_NAME"]:
+                        print instance["DBName"] + " is now " + instance["DBInstanceStatus"]
+                        if instance["DBInstanceStatus"] == "available":
+                            isDBAvailable = True
+                            currInstance = instance
+
+                if not(isDBAvailable):
+                    print "Will come back and check again in 30 seconds"
+                    if timeCounter < timeoutTime:
+                        timeCounter += waitTime
+                        time.sleep(waitTime)
+
+            self.constants["DB_INSTANCE_ENDPOINT"] = currInstance["Endpoint"]["Address"]
+
+        except Exception as e:
+            print str(e)
             sys.exit()
+
+
+
 
 
