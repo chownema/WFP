@@ -9,16 +9,13 @@ from objects import confirmSignUpData
 from objects import signIn
 from custom_exception.bad_request_exception import bad_request_exception
 import datetime
+import requests
 
 
 class Cognito(object):
-    region = 'us-east-1'
-    user_pool_id = 'us-east-1_20z10a4Je'
-    app_client_id = '6p7jft98ldlapc0cisr9ur02n9'
-    identity_pool_id = 'us-east-1:4df9fe2c-3ea7-438a-a7dc-455f704845ca'
 
     @staticmethod
-    def sign_up(parameters, user_table):
+    def sign_up(parameters):
         # return json.dumps(parameters)
 
         j = json.loads(json.dumps(parameters))
@@ -44,7 +41,6 @@ class Cognito(object):
                 Password=userData.password
             )
 
-
         except botocore.exceptions.ClientError as e:
             if e.response['Error']['Code'] == 'UsernameExistsException':
                 message = "Username exists. Please choose other username."
@@ -57,28 +53,6 @@ class Cognito(object):
 
             bodyContent = {"ErrorDescription": message}
             raise bad_request_exception(json.dumps(bodyContent))
-
-        createdDate = datetime.datetime.utcnow()
-        items = {
-            "ID": {"S": resp["UserSub"]},
-            "Username": {"S": userData.username},
-            "firstName": {"S": userData.firstName},
-            "lastName": {"S": userData.lastName},
-            "phoneNumber": {"S": userData.phoneNumber},
-            "mobilePhoneNumber": {"S": userData.mobilePhoneNumber},
-            "CreatedDate": {"S": createdDate.strftime("%d-%b-%Y %H:%M UTC")},
-            "UpdatedDate": {"S": createdDate.strftime("%d-%b-%Y %H:%M UTC")}
-        }
-        # Put the items in the items table
-        try:
-            dynamodb = boto3.client("dynamodb")
-            dynamodb.put_item(
-                TableName=user_table, Item=items, ReturnConsumedCapacity="TOTAL"
-            )
-        except botocore.exceptions.ClientError as e:
-            action = "Putting items in the items table"
-            return {"error": e.response["Error"]["Code"],
-                    "data": {"exception": str(e), "action": action}}
 
         return {"statusCode": 200, "headers": None, "body": json.dumps(resp, cls=DateTimeEncoder)}
 
@@ -104,6 +78,7 @@ class Cognito(object):
                                               SecretHash=str(dig),
                                               Username=stuff.username,
                                               ConfirmationCode=stuff.confirm_code)
+
         except botocore.exceptions.ClientError as e:
             if e.response['Error']['Code'] == 'ExpiredCodeException':
                 message = "Code is not matching."
@@ -120,10 +95,12 @@ class Cognito(object):
         return {"statusCode": 200, "headers": None, "body": json.dumps(resp, cls=DateTimeEncoder)}
 
     @staticmethod
-    def sign_in_admin(parameters):
+    def sign_in(parameters):
 
-        j = json.loads(json.dumps(parameters))
+        j = json.loads(parameters)
         signInData = signIn.signInData(**j)
+
+
 
         try:
             # remove hard code please
@@ -144,34 +121,6 @@ class Cognito(object):
                                                   AuthFlow='ADMIN_NO_SRP_AUTH',
                                                   AuthParameters={'USERNAME': signInData.username,
                                                                   'PASSWORD': signInData.password, 'SECRET_HASH': str(dig)})
-
-            # user_data = Cognito.get_user(resp["AuthenticationResult"]["AccessToken"])
-
-            # for user_info in user_data["UserAttributes"]:
-            #     if user_info["Name"] == "sub":
-            #         userId = user_info["Value"]
-            #
-            #         createdDate = datetime.datetime.utcnow()
-            #         uniqueId = str(uuid.uuid4())
-            #         items = {
-            #             "ID": {"S": uniqueId},
-            #             "UserId": {"S": userId},
-            #             "AccessToken": {"S": resp["AuthenticationResult"]["AccessToken"]},
-            #             "TokenType": {"S": resp["AuthenticationResult"]["TokenType"]},
-            #             "RefreshToken": {"S": resp["AuthenticationResult"]["RefreshToken"]},
-            #             "IdToken": {"S": resp["AuthenticationResult"]["IdToken"]},
-            #             "CreatedDate": {"S": createdDate.strftime("%d-%b-%Y %H:%M UTC")}
-            #         }
-            #         # Put the items in the items table
-            #         try:
-            #             dynamodb = boto3.client("dynamodb")
-            #             dynamodb.put_item(
-            #                 TableName=token_table, Item=items, ReturnConsumedCapacity="TOTAL"
-            #             )
-            #         except botocore.exceptions.ClientError as e:
-            #             action = "Putting items in the items table"
-            #             return {"error": e.response["Error"]["Code"],
-            #                     "data": {"exception": str(e), "action": action}}
 
         except botocore.exceptions.ClientError as e:
             if e.response['Error']['Code'] == 'NotAuthorizedException':
@@ -214,42 +163,6 @@ class Cognito(object):
             raise bad_request_exception(json.dumps(bodyContent))
 
         return {"statusCode": 200, "headers": None, "body": json.dumps(resp, cls=DateTimeEncoder)}
-
-    @staticmethod
-    def authorize(accessToken):
-
-        ci_client = boto3.client('cognito-idp')
-
-        try:
-            resp = ci_client.get_user(
-                AccessToken=str(accessToken)
-            )
-        except botocore.exceptions.ClientError as e:
-            return None
-
-        userAttributes = resp["UserAttributes"]
-
-        for attr in userAttributes:
-            if str(attr["Name"]).lower() == 'sub':
-                return str(attr["Value"])
-
-        return None
-
-    @staticmethod
-    def intAuthorize(accessToken):
-
-        ci_client = boto3.client('cognito-idp')
-
-        try:
-            resp = ci_client.get_user(
-                AccessToken=str(accessToken)
-            )
-        except botocore.exceptions.ClientError as e:
-            return None
-
-
-        return None
-
 
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, obj):

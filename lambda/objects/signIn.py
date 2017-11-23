@@ -1,4 +1,4 @@
 class signInData(object):
-    def __init__(self, USERNAME = None, PASSWORD= None, *args, **kwargs):
-        self.username = USERNAME
-        self.password = PASSWORD
+    def __init__(self, username = None, password= None, *args, **kwargs):
+        self.username = username
+        self.password = password

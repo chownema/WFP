@@ -7,18 +7,19 @@
 import json
 
 from Listing import Listing
+from user import User
 from cognito_controller import Cognito
 from custom_exception.bad_request_exception import bad_request_exception
 
 
 def handlerSIGNUP(event, context):
-    httpMethod = event["method"]
+    httpMethod = event["httpMethod"]
     with open("constants.json", "r") as resources_file:
         resources = json.loads(resources_file.read())
     try:
         if httpMethod == 'POST':
             parameter = event["body"]
-            return Cognito.sign_up(parameter, resources["USER_TABLE"])
+            return Cognito.sign_up(parameter)
         elif httpMethod == 'PUT':
             parameter = event["body"]
             return Cognito.confirm_sign_up(parameter)
@@ -32,14 +33,13 @@ def handlerSIGNUP(event, context):
     return json.dumps({"statusCode": 405, "body": json.dumps({"error":"Operation not supported"})})
 
 def handlerLOGIN(event, context):
-    print "debug" + str(event)
-    httpMethod = event["method"]
+    httpMethod = event["httpMethod"]
     with open("constants.json", "r") as resources_file:
         resources = json.loads(resources_file.read())
     try:
         if httpMethod == 'POST':
             parameter = event["body"]
-            return Cognito.sign_in_admin(parameter)
+            return Cognito.sign_in(parameter)
         elif httpMethod == 'DELETE':
             parameter = event["headers"]
             return Cognito.log_out(parameter)
@@ -53,13 +53,20 @@ def handlerLOGIN(event, context):
     return json.dumps({"statusCode": 405, "body": json.dumps({"error":"Operation not supported"})})
 
 def handlerUSER(event, context):
-    httpMethod = event["method"]
+    httpMethod = event["httpMethod"]
     with open("constants.json", "r") as resources_file:
         resources = json.loads(resources_file.read())
     try:
+        if httpMethod == 'POST':
+            parameter = event["body"]
+            # userId = event["requestContext"]["authorizer"]["claims"]["sub"]
+            userId = "695f5f6b-a7c9-4e98-8cc7-a98f977ca94b"
+            return User.add_user(userId, parameter, resources)
         if httpMethod == 'GET':
-            parameter = event["headers"]["Authorization"]
-            return Cognito.get_user(parameter)
+            # userId = event["requestContext"]["authorizer"]["claims"]["sub"]
+            userId = "695f5f6b-a7c9-4e98-8cc7-a98f977ca94b"
+            username = "username2"
+            return User.get_user(userId, username, resources)
     except bad_request_exception as e:
         badRequestTemplate = json.dumps({"statusCode": 400, "body": json.loads(str(e.message))})
         raise Exception(str(badRequestTemplate))
@@ -70,8 +77,7 @@ def handlerUSER(event, context):
     return json.dumps({"statusCode": 405, "body": json.dumps({"error":"Operation not supported"})})
 
 def handlerLISTING(event, context):
-    return {"statusCode": 200, "headers": None, "body": json.dumps(event)}
-    httpMethod = event["method"]
+    httpMethod = event["httpMethod"]
 
     with open("constants.json", "r") as resources_file:
         resources = json.loads(resources_file.read())
