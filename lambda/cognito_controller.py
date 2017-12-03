@@ -9,7 +9,6 @@ from objects import confirmSignUpData
 from objects import signIn
 from custom_exception.bad_request_exception import bad_request_exception
 import datetime
-import requests
 
 
 class Cognito(object):

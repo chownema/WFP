@@ -2,16 +2,470 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="057d080b-6233-40d1-909a-1e50d7bc263f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lambda/sql_functions/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lambda/sql_functions/sql_functions.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/objects/login.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/security.py" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lambda/sql_utils/sql_functions.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lambda/sql_utils/sql_scripts.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/bower.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/data/flot-data.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/data/morris-data.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/dist/css/sb-admin-2.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/dist/css/sb-admin-2.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/dist/js/sb-admin-2.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/dist/js/sb-admin-2.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/gulpfile.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/sb-admin-2.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/LICENSE.TXT" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/changelog.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/jquery.tinymce.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/langs/readme.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/license.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/advlist/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/anchor/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/autolink/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/autoresize/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/autosave/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/bbcode/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/charmap/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/code/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/codesample/css/prism.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/codesample/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/colorpicker/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/contextmenu/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/directionality/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/img/smiley-cool.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/img/smiley-cry.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/img/smiley-embarassed.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/img/smiley-foot-in-mouth.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/img/smiley-frown.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/img/smiley-innocent.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/img/smiley-kiss.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/img/smiley-laughing.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/img/smiley-money-mouth.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/img/smiley-sealed.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/img/smiley-smile.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/img/smiley-surprised.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/img/smiley-tongue-out.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/img/smiley-undecided.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/img/smiley-wink.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/img/smiley-yell.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/emoticons/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/example/dialog.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/example/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/example_dependency/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/fullpage/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/fullscreen/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/hr/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/image/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/imagetools/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/importcss/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/insertdatetime/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/layer/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/legacyoutput/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/link/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/lists/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/media/moxieplayer.swf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/media/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/nonbreaking/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/noneditable/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/pagebreak/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/paste/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/preview/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/print/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/save/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/searchreplace/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/spellchecker/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/tabfocus/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/table/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/template/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/textcolor/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/textpattern/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/visualblocks/css/visualblocks.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/visualblocks/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/visualchars/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/plugins/wordcount/plugin.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/skins/lightgray/content.inline.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/skins/lightgray/content.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/skins/lightgray/fonts/tinymce-small.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/skins/lightgray/fonts/tinymce-small.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/skins/lightgray/fonts/tinymce-small.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/skins/lightgray/fonts/tinymce-small.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/skins/lightgray/fonts/tinymce.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/skins/lightgray/fonts/tinymce.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/skins/lightgray/fonts/tinymce.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/skins/lightgray/fonts/tinymce.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/skins/lightgray/img/anchor.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/skins/lightgray/img/loader.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/skins/lightgray/img/object.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/skins/lightgray/img/trans.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/skins/lightgray/skin.ie7.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/skins/lightgray/skin.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/themes/inlite/theme.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/themes/modern/theme.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/js/tinymce/js/tinymce/tinymce.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/less/mixins.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/less/sb-admin-2.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/less/variables.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/package.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/pages/blank.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/pages/buttons.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/pages/flot.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/pages/forms.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/pages/grid.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/pages/icons.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/pages/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/pages/login.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/pages/morris.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/pages/notifications.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/pages/panels-wells.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/pages/tables-custom.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/pages/tables.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/pages/typography.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/bootstrap-social/bootstrap-social.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/bootstrap-social/bootstrap-social.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/bootstrap-social/bootstrap-social.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/bootstrap/css/bootstrap.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/bootstrap/css/bootstrap.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/bootstrap/fonts/glyphicons-halflings-regular.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/bootstrap/fonts/glyphicons-halflings-regular.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/bootstrap/fonts/glyphicons-halflings-regular.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/bootstrap/fonts/glyphicons-halflings-regular.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/bootstrap/fonts/glyphicons-halflings-regular.woff2" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/bootstrap/js/bootstrap.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/bootstrap/js/bootstrap.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables-plugins/dataTables.bootstrap.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables-plugins/dataTables.bootstrap.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables-plugins/dataTables.bootstrap.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables-plugins/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables-responsive/dataTables.responsive.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables-responsive/dataTables.responsive.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables-responsive/dataTables.responsive.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/dataTables.bootstrap.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/dataTables.bootstrap.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/dataTables.bootstrap4.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/dataTables.bootstrap4.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/dataTables.foundation.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/dataTables.foundation.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/dataTables.jqueryui.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/dataTables.jqueryui.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/dataTables.material.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/dataTables.material.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/dataTables.semanticui.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/dataTables.semanticui.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/dataTables.uikit.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/dataTables.uikit.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/jquery.dataTables.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/jquery.dataTables.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/css/jquery.dataTables_themeroller.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/images/Sorting icons.psd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/images/favicon.ico" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/images/sort_asc.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/images/sort_asc_disabled.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/images/sort_both.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/images/sort_desc.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/images/sort_desc_disabled.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/dataTables.bootstrap.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/dataTables.bootstrap.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/dataTables.bootstrap4.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/dataTables.bootstrap4.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/dataTables.foundation.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/dataTables.foundation.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/dataTables.jqueryui.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/dataTables.jqueryui.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/dataTables.material.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/dataTables.material.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/dataTables.semanticui.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/dataTables.semanticui.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/dataTables.uikit.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/dataTables.uikit.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/jquery.dataTables.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/jquery.dataTables.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/datatables/js/jquery.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot-tooltip/jquery.flot.tooltip.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot-tooltip/jquery.flot.tooltip.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot-tooltip/jquery.flot.tooltip.source.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/excanvas.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/excanvas.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.colorhelpers.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.flot.canvas.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.flot.categories.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.flot.crosshair.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.flot.errorbars.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.flot.fillbetween.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.flot.image.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.flot.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.flot.navigate.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.flot.pie.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.flot.resize.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.flot.selection.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.flot.stack.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.flot.symbol.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.flot.threshold.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.flot.time.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/flot/jquery.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/HELP-US-OUT.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/css/font-awesome.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/css/font-awesome.css.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/css/font-awesome.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/fonts/FontAwesome.otf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/fonts/fontawesome-webfont.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/fonts/fontawesome-webfont.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/fonts/fontawesome-webfont.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/fonts/fontawesome-webfont.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/fonts/fontawesome-webfont.woff2" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/less/animated.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/less/bordered-pulled.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/less/core.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/less/extras.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/less/fixed-width.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/less/font-awesome.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/less/icons.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/less/larger.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/less/list.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/less/mixins.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/less/path.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/less/rotated-flipped.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/less/screen-reader.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/less/spinning.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/less/stacked.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/less/variables.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/scss/_animated.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/scss/_bordered-pulled.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/scss/_core.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/scss/_extras.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/scss/_fixed-width.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/scss/_icons.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/scss/_larger.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/scss/_list.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/scss/_mixins.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/scss/_path.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/scss/_rotated-flipped.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/scss/_screen-reader.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/scss/_spinning.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/scss/_stacked.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/scss/_variables.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/font-awesome/scss/font-awesome.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/jquery/jquery.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/jquery/jquery.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/metisMenu/metisMenu.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/metisMenu/metisMenu.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/metisMenu/metisMenu.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/metisMenu/metisMenu.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/morrisjs/morris.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/morrisjs/morris.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/morrisjs/morris.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/raphael/raphael.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Admin-Template/vendor/raphael/raphael.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/Listing.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/authentication.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/certifi/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/certifi/__main__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/certifi/cacert.pem" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/certifi/core.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/certifi/old_root.pem" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/certifi/weak.pem" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/big5freq.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/big5prober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/chardistribution.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/charsetgroupprober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/charsetprober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/cli/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/cli/chardetect.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/codingstatemachine.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/compat.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/cp949prober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/enums.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/escprober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/escsm.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/eucjpprober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/euckrfreq.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/euckrprober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/euctwfreq.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/euctwprober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/gb2312freq.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/gb2312prober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/hebrewprober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/jisfreq.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/jpcntx.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/langbulgarianmodel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/langcyrillicmodel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/langgreekmodel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/langhebrewmodel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/langhungarianmodel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/langthaimodel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/langturkishmodel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/latin1prober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/mbcharsetprober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/mbcsgroupprober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/mbcssm.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/sbcharsetprober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/sbcsgroupprober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/sjisprober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/universaldetector.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/utf8prober.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/chardet/version.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/error.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/idna/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/idna/codec.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/idna/compat.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/idna/core.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/idna/idnadata.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/idna/intranges.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/idna/uts46data.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/_setup/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/_setup/docdist.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/_setup/stamp.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/apache.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/apps.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/context.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/exc.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/ext/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/ext/django/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/ext/django/models.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/ext/django/utils.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/bcrypt.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/cisco.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/des_crypt.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/digests.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/django.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/fshp.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/ldap_digests.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/md5_crypt.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/misc.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/mssql.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/mysql.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/oracle.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/pbkdf2.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/phpass.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/postgres.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/roundup.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/scram.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/sha1_crypt.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/sha2_crypt.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/sun_md5_crypt.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/handlers/windows.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/hash.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/hosts.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/ifc.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/registry.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/__main__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/_test_bad_register.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/backports.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/sample1.cfg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/sample1b.cfg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/sample1c.cfg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/sample_config_1s.cfg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/test_apache.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/test_apps.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/test_context.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/test_context_deprecated.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/test_ext_django.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/test_handlers.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/test_handlers_bcrypt.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/test_handlers_django.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/test_hosts.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/test_registry.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/test_utils.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/test_utils_crypto.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/test_utils_handlers.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/test_win32.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/tox_support.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/tests/utils.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/utils/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/utils/_blowfish/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/utils/_blowfish/_gen_files.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/utils/_blowfish/base.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/utils/_blowfish/unrolled.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/utils/compat.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/utils/des.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/utils/handlers.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/utils/md4.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/utils/pbkdf2.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/passlib/win32.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/recordsController.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/__version__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/_internal_utils.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/adapters.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/api.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/auth.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/certs.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/compat.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/cookies.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/exceptions.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/help.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/hooks.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/models.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/packages.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/sessions.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/status_codes.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/structures.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/requests/utils.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/site_settings.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/sql_functions/sql_functions.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/sqlscripts.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/_collections.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/connection.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/connectionpool.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/contrib/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/contrib/_securetransport/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/contrib/_securetransport/bindings.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/contrib/_securetransport/low_level.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/contrib/appengine.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/contrib/ntlmpool.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/contrib/pyopenssl.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/contrib/securetransport.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/contrib/socks.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/exceptions.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/fields.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/filepost.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/packages/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/packages/backports/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/packages/backports/makefile.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/packages/ordered_dict.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/packages/six.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/packages/ssl_match_hostname/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/packages/ssl_match_hostname/_implementation.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/poolmanager.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/request.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/response.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/util/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/util/connection.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/util/request.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/util/response.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/util/retry.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/util/selectors.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/util/ssl_.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/util/timeout.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/util/url.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lambda/urllib3/util/wait.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/testcases/lambda_test_cases.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms_functions.py" afterPath="$PROJECT_DIR$/cms_functions.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dynamo/blog_table.json" afterPath="$PROJECT_DIR$/dynamo/blog_table.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dynamo/page.json" afterPath="$PROJECT_DIR$/dynamo/page.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dynamo/page2.json" afterPath="$PROJECT_DIR$/dynamo/page2.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dynamo/page_table.json" afterPath="$PROJECT_DIR$/dynamo/page_table.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dynamo/post.json" afterPath="$PROJECT_DIR$/dynamo/post.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dynamo/role.json" afterPath="$PROJECT_DIR$/dynamo/role.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dynamo/role_table.json" afterPath="$PROJECT_DIR$/dynamo/role_table.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dynamo/token_table.json" afterPath="$PROJECT_DIR$/dynamo/token_table.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dynamo/user.json" afterPath="$PROJECT_DIR$/dynamo/user.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dynamo/user_table.json" afterPath="$PROJECT_DIR$/dynamo/user_table.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lambda/cognito_controller.py" afterPath="$PROJECT_DIR$/lambda/cognito_controller.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lambda/controller.py" afterPath="$PROJECT_DIR$/lambda/controller.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lambda/objects/signIn.py" afterPath="$PROJECT_DIR$/lambda/objects/signIn.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lambda/sqlscripts.py" afterPath="$PROJECT_DIR$/lambda/sqlscripts.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lambda/user.py" afterPath="$PROJECT_DIR$/lambda/user.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lambda/objects/signUp.py" afterPath="$PROJECT_DIR$/lambda/objects/signUp.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setup.py" afterPath="$PROJECT_DIR$/setup.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/lambda/sql_functions/__init__.py" afterPath="$PROJECT_DIR$/lambda/sql_utils/__init__.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/lambda/user.py" afterPath="$PROJECT_DIR$/lambda/users_controller.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -32,8 +486,8 @@
       <file leaf-file-name="controller.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lambda/controller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="68" column="29" lean-forward="true" selection-start-line="68" selection-start-column="29" selection-end-line="68" selection-end-column="29" />
+            <state relative-caret-position="1241">
+              <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
               <folding>
                 <element signature="e#70#81#0" expanded="true" />
               </folding>
@@ -41,72 +495,78 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sqlscripts.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lambda/sqlscripts.py">
+      <file leaf-file-name="users_controller.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lambda/users_controller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="60" lean-forward="false" selection-start-line="1" selection-start-column="60" selection-end-line="1" selection-end-column="60" />
+            <state relative-caret-position="1156">
+              <caret line="72" column="60" lean-forward="false" selection-start-line="72" selection-start-column="60" selection-end-line="72" selection-end-column="60" />
               <folding>
-                <marker date="1511429253767" expanded="true" signature="19:354" ph="CREATE TABLE... X_USERS" />
-                <marker date="1511429253767" expanded="true" signature="381:411" ph="SELECT * FRO... USERS" />
-                <marker date="1511429253767" expanded="true" signature="381:412" ph="SELECT * FRO... USERS" />
-                <marker date="1511429253767" expanded="true" signature="381:416" ph="SELECT * FRO... USERS" />
-                <marker date="1511429253767" expanded="true" signature="443:582" ph="INSERT INTO X_USERS... " />
+                <element signature="e#0#15#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="signUp.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lambda/objects/signUp.py">
+      <file leaf-file-name="sql_scripts.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lambda/sql_utils/sql_scripts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="21" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lambda/user.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="1122">
+              <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
               <folding>
-                <element signature="e#0#11#0" expanded="true" />
+                <marker date="1512097670745" expanded="true" signature="32:104" ph="CREATE TABLE... ROLE" />
+                <marker date="1512097670745" expanded="true" signature="32:116" ph="CREATE TABLE... ROLE" />
+                <marker date="1512097670745" expanded="true" signature="119:240" ph="CREATE TABLE... CRM" />
+                <marker date="1512097670745" expanded="true" signature="119:771" ph="CREATE TABLE... CRM" />
+                <marker date="1512097670745" expanded="true" signature="256:762" ph="CREATE TABLE... USERS" />
+                <marker date="1512097670745" expanded="true" signature="781:1074" ph="CREATE TABLE... SERVICE" />
+                <marker date="1512097670745" expanded="true" signature="781:1089" ph="CREATE TABLE... CRM" />
+                <marker date="1512097670745" expanded="true" signature="1092:1379" ph="CREATE TABLE... VENUES" />
+                <marker date="1512097670745" expanded="true" signature="1092:1468" ph="CREATE TABLE... VENUES" />
+                <marker date="1512097670745" expanded="true" signature="1092:1721" ph="CREATE TABLE... VENUES" />
+                <marker date="1512097670745" expanded="true" signature="1496:1633" ph="CREATE TABLE... VENUES_OPEN_HOUR" />
+                <marker date="1512097670745" expanded="true" signature="1496:1709" ph="CREATE TABLE... VENUES_OPEN_HOUR" />
+                <marker date="1512097670745" expanded="true" signature="1725:1880" ph="CREATE TABLE... CRM" />
+                <marker date="1512097670745" expanded="true" signature="1725:1900" ph="CREATE TABLE... CRM" />
+                <marker date="1512097670745" expanded="true" signature="1904:1989" ph="CREATE TABLE... CRM" />
+                <marker date="1512097670745" expanded="true" signature="1904:2133" ph="CREATE TABLE... SERVICE_TAG" />
+                <marker date="1512097670745" expanded="true" signature="2154:2233" ph="CREATE TABLE... CRM" />
+                <marker date="1512097670745" expanded="true" signature="2154:2375" ph="CREATE TABLE... USER_TAG" />
+                <marker date="1512097670745" expanded="true" signature="2423:2469" ph="SELECT COUNT... tables" />
+                <marker date="1512097670745" expanded="true" signature="2423:2494" ph="SELECT COUNT... tables" />
+                <marker date="1512097670745" expanded="true" signature="2520:2558" ph="INSERT INTO ROLE... " />
+                <marker date="1512097670745" expanded="true" signature="2573:2591" ph="SELECT * FRO... ROLE" />
+                <marker date="1512097670745" expanded="true" signature="2605:2640" ph="SELECT * FRO... ROLE" />
+                <marker date="1512097670745" expanded="true" signature="2657:2673" ph="UPDATE ROLE " />
+                <marker date="1512097670745" expanded="true" signature="2657:2702" ph="UPDATE ROLE " />
+                <marker date="1512097670745" expanded="true" signature="2719:2752" ph="DELETE FROM " />
+                <marker date="1512097670745" expanded="true" signature="2778:2849" ph="INSERT INTO CRM... " />
+                <marker date="1512097670745" expanded="true" signature="2864:2878" ph="SELECT * FRO... USERS" />
+                <marker date="1512097670745" expanded="true" signature="2864:2881" ph="SELECT * FRO... CRM" />
+                <marker date="1512097670745" expanded="true" signature="2895:2929" ph="SELECT * FRO... CRM" />
+                <marker date="1512097670745" expanded="true" signature="2946:3028" ph="UPDATE CRM S... " />
+                <marker date="1512097670745" expanded="true" signature="3045:3077" ph="DELETE FROM " />
+                <marker date="1512097670745" expanded="true" signature="3103:3239" ph="INSERT INTO USERS... " />
+                <marker date="1512097670745" expanded="true" signature="3254:3273" ph="SELECT * FRO... USERS" />
+                <marker date="1512097670745" expanded="true" signature="3287:3323" ph="SELECT * FRO... USERS" />
+                <marker date="1512097670745" expanded="true" signature="3340:3457" ph="UPDATE USERS... " />
+                <marker date="1512097670745" expanded="true" signature="3474:3508" ph="DELETE FROM " />
+                <marker date="1512097670745" expanded="true" signature="3848:4224" ph="CREATE TABLE... VENUES" />
+                <marker date="1512097670745" expanded="true" signature="4262:4475" ph="CREATE TABLE... VENUES_OPEN_HOUR" />
+                <marker date="1512097670745" expanded="true" signature="4511:4666" ph="CREATE TABLE... TAG" />
+                <marker date="1512097670745" expanded="true" signature="4697:4926" ph="CREATE TABLE... SERVICE_TAG" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sql_functions.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lambda/sql_functions/sql_functions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="23" lean-forward="false" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-              <folding>
-                <marker date="1511426236679" expanded="true" signature="160:255" ph="SELECT COUNT... tables" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cognito_controller.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lambda/cognito_controller.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="15" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="authentication.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lambda/authentication.py">
+      <file leaf-file-name="sql_functions.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lambda/sql_utils/sql_functions.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
-              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="26" />
-              <folding />
+              <caret line="8" column="25" lean-forward="false" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -186,22 +646,27 @@
         <option value="$PROJECT_DIR$/remove.py" />
         <option value="$PROJECT_DIR$/lambda/sqlScripts.py" />
         <option value="$PROJECT_DIR$/lambda/sqlScripts/userScripts.py" />
-        <option value="$PROJECT_DIR$/lambda/objects/signUp.py" />
         <option value="$PROJECT_DIR$/lambda/authentication.py" />
         <option value="$PROJECT_DIR$/cognito_setup.py" />
         <option value="$PROJECT_DIR$/lambda/Listing.py" />
         <option value="$PROJECT_DIR$/api_gateway_setup.py" />
-        <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/cms_functions.py" />
         <option value="$PROJECT_DIR$/installed.json" />
         <option value="$PROJECT_DIR$/lambda/objects/signIn.py" />
-        <option value="$PROJECT_DIR$/lambda/cognito_controller.py" />
         <option value="$PROJECT_DIR$/sqlFunction.py" />
         <option value="$PROJECT_DIR$/lambda/sql/sql_function.py" />
-        <option value="$PROJECT_DIR$/lambda/sql_functions/sql_functions.py" />
-        <option value="$PROJECT_DIR$/lambda/sqlscripts.py" />
-        <option value="$PROJECT_DIR$/lambda/controller.py" />
         <option value="$PROJECT_DIR$/lambda/user.py" />
+        <option value="$PROJECT_DIR$/lambda/objects/signUp.py" />
+        <option value="$PROJECT_DIR$/lambda/user_controller.py" />
+        <option value="$PROJECT_DIR$/lambda/sqlscripts.py" />
+        <option value="$PROJECT_DIR$/lambda/merchants_controller.py" />
+        <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/lambda/cognito_controller.py" />
+        <option value="$PROJECT_DIR$/lambda/sql_functions/sqlscripts.py" />
+        <option value="$PROJECT_DIR$/lambda/sql_functions/sql_functions.py" />
+        <option value="$PROJECT_DIR$/lambda/users_controller.py" />
+        <option value="$PROJECT_DIR$/lambda/controller.py" />
+        <option value="$PROJECT_DIR$/lambda/sql_utils/sql_functions.py" />
       </list>
     </option>
   </component>
@@ -243,7 +708,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -270,45 +735,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WFP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WFP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lambda" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sql_functions" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WFP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WFP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lambda" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="objects" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -320,13 +749,14 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\proj\WFP\lambda\sql_function" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\proj\WFP\lambda" />
       <recent name="E:\proj\WFP\dynamo" />
       <recent name="E:\proj\WFP\lambda\objects" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\proj\WFP\lambda\sql_functions" />
+      <recent name="E:\proj\WFP\lambda\sql_function" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -586,7 +1016,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23880596" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15831557" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.4978678" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.52771854" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -615,16 +1045,17 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.52771854" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32502708" sideWeight="0.47228146" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.4978678" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.4914712" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2682672" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.49573562" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32286024" sideWeight="0.47228146" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261105" sideWeight="0.4914712" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2468017" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936078" sideWeight="0.49573562" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3997833" sideWeight="0.48294243" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
@@ -643,12 +1074,11 @@
           <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="13" />
+      <option name="time" value="15" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/dynamo/user_table.json" />
     <entry file="file://$PROJECT_DIR$/lambda/object/Blog" />
     <entry file="file://$PROJECT_DIR$/website/CSS/main-style.css" />
     <entry file="file://$PROJECT_DIR$/website/HTML/login.html" />
@@ -663,13 +1093,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="31" lean-forward="false" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lambda/s3_upload.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -711,13 +1134,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lambda/recordsController.py" />
     <entry file="file://$PROJECT_DIR$/lambda/test.py" />
-    <entry file="file://$PROJECT_DIR$/lambda/site_settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lambda/sqlScripts/userScripts.py" />
     <entry file="file://$PROJECT_DIR$/update_lambda.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -756,7 +1172,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lambda/constants.json" />
     <entry file="file://$PROJECT_DIR$/api_gateway_setup.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2584">
@@ -764,23 +1179,6 @@
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1156">
-          <caret line="70" column="16" lean-forward="false" selection-start-line="70" selection-start-column="16" selection-end-line="70" selection-end-column="16" />
-          <folding>
-            <element signature="e#131#151#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cms_functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3305">
-          <caret line="696" column="12" lean-forward="false" selection-start-line="696" selection-start-column="12" selection-end-line="696" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -800,27 +1198,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lambda/objects/login.py" />
     <entry file="file://$PROJECT_DIR$/lambda/security.py" />
-    <entry file="file://$PROJECT_DIR$/lambda/error.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lambda/Listing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="47" column="58" lean-forward="false" selection-start-line="47" selection-start-column="35" selection-end-line="47" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wilsontest-constants.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="1" lean-forward="true" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/lambda/error.py" />
     <entry file="file://$PROJECT_DIR$/lambda/objects/confirmSignUpData.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -830,70 +1208,136 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sqlFunction.py" />
     <entry file="file://$PROJECT_DIR$/lambda/sql/sql_function.py" />
-    <entry file="file://$PROJECT_DIR$/lambda/authentication.py">
+    <entry file="file://$PROJECT_DIR$/lambda/constants.json" />
+    <entry file="file://$PROJECT_DIR$/lambda/authentication.py" />
+    <entry file="file://$PROJECT_DIR$/lambda/Listing.py" />
+    <entry file="file://$PROJECT_DIR$/lambda/site_settings.py" />
+    <entry file="file://$PROJECT_DIR$/lambda/s3_upload.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="26" />
-          <folding />
+        <state relative-caret-position="289">
+          <caret line="18" column="23" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lambda/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wilsontest-constants.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="47" lean-forward="false" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="47" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lambda/cognito_controller.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="15" />
+          <caret line="10" column="15" lean-forward="false" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7259">
+          <caret line="441" column="48" lean-forward="false" selection-start-line="441" selection-start-column="48" selection-end-line="441" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="47" column="19" lean-forward="false" selection-start-line="47" selection-start-column="19" selection-end-line="47" selection-end-column="19" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lambda/sql_functions/sql_functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="23" lean-forward="false" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-          <folding>
-            <marker date="1511426236679" expanded="true" signature="160:255" ph="SELECT COUNT... tables" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lambda/sqlscripts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="60" lean-forward="false" selection-start-line="1" selection-start-column="60" selection-end-line="1" selection-end-column="60" />
-          <folding>
-            <marker date="1511429253767" expanded="true" signature="19:354" ph="CREATE TABLE... X_USERS" />
-            <marker date="1511429253767" expanded="true" signature="381:411" ph="SELECT * FRO... USERS" />
-            <marker date="1511429253767" expanded="true" signature="381:412" ph="SELECT * FRO... USERS" />
-            <marker date="1511429253767" expanded="true" signature="381:416" ph="SELECT * FRO... USERS" />
-            <marker date="1511429253767" expanded="true" signature="443:582" ph="INSERT INTO X_USERS... " />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lambda/objects/signUp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="21" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="21" />
-          <folding />
+        <state relative-caret-position="34">
+          <caret line="2" column="32" lean-forward="false" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lambda/users_controller.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1156">
+          <caret line="72" column="60" lean-forward="false" selection-start-line="72" selection-start-column="60" selection-end-line="72" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lambda/controller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="68" column="29" lean-forward="true" selection-start-line="68" selection-start-column="29" selection-end-line="68" selection-end-column="29" />
+        <state relative-caret-position="1241">
+          <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
           <folding>
             <element signature="e#70#81#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lambda/user.py">
+    <entry file="file://$PROJECT_DIR$/lambda/sql_utils/sql_scripts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="1122">
+          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <marker date="1512097670745" expanded="true" signature="32:104" ph="CREATE TABLE... ROLE" />
+            <marker date="1512097670745" expanded="true" signature="32:116" ph="CREATE TABLE... ROLE" />
+            <marker date="1512097670745" expanded="true" signature="119:240" ph="CREATE TABLE... CRM" />
+            <marker date="1512097670745" expanded="true" signature="119:771" ph="CREATE TABLE... CRM" />
+            <marker date="1512097670745" expanded="true" signature="256:762" ph="CREATE TABLE... USERS" />
+            <marker date="1512097670745" expanded="true" signature="781:1074" ph="CREATE TABLE... SERVICE" />
+            <marker date="1512097670745" expanded="true" signature="781:1089" ph="CREATE TABLE... CRM" />
+            <marker date="1512097670745" expanded="true" signature="1092:1379" ph="CREATE TABLE... VENUES" />
+            <marker date="1512097670745" expanded="true" signature="1092:1468" ph="CREATE TABLE... VENUES" />
+            <marker date="1512097670745" expanded="true" signature="1092:1721" ph="CREATE TABLE... VENUES" />
+            <marker date="1512097670745" expanded="true" signature="1496:1633" ph="CREATE TABLE... VENUES_OPEN_HOUR" />
+            <marker date="1512097670745" expanded="true" signature="1496:1709" ph="CREATE TABLE... VENUES_OPEN_HOUR" />
+            <marker date="1512097670745" expanded="true" signature="1725:1880" ph="CREATE TABLE... CRM" />
+            <marker date="1512097670745" expanded="true" signature="1725:1900" ph="CREATE TABLE... CRM" />
+            <marker date="1512097670745" expanded="true" signature="1904:1989" ph="CREATE TABLE... CRM" />
+            <marker date="1512097670745" expanded="true" signature="1904:2133" ph="CREATE TABLE... SERVICE_TAG" />
+            <marker date="1512097670745" expanded="true" signature="2154:2233" ph="CREATE TABLE... CRM" />
+            <marker date="1512097670745" expanded="true" signature="2154:2375" ph="CREATE TABLE... USER_TAG" />
+            <marker date="1512097670745" expanded="true" signature="2423:2469" ph="SELECT COUNT... tables" />
+            <marker date="1512097670745" expanded="true" signature="2423:2494" ph="SELECT COUNT... tables" />
+            <marker date="1512097670745" expanded="true" signature="2520:2558" ph="INSERT INTO ROLE... " />
+            <marker date="1512097670745" expanded="true" signature="2573:2591" ph="SELECT * FRO... ROLE" />
+            <marker date="1512097670745" expanded="true" signature="2605:2640" ph="SELECT * FRO... ROLE" />
+            <marker date="1512097670745" expanded="true" signature="2657:2673" ph="UPDATE ROLE " />
+            <marker date="1512097670745" expanded="true" signature="2657:2702" ph="UPDATE ROLE " />
+            <marker date="1512097670745" expanded="true" signature="2719:2752" ph="DELETE FROM " />
+            <marker date="1512097670745" expanded="true" signature="2778:2849" ph="INSERT INTO CRM... " />
+            <marker date="1512097670745" expanded="true" signature="2864:2878" ph="SELECT * FRO... USERS" />
+            <marker date="1512097670745" expanded="true" signature="2864:2881" ph="SELECT * FRO... CRM" />
+            <marker date="1512097670745" expanded="true" signature="2895:2929" ph="SELECT * FRO... CRM" />
+            <marker date="1512097670745" expanded="true" signature="2946:3028" ph="UPDATE CRM S... " />
+            <marker date="1512097670745" expanded="true" signature="3045:3077" ph="DELETE FROM " />
+            <marker date="1512097670745" expanded="true" signature="3103:3239" ph="INSERT INTO USERS... " />
+            <marker date="1512097670745" expanded="true" signature="3254:3273" ph="SELECT * FRO... USERS" />
+            <marker date="1512097670745" expanded="true" signature="3287:3323" ph="SELECT * FRO... USERS" />
+            <marker date="1512097670745" expanded="true" signature="3340:3457" ph="UPDATE USERS... " />
+            <marker date="1512097670745" expanded="true" signature="3474:3508" ph="DELETE FROM " />
+            <marker date="1512097670745" expanded="true" signature="3848:4224" ph="CREATE TABLE... VENUES" />
+            <marker date="1512097670745" expanded="true" signature="4262:4475" ph="CREATE TABLE... VENUES_OPEN_HOUR" />
+            <marker date="1512097670745" expanded="true" signature="4511:4666" ph="CREATE TABLE... TAG" />
+            <marker date="1512097670745" expanded="true" signature="4697:4926" ph="CREATE TABLE... SERVICE_TAG" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lambda/sql_utils/sql_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="25" lean-forward="false" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>

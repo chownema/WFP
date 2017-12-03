@@ -35,37 +35,37 @@ else:
 # cms.create_db_entry("dynamo/" + entity_files[2] + ".json", "ENTITY_TABLE")
 
 try:
-    # db_instance_info = cms.createDbInstance()
-    #
-    # # Create tje rest api
-    # cms.create_rest_api()
-    #
-    # # Create the lambda function
-    #
-    # prefix = "SignUp".upper()
-    # lambda_role = cms.create_iam_role()
-    #
-    # cms.create_lambda_function(None, lambda_role, prefix=prefix)
-    # cms.create_http_method("POST", prefix)
-    # cms.create_http_method("PUT", prefix)
-    # cms.deploy_api(prefix=prefix)
-    #
-    # prefix= "login".upper()
-    # cms.create_lambda_function(None, lambda_role, prefix=prefix)
-    # cms.create_http_method("POST", prefix)
-    # cms.create_http_method("DELETE", prefix)
-    # cms.deploy_api(prefix=prefix)
-    #
-    # prefix= "user".upper()
-    # cms.create_lambda_function(None, lambda_role, prefix=prefix)
-    # cms.create_http_method("GET", prefix)
-    # cms.deploy_api(prefix=prefix)
-    #
-    # prefix= "listing".upper()
-    # cms.create_lambda_function(db_instance_info, lambda_role, prefix=prefix)
-    # cms.create_http_method("GET", prefix)
-    # cms.create_http_method("POST", prefix)
-    # cms.deploy_api(prefix=prefix)
+    db_instance_info = cms.createDbInstance()
+
+    # Create tje rest api
+    cms.create_rest_api()
+
+    # Create the lambda function
+
+    prefix = "SignUp".upper()
+    lambda_role = cms.create_iam_role()
+
+    cms.create_lambda_function(None, lambda_role, prefix=prefix)
+    cms.create_http_method("POST", prefix)
+    cms.create_http_method("PUT", prefix)
+    cms.deploy_api(prefix=prefix)
+
+    prefix= "login".upper()
+    cms.create_lambda_function(None, lambda_role, prefix=prefix)
+    cms.create_http_method("POST", prefix)
+    cms.create_http_method("DELETE", prefix)
+    cms.deploy_api(prefix=prefix)
+
+    prefix= "user".upper()
+    cms.create_lambda_function(None, lambda_role, prefix=prefix)
+    cms.create_http_method("GET", prefix)
+    cms.deploy_api(prefix=prefix)
+
+    prefix= "listing".upper()
+    cms.create_lambda_function(db_instance_info, lambda_role, prefix=prefix)
+    cms.create_http_method("GET", prefix)
+    cms.create_http_method("POST", prefix)
+    cms.deploy_api(prefix=prefix)
 
 
     cms.setUpDBTables()

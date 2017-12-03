@@ -6,8 +6,7 @@
 
 import json
 
-from Listing import Listing
-from user import User
+from users_controller import User
 from cognito_controller import Cognito
 from custom_exception.bad_request_exception import bad_request_exception
 
@@ -61,12 +60,22 @@ def handlerUSER(event, context):
             parameter = event["body"]
             # userId = event["requestContext"]["authorizer"]["claims"]["sub"]
             userId = "695f5f6b-a7c9-4e98-8cc7-a98f977ca94b"
-            return User.add_user(userId, parameter, resources)
-        if httpMethod == 'GET':
+            username = "username2"
+            return User.add_user(userId, username, parameter, resources)
+        elif httpMethod == 'GET':
             # userId = event["requestContext"]["authorizer"]["claims"]["sub"]
             userId = "695f5f6b-a7c9-4e98-8cc7-a98f977ca94b"
-            username = "username2"
-            return User.get_user(userId, username, resources)
+            return User.get_user(userId, resources)
+        elif httpMethod == 'PUT':
+            # userId = event["requestContext"]["authorizer"]["claims"]["sub"]
+            parameter = event["body"]
+            userId = "695f5f6b-a7c9-4e98-8cc7-a98f977ca94b"
+            return User.update_user(userId, parameter, resources)
+        elif httpMethod == 'DELETE':
+            # userId = event["requestContext"]["authorizer"]["claims"]["sub"]
+            userId = "695f5f6b-a7c9-4e98-8cc7-a98f977ca94b"
+            return User.get_user(userId, resources)
+
     except bad_request_exception as e:
         badRequestTemplate = json.dumps({"statusCode": 400, "body": json.loads(str(e.message))})
         raise Exception(str(badRequestTemplate))

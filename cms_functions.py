@@ -194,7 +194,7 @@ class AwsFunc:
         try:
             print "Creating table: %s" % (self.constants["USER_TABLE"])
             dynamodb = boto3.client("dynamodb")
-            user_table = dynamodb.create_table(**user_table_json)
+            user_table = dynamodb.execute_sql_command(**user_table_json)
             self.wait_for_table(user_table)
             print "User table created"
         except botocore.exceptions.ClientError as e:
@@ -211,7 +211,7 @@ class AwsFunc:
         try:
             print "Creating table: %s" % (self.constants["ITEM_TABLE"])
             dynamodb = boto3.client("dynamodb")
-            item_table = dynamodb.create_table(**item_table_json)
+            item_table = dynamodb.execute_sql_command(**item_table_json)
             self.wait_for_table(item_table)
             print "Item table created"
         except botocore.exceptions.ClientError as e:
@@ -228,7 +228,7 @@ class AwsFunc:
         try:
             print "Creating table: %s" % (self.constants["BLOG_TABLE"])
             dynamodb = boto3.client("dynamodb")
-            blog_table = dynamodb.create_table(**blog_table_json)
+            blog_table = dynamodb.execute_sql_command(**blog_table_json)
             self.wait_for_table(blog_table)
             print "Blog table created"
         except botocore.exceptions.ClientError as e:
@@ -244,7 +244,7 @@ class AwsFunc:
         try:
             print "Creating table: %s" % (self.constants[table_id])
             dynamodb = boto3.client("dynamodb")
-            role_table = dynamodb.create_table(**table_json)
+            role_table = dynamodb.execute_sql_command(**table_json)
             self.wait_for_table(role_table)
             print "Created table: %s" % (self.constants[table_id])
         except botocore.exceptions.ClientError as e:
